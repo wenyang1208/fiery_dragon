@@ -7,8 +7,10 @@ public class MainMenuPanel extends JPanel implements Runnable {
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     private ImageIcon backgroundImage;
+    private JFrame frame;
 
-    public MainMenuPanel() {
+    public MainMenuPanel(final JFrame frame) {
+        this.frame = frame;
         backgroundImage = new ImageIcon(getClass().getResource("/background/Fiery.png"));
         backgroundImage = new ImageIcon(backgroundImage.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT));
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -40,6 +42,10 @@ public class MainMenuPanel extends JPanel implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Start Game button clicked");
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(new GamePanel(frame));
+                frame.revalidate();
+                frame.repaint();
             }
         });
 

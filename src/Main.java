@@ -6,7 +6,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
 
-        MainMenuPanel mmp = new MainMenuPanel();
+        MainMenuPanel mmp = new MainMenuPanel(window);
         window.add(mmp);
         window.pack();
 
