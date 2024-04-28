@@ -46,6 +46,11 @@ public class GamePanel extends JPanel implements Runnable{
                 frame.getContentPane().add(new GamePanel(frame));
                 frame.revalidate();
                 frame.repaint();
+
+                String gameRulesMessage = "Game has been restarted";
+
+                // Show the message dialog
+                JOptionPane.showMessageDialog(frame, gameRulesMessage, "", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
