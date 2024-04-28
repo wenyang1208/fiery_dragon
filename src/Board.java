@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    final int MAX_COL = 30;
-    final int MAX_ROW = 25;
+    public static final int MAX_COL = 30;
+    public static final int MAX_ROW = 25;
     public static final int SQUARE_SIZE = 50;
     private boolean opacity[][];
     VolcanoCard vCard = new VolcanoCard();
