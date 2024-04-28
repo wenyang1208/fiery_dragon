@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,10 @@ public class Board {
     ArrayList<Player> playerList = new ArrayList<>();
 
     public Board() {
-        playerList.add(new Player(1));
-        playerList.add(new Player(2));
-        playerList.add(new Player(3));
-        playerList.add(new Player(4));
+        playerList.add(new Player(1, 1, 12, AnimalType.BAT));
+        playerList.add(new Player(2, 10, 1, AnimalType.SPIDER));
+        playerList.add(new Player(3, 19, 12, AnimalType.SALAMANDER));
+        playerList.add(new Player(4, 10, 23, AnimalType.BABYDRAGON));
 
 
         for(Player p: playerList){
@@ -106,8 +107,6 @@ public class Board {
     public void draw(Graphics2D g2){
         opacity = designBoard();
 
-
-        // Draw white squares where opacity is true
         for (int row = 0; row < MAX_ROW; row++) {
             for (int col = 0; col < MAX_COL; col++) {
                 if (opacity[row][col]) {
@@ -123,6 +122,19 @@ public class Board {
         vCard.draw(g2);
         dCard.draw(g2);
         cave.draw(g2);
+
+        for(Player p: playerList){
+            p.draw(g2);
+        }
+
+        /*
+        ImageIcon babyDragonToken = new ImageIcon(getClass().getResource("/token/baby_dragon_token.png"));
+        int squareCenterX = 10 * Board.SQUARE_SIZE + Board.SQUARE_SIZE / 2; // X-coordinate of the center of the square
+        int squareCenterY = 23 * Board.SQUARE_SIZE + Board.SQUARE_SIZE / 2; // Y-coordinate of the center of the square
+        int imageX = squareCenterX - (Board.SQUARE_SIZE / 4); // Adjusted X-coordinate for centering
+        int imageY = squareCenterY - (Board.SQUARE_SIZE / 4); // Adjusted Y-coordinate for centering
+        g2.drawImage(babyDragonToken.getImage(), imageX, imageY, Board.SQUARE_SIZE / 2, Board.SQUARE_SIZE / 2, null);
+        */
 
     }
 }
