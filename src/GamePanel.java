@@ -1,14 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements Runnable{
     public static final int WIDTH = 1500;
     public static final int HEIGHT = 1250;
-    final int MAX_COL = 21;
-    final int MAX_ROW = 25;
     private ImageIcon backgroundImage;
-    private int[][] opacity;
     Board board = new Board();
+    Thread gameThread;
+    final int FPS = 60;
 
     public GamePanel(JFrame frame) {
         backgroundImage = new ImageIcon(getClass().getResource("/background/Background.jpg"));
@@ -27,38 +26,28 @@ public class GamePanel extends JPanel {
         board.draw(g2);
     }
 
-    private void drawWhiteSquares(Graphics g) {
-        // Draw white squares with opacity based on the opacity array
-        for (int row = 0; row < MAX_ROW; row++) {
-            for (int col = 0; col < MAX_COL; col++) {
-                int squareOpacity = opacity[row][col]; // Get opacity value for the current square
-                g.setColor(new Color(255, 255, 255, squareOpacity)); // Set color with opacity
-                g.fillRect(col * Board.SQUARE_SIZE, row * Board.SQUARE_SIZE, Board.SQUARE_SIZE, Board.SQUARE_SIZE);
-            }
-        }
+    public void update(){
+
     }
 
-    public int[][] designBoard(){
-        opacity = new int[MAX_ROW][MAX_COL];
-        for (int row = 0; row < MAX_ROW; row++) {
-            for (int col = 0; col < MAX_COL; col++) {
-                opacity[row][col] = 0; // Set all squares to no opacity initially
+    @Override
+    public void run() {
+        double drawInterval = 1000000000/FPS;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+
+        while(gameThread != null){
+            currentTime = System.nanoTime();
+
+            delta += (currentTime - lastTime)/drawInterval;
+            lastTime = currentTime;
+
+            if(delta >= 1){
+                update();
+                repaint();
+                delta--;
             }
         }
-
-        /*
-        opacity[1][10] = 100;
-        opacity[3][10] = 100;
-        opacity[3][12] = 100;
-        opacity[4][14] = 100;
-        opacity[6][15] = 100;
-        opacity[8][16] = 100;
-        opacity[10][17] = 100;
-        opacity[12][17] = 100;
-        opacity[12][19] = 100;*/
-
-        opacity[0][21] = 100;
-
-        return opacity;
     }
 }

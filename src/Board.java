@@ -6,8 +6,25 @@ public class Board {
     final int MAX_COL = 30;
     final int MAX_ROW = 25;
     public static final int SQUARE_SIZE = 50;
-    public static final int HALF_SQUARE_SIZE = SQUARE_SIZE / 2;
     private boolean opacity[][];
+    VolcanoCard vCard = new VolcanoCard();
+    DragonCard dCard = new DragonCard();
+    Cave cave = new Cave();
+    ArrayList<Player> playerList = new ArrayList<>();
+
+    public Board() {
+        playerList.add(new Player(1));
+        playerList.add(new Player(2));
+        playerList.add(new Player(3));
+        playerList.add(new Player(4));
+
+        System.out.println(vCard.volcanoCardList);
+
+        for(Player p: playerList){
+            p.playerStartRound();
+        }
+
+    }
 
     public boolean[][] designBoard(){
         opacity = new boolean[MAX_ROW][MAX_COL];
@@ -90,18 +107,23 @@ public class Board {
     public void draw(Graphics2D g2){
         opacity = designBoard();
 
-        g2.setColor(Color.WHITE);
 
         // Draw white squares where opacity is true
         for (int row = 0; row < MAX_ROW; row++) {
             for (int col = 0; col < MAX_COL; col++) {
                 if (opacity[row][col]) {
+                    Color translucentWhite = new Color(255, 255, 255, 128); // 128 is the alpha value for 50% opacity
+                    g2.setColor(translucentWhite);
                     int squareX = col * SQUARE_SIZE;
                     int squareY = row * SQUARE_SIZE;
                     g2.fillRect(squareX, squareY, SQUARE_SIZE, SQUARE_SIZE);
                 }
             }
         }
+
+        vCard.draw(g2);
+        dCard.draw(g2);
+        cave.draw(g2);
 
     }
 }
