@@ -35,14 +35,6 @@ public class DragonCard {
         dragonCardList.add(new DragonCardInfo(15, pairList.get(14).get(0), pairList.get(14).get(1), AnimalType.SPIDER, 2));
         dragonCardList.add(new DragonCardInfo(16, pairList.get(15).get(0), pairList.get(15).get(1), AnimalType.SPIDER, 3));
 
-        for (DragonCardInfo dragonCard : dragonCardList) {
-            System.out.println("Dragon Card Number: " + dragonCard.getDragonCardNum());
-            System.out.println("Position (X, Y): (" + dragonCard.getX() + ", " + dragonCard.getY() + ")");
-            System.out.println("Animal Type: " + dragonCard.getAnimalType());
-            System.out.println("Number of Steps: " + dragonCard.getNumOfSteps());
-            System.out.println();
-        }
-
     }
 
     public List<List<Integer>> randomisedPosOfDC(List<List<Integer>> pairList){
@@ -60,53 +52,40 @@ public class DragonCard {
             int pixelX = dragonCard.getY() * Board.SQUARE_SIZE;
 
             ImageIcon imageIcon = null;
-            if(dragonCard.getAnimalType() == AnimalType.PIRATE && dragonCard.getNumOfSteps() == 1){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/PirateDragon_1.png"));
+
+            if (dragonCard.flipped){
+                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Back.png"));
             }
-            else if(dragonCard.getAnimalType() == AnimalType.PIRATE && dragonCard.getNumOfSteps() == 2){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/PirateDragon_2.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.BABYDRAGON && dragonCard.getNumOfSteps() == 1){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/BabyDragon_1.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.BABYDRAGON && dragonCard.getNumOfSteps() == 2){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/BabyDragon_2.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.BABYDRAGON && dragonCard.getNumOfSteps() == 3){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/BabyDragon_3.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.BAT && dragonCard.getNumOfSteps() == 1){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Bat_1.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.BAT && dragonCard.getNumOfSteps() == 2){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Bat_2.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.BAT && dragonCard.getNumOfSteps() == 3){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Bat_3.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.SALAMANDER && dragonCard.getNumOfSteps() == 1){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Salamander_1.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.SALAMANDER && dragonCard.getNumOfSteps() == 2){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Salamander_2.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.SALAMANDER && dragonCard.getNumOfSteps() == 3){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Salamander_3.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.SPIDER && dragonCard.getNumOfSteps() == 1){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Spider_1.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.SPIDER && dragonCard.getNumOfSteps() == 2){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Spider_2.png"));
-            }
-            else if(dragonCard.getAnimalType() == AnimalType.SPIDER && dragonCard.getNumOfSteps() == 3){
-                imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Spider_3.png"));
-            }
-            else{
-                System.out.println(dragonCard.getAnimalType());
-                System.out.println(dragonCard.getDragonCardNum());
-                System.out.println(dragonCard.getDragonCardNum());
-                System.err.println("Unknown dragon card type or number.");
+            else {
+                if (dragonCard.getAnimalType() == AnimalType.PIRATE && dragonCard.getNumOfSteps() == 1) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/PirateDragon_1.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.PIRATE && dragonCard.getNumOfSteps() == 2) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/PirateDragon_2.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.BABYDRAGON && dragonCard.getNumOfSteps() == 1) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/BabyDragon_1.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.BABYDRAGON && dragonCard.getNumOfSteps() == 2) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/BabyDragon_2.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.BABYDRAGON && dragonCard.getNumOfSteps() == 3) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/BabyDragon_3.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.BAT && dragonCard.getNumOfSteps() == 1) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Bat_1.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.BAT && dragonCard.getNumOfSteps() == 2) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Bat_2.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.BAT && dragonCard.getNumOfSteps() == 3) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Bat_3.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.SALAMANDER && dragonCard.getNumOfSteps() == 1) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Salamander_1.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.SALAMANDER && dragonCard.getNumOfSteps() == 2) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Salamander_2.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.SALAMANDER && dragonCard.getNumOfSteps() == 3) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Salamander_3.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.SPIDER && dragonCard.getNumOfSteps() == 1) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Spider_1.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.SPIDER && dragonCard.getNumOfSteps() == 2) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Spider_2.png"));
+                } else if (dragonCard.getAnimalType() == AnimalType.SPIDER && dragonCard.getNumOfSteps() == 3) {
+                    imageIcon = new ImageIcon(getClass().getResource("/dragoncard/Spider_3.png"));
+                }
             }
 
             g2.drawImage(imageIcon.getImage(), pixelX, pixelY, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
@@ -114,12 +93,13 @@ public class DragonCard {
     }
 
 
-    private static class DragonCardInfo {
+    public static class DragonCardInfo {
         private int DragonCardNum;
         private int x;
         private int y;
         private AnimalType animalType;
         private int numOfSteps;
+        boolean flipped = true;
 
         public DragonCardInfo(int numOfVolcanoCard, int x, int y, AnimalType animalType, int numOfSteps) {
             this.DragonCardNum = numOfVolcanoCard;
@@ -147,6 +127,10 @@ public class DragonCard {
 
         public int getY() {
             return y;
+        }
+
+        public void flip() {
+            flipped = !flipped;
         }
     }
 }

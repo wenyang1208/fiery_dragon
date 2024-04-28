@@ -42,7 +42,6 @@ public class MainMenuPanel extends JPanel implements Runnable {
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Start Game button clicked");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new GamePanel(frame));
                 frame.revalidate();
@@ -53,14 +52,12 @@ public class MainMenuPanel extends JPanel implements Runnable {
         gameRuleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Game rule button clicked");
             }
         });
 
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Exit button clicked");
             }
         });
 

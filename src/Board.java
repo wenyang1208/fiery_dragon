@@ -18,7 +18,6 @@ public class Board {
         playerList.add(new Player(3));
         playerList.add(new Player(4));
 
-        System.out.println(vCard.volcanoCardList);
 
         for(Player p: playerList){
             p.playerStartRound();
