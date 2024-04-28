@@ -61,7 +61,6 @@ public class Board {
         //buttons
         List<Integer> rowButton = new ArrayList<>();
 
-        // Add elements to the list
         rowButton.add(5);
         rowButton.add(6);
         rowButton.add(12);

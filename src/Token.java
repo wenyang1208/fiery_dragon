@@ -6,11 +6,13 @@ public class Token {
     private int x;
     private int y;
     private AnimalType animalType;
+    private int stepsTaken;
     public Token(int tokenNo, int x, int y, AnimalType animalType){
         this.tokenNo = tokenNo;
         this.x = x;
         this.y = y;
         this.animalType = animalType;
+        this.stepsTaken = 0;
     }
 
     public void draw(Graphics2D g2){

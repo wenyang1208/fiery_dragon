@@ -22,14 +22,14 @@ public class MainMenuPanel extends JPanel implements Runnable {
         JButton exitButton = new JButton("");
 
 
-        startGameButton.setBounds(650, 375, 260, 120);
-        gameRuleButton.setBounds(610, 550, 350, 120);
-        exitButton.setBounds(650, 730, 260, 120);
+        startGameButton.setBounds(650, 475, 260, 140);
+        gameRuleButton.setBounds(610, 700, 350, 140);
+        exitButton.setBounds(650, 920, 260, 140);
 
-        /*
+
         startGameButton.setOpaque(false);
         startGameButton.setContentAreaFilled(false);
-        startGameButton.setBorderPainted(false);*/
+        startGameButton.setBorderPainted(false);
 
         gameRuleButton.setOpaque(false);
         gameRuleButton.setContentAreaFilled(false);
@@ -52,12 +52,17 @@ public class MainMenuPanel extends JPanel implements Runnable {
         gameRuleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String gameRulesMessage = "Your game rules message here.";
+
+                // Show the message dialog
+                JOptionPane.showMessageDialog(frame, gameRulesMessage, "Game Rules", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.exit(0); // Exit the program
             }
         });
 
