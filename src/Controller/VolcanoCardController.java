@@ -1,98 +1,65 @@
 package Controller;
 
 import Animal.AnimalFactory;
-import Game.GameSetup;
+import Game.GamePanel;
 import GameBoardComponent.VolcanoCard;
 import java.util.ArrayList;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
+
 /**
  * The VolcanoCardController class manages the configuration and initialization of volcano cards on the game board.
  */
 public class VolcanoCardController {
-
   private ArrayList<VolcanoCard> volcanoCards;
-  private GameSetup volcanoCardView;
-  private final static int numberOfCards = 8;
-  private final static int numberOfSquaresInACard = 3;
-  private final static int numberOfDirection = 4;
-  private final static int volcanoCardSize = numberOfCards * numberOfSquaresInACard / numberOfDirection;
-  private JPanel leftPanel;
-  private JPanel rightPanel;
-  private JPanel UpPanel;
-  private JPanel DownPanel;
+  private ArrayList<VolcanoCard> volcanoCardsNearToCave;
+  private GamePanel volcanoCardView;
+  public final static int numberOfCards = 8;
+  public final static int numberOfSquaresInACard = 3;
+  public final static int cardSize = (GamePanel.WIDTH+ GamePanel.HEIGHT)/(numberOfSquaresInACard*numberOfCards) + 10;
+
   /**
    * Constructs a new VolcanoCardController with the specified GameSetup object.
    *
-   * @param gameSetup The GameSetup object representing the game setup.
+   * @param gamePanel The GameSetup object representing the game setup.
    */
-  public VolcanoCardController(GameSetup gameSetup) {
+  public VolcanoCardController(GamePanel gamePanel) {
     this.volcanoCards = new ArrayList<VolcanoCard>();
-    this.volcanoCardView = gameSetup;
+    this.volcanoCardsNearToCave = new ArrayList<VolcanoCard>();
+    this.volcanoCardView = gamePanel;
+    initialiseVolcanoCards();
   }
-  /**
-   * Configures the panels associated with the volcano cards.
-   */
-  public void configurePanel() {
-    leftPanel = this.volcanoCardView.getVolcanoCardPanelLeft();
-    rightPanel = this.volcanoCardView.getVolcanoCardPanelRight();
-    UpPanel = this.volcanoCardView.getVolcanoCardPanelUp();
-    DownPanel = this.volcanoCardView.getVolcanoCardPanelDown();
 
-    leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-    rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-    UpPanel.setLayout(new BoxLayout(UpPanel, BoxLayout.X_AXIS));
-    DownPanel.setLayout(new BoxLayout(DownPanel, BoxLayout.X_AXIS));
-  }
   /**
    * Initializes the setup of volcano cards on the game board.
    */
   public void initialiseVolcanoCards() {
-    for (int i = 0; i < AnimalFactory.createVolcanoCardAnimal(numberOfCards,
-        numberOfSquaresInACard).size(); i++) {
-      this.volcanoCards.add(new VolcanoCard(AnimalFactory.createVolcanoCardAnimal(numberOfCards,
-          numberOfSquaresInACard).get(i), i+4));
-    }
-    configurePanel();
-    displaySquaresInVertical(leftPanel);
-    displaySquaresInVertical(rightPanel);
-    displaySquaresInHorizontal(UpPanel);
-    displaySquaresInHorizontal(DownPanel);
-  }
-  /**
-   * Displays squares of volcano cards vertically on the specified panel.
-   *
-   * @param panel The panel to display the squares.
-   */
-  public void displaySquaresInVertical(JPanel panel) {
-    int i = 0;
-    while (i < (volcanoCardSize + 1)) {
-//      JLabel volcanoCardsImage = new JPanel(this.volcanoCards.get(0).getImage());
-      panel.add(this.volcanoCards.get(0));
-      this.volcanoCards.remove(0);
-      i++;
+//    int cardWidth = (GameSetup.WIDTH+GameSetup.HEIGHT)/(numberOfSquaresInACard*numberOfCards) + 10;
+//    int cardHeight = (GameSetup.WIDTH+GameSetup.HEIGHT)/(numberOfSquaresInACard*numberOfCards) + 10;
+    int centerX = GamePanel.WIDTH / 2;
+    int centerY = GamePanel.HEIGHT / 2;
+    int radius = (GamePanel.WIDTH+ GamePanel.HEIGHT)/5;
+    int cardNumber = AnimalFactory.createVolcanoCardAnimal(numberOfCards,
+        numberOfSquaresInACard).size();
+    for (int i = 0; i < cardNumber; i++) {
+      double angle = 2 * Math.PI * i / cardNumber;
+      int x = centerX + (int) (radius * Math.sin(angle)) - cardSize / 2;
+      int y = centerY + (int) (radius * Math.cos(angle)) - cardSize / 2;
+      VolcanoCard volcanoCard = new VolcanoCard(AnimalFactory.createVolcanoCardAnimal(numberOfCards,
+          numberOfSquaresInACard).get(i), i,cardSize,cardSize);
+      this.volcanoCards.add(volcanoCard);
+      if(i % (int)(numberOfCards*numberOfSquaresInACard/4) == numberOfSquaresInACard){
+        this.volcanoCardsNearToCave.add(volcanoCard);
+      }
+      volcanoCard.setBounds(x,y,cardSize,cardSize);
+      getGameSetup().add(volcanoCard);
     }
   }
-  /**
-   * Displays squares of volcano cards horizontally on the specified panel.
-   *
-   * @param panel The panel to display the squares.
-   */
-  public void displaySquaresInHorizontal(JPanel panel) {
-    int i = 0;
-    while (i < (volcanoCardSize - 1)) {
-//      JLabel volcanoCardsImage = new JLabel(this.volcanoCards.get(0).getImage());
-      panel.add(this.volcanoCards.get(0));
-      this.volcanoCards.remove(0);
-      i++;
-    }
+
+  public ArrayList<VolcanoCard> getVolcanoCardsNearToCave(){
+    return this.volcanoCardsNearToCave;
   }
-  /**
-   * Retrieves the GameSetup object associated with this VolcanoCardController.
-   *
-   * @return The GameSetup object associated with this VolcanoCardController.
-   */
-  public GameSetup getGameSetup() {
+  public ArrayList<VolcanoCard> getVolcanoCards(){return this.volcanoCards;}
+
+  public GamePanel getGameSetup() {
     return this.volcanoCardView;
   }
 }
