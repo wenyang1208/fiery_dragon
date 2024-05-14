@@ -151,10 +151,132 @@ public class Game extends JPanel{
   public void run(){
     if (!tokenController.getTokens().isEmpty()) {
       currentPlayer = tokenController.getTokens().get(currentElem);
-//      processTokenTurn();
+      processTokenTurn();
+    }
+  }
+
+  public void processTokenTurn(){
+
+    chitCardController.getDeck().shuffleDeck();
+
+    for(int i=0; i<chitCardController.getDeck().getChitCards().size();i++){
+      System.out.println(i+1 + ": " + chitCardController.getDeck().getChitCards().get(i).getAnimal().getName() + " " + chitCardController.getDeck().getChitCards().get(i).getValue());
+    }
+    currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer));
+
+    MouseAdapter mouseAdapter = new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+
+        JLabel clickedLabel = (JLabel) e.getSource();
+        int index = chitCardController.getLabelIndexMap().get(clickedLabel);
+        ChitCard flippedCard = chitCardController.getDeck().getChitCards().get(index);
+
+        checkIfFlippingTheFlippedCard(flippedCard);
+
+        labels.put(clickedLabel,flippedCard);
+        flippedCard.setIsFlipped(true);
+        clickedLabel.setIcon(flippedCard.getImage());
+
+        new Thread(() -> {
+          if(isFlippingTheFlippedCard) {
+            if (!currentPlayer.getCurrentSquare().getAnimal().getName()
+                    .equals(flippedCard.getAnimal().getName())) {
+              try {
+                Thread.sleep(1000);
+                flippedCard.setIsFlipped(true);
+                clickedLabel.setIcon(flippedCard.getImage());
+                if (flippedCard.getAnimal().getName().equals("pirate_dragon")) {
+                  currentPlayer.setMove(new MoveBackwardsAction());
+                  System.out.println(
+                          currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
+                } else {
+                  currentPlayer.setMove(new DoNothingAction());
+                  System.out.println(
+                          currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
+                  passNextToken(labels);
+                }
+//                  System.out.println(
+//                      currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
+//                  passNextToken(labels);
+              } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+              }
+            } else {
+              System.out.println("Match found!");
+              currentPlayer.setMove(new MoveForwardsAction());
+              String str = currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
+              if (str == null) {
+                try {
+                  Thread.sleep(1000);
+                  flippedCard.setIsFlipped(true);
+                  clickedLabel.setIcon(flippedCard.getImage());
+                } catch (InterruptedException ex) {
+                  throw new RuntimeException(ex);
+                }
+                passNextToken(labels);
+              } else if (str.equals("win")) {
+                finish();
+                for (JLabel j : chitCardController.getLabelIndexMap().keySet()) {
+                  j.removeMouseListener(this);
+                }
+                labels.clear();
+              }
+            }
+          }
+        }).start();
+      }
+    };
+    for (JLabel j : chitCardController.getLabelIndexMap().keySet()) {
+      j.addMouseListener(mouseAdapter);
     }
   }
 
 
+  public void passNextToken(HashMap<JLabel,ChitCard> labels) {
+    for (Entry<JLabel, ChitCard> entry : labels.entrySet()) {
+      entry.getValue().setIsFlipped(false);
+      entry.getKey().setIcon(entry.getValue().getImage());
+    }
+    labels.clear();
+    // Move to the next player
+    currentElem = (currentElem + 1) % tokenController.getTokens().size();
+    // Update the current and next players
+    currentPlayer = tokenController.getTokens().get(currentElem);
+    // Print a message indicating the next player's turn
+    currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer));
+  }
+
+  public void checkIfFlippingTheFlippedCard(ChitCard flippedCard){
+    if(!flippedCard.isFlipped()){
+      isFlippingTheFlippedCard = false;
+    }
+    else{
+      isFlippingTheFlippedCard = true;
+    }
+  }
+
+
+
+  public String processTokenAnimalName(Token currentPlayer){
+    String[] words = currentPlayer.getAnimal().getName().split("_");
+    StringBuilder result = new StringBuilder();
+
+    // Capitalize the first letter of each word and append to result
+    for (String word : words) {
+      if (word.length() > 0) {
+        result.append(Character.toUpperCase(word.charAt(0)));
+        result.append(word.substring(1).toLowerCase()); // Convert remaining characters to lowercase
+        result.append(" "); // Add a space between words
+      }
+    }
+    // Remove the trailing space if any
+    if (result.length() > 0) {
+      result.setLength(result.length() - 1);
+    }
+    return result.toString();
+  }
+}
 
 
