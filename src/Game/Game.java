@@ -257,7 +257,29 @@ public class Game extends JPanel{
     }
   }
 
-
+  public void finish(){
+    String result = processTokenAnimalName(currentPlayer);
+    String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
+    int choice = JOptionPane.showConfirmDialog(null, winningMessage,
+            "Question", JOptionPane.YES_NO_OPTION);
+    if(choice == JOptionPane.YES_OPTION){
+//      setVisible(false);
+//      Game g =
+      System.out.println(players);
+      frame.getContentPane().removeAll();
+      frame.getContentPane().add(new Game(frame,players));
+      frame.revalidate();
+      frame.repaint();
+    }else{
+      frame.getContentPane().removeAll();
+      frame.getContentPane().add(new Home(frame));
+      frame.revalidate();
+      frame.repaint();
+//      setVisible(false);
+//      Home h =
+//      new Home();
+    }
+  }
 
   public String processTokenAnimalName(Token currentPlayer){
     String[] words = currentPlayer.getAnimal().getName().split("_");
