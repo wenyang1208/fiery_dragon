@@ -1,30 +1,37 @@
 package Controller;
 
+import Animal.Animal;
 import Animal.AnimalFactory;
-import Game.GameSetup;
+import Game.GamePanel;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import javax.swing.JLabel;
 import GameBoardComponent.Cave;
-import java.awt.BorderLayout;
 import java.util.ArrayList;
-import javax.swing.JPanel;
+import GameBoardComponent.ChitCard;
+import GameBoardComponent.Token;
+import GameBoardComponent.VolcanoCard;
+
 /**
  * The CaveController class manages the configuration and initialization of caves on the game board.
  */
 public class CaveController {
 
   private ArrayList<Cave> caves;
-  private GameSetup gameSetup;
-  private JPanel cave1;
-  private JPanel cave2;
-  private JPanel cave3;
-  private JPanel cave4;
+  private ArrayList<String> players;
+  private GamePanel gamePanel;
+  private HashMap<Cave,Integer> cavesHashMap;
   /**
    * Constructs a new CaveController with the specified GameSetup object.
    *
-   * @param gameSetup The GameSetup object representing the game setup.
+   * @param gamePanel The GameSetup object representing the game setup.
    */
-  public CaveController(GameSetup gameSetup) {
-    this.gameSetup = gameSetup;
+  public CaveController(GamePanel gamePanel, ArrayList<VolcanoCard> volcanoCards,ArrayList<String> players) {
+    this.gamePanel = gamePanel;
+    this.players = players;
     this.caves = new ArrayList<>();
+    this.cavesHashMap =new HashMap<>();
+    initialiseCaveSetup(volcanoCards);
   }
   /**
    * Retrieves the list of caves.
@@ -39,40 +46,42 @@ public class CaveController {
    *
    * @return The GameSetup object associated with this CaveController.
    */
-  public GameSetup getGameSetup() {
-    return this.gameSetup;
+  public GamePanel getGameSetup() {
+    return this.gamePanel;
   }
-  /**
-   * Configures the panels associated with the caves.
-   */
-  public void configurePanel() {
-    cave1 = this.gameSetup.getCave1Panel();
-    cave2 = this.gameSetup.getCave2Panel();
-    cave3 = this.gameSetup.getCave3Panel();
-    cave4 = this.gameSetup.getCave4Panel();
 
-  }
+
   /**
    * Initializes the setup of caves on the game board.
    */
-  public void initialiseCaveSetup() {
-    for (int i=0; i < AnimalFactory.createCaveAnimal().size(); i++) {
-      this.caves.add(new Cave(AnimalFactory.createCaveAnimal().get(i),i));
+  public void initialiseCaveSetup(ArrayList<VolcanoCard> volcanoCards) {
+    int caveSize = VolcanoCardController.cardSize;
+    for(int i=0; i < AnimalFactory.createCaveAnimal().size(); i++){
+      Cave cave = new Cave(AnimalFactory.createCaveAnimal().get(i),i,caveSize);
+      this.cavesHashMap.put(cave,i);
     }
-    configurePanel();
-    displayCaves(cave1,0);
-    displayCaves(cave2,1);
-    displayCaves(cave3,2);
-    displayCaves(cave4,3);
-  }
-  /**
-   * Displays a cave on the specified cave panel.
-   *
-   * @param cavePanel The panel associated with the cave.
-   * @param caveID    The ID of the cave.
-   */
-  public void displayCaves(JPanel cavePanel, int caveID) {
-    cavePanel.setLayout(new BorderLayout());
-    cavePanel.add(this.caves.get(caveID), BorderLayout.CENTER);
+    for(String player:players){
+      for (int i=0; i < AnimalFactory.createCaveAnimal().size(); i++) {
+        Cave cave = new Cave(AnimalFactory.createCaveAnimal().get(i),i,caveSize);
+        if (player.equals(AnimalFactory.createCaveAnimal().get(i).getClass().getSimpleName())) {
+          this.caves.add(cave);
+          int[] offsetsX = {caveSize, caveSize, -caveSize, -caveSize};
+          int[] offsetsY = {caveSize, -caveSize, -caveSize, caveSize};
+          int xOffset = offsetsX[i % 4];
+          int yOffset = offsetsY[i % 4];
+          cave.setBounds(volcanoCards.get(i).getX()+xOffset,volcanoCards.get(i).getY()+yOffset,caveSize,caveSize);
+          getGameSetup().add(cave);
+          break;
+        }
+      }
+    }
+    for(Entry<Cave, Integer> entry : cavesHashMap.entrySet()){
+      int[] offsetsX = {caveSize, caveSize, -caveSize, -caveSize};
+      int[] offsetsY = {caveSize, -caveSize, -caveSize, caveSize};
+      int xOffset = offsetsX[entry.getValue() % 4];
+      int yOffset = offsetsY[entry.getValue() % 4];
+      entry.getKey().setBounds(volcanoCards.get(entry.getValue()).getX()+xOffset,volcanoCards.get(entry.getValue()).getY()+yOffset,caveSize,caveSize);
+      getGameSetup().add(entry.getKey());
+    }
   }
 }
