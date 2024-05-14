@@ -1,8 +1,8 @@
 package Game;
 
-//import Button.ExitButton;
-//import Button.GameRuleButton;
-//import Button.StartButton;
+import Button.ExitButton;
+import Button.GameRuleButton;
+import Button.StartButton;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -81,7 +81,31 @@ public class Home extends JPanel {
         int button_height = frame.getHeight()/10;
         int button_width = frame.getWidth()/4;
 
+        gameRuleButton = new GameRuleButton();
+        gameRuleButton.setFont(new Font("Calibri", Font.BOLD, button_width/7));
+        gameRuleButton.setBounds((int) (frame.getWidth()/2.5),frame.getHeight()/3+(button_height+button_height/2), button_width, button_height);
+        gameRuleButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
+        add(gameRuleButton);
+
+        startButton = new StartButton(frame);
+        startButton.setFont(new Font("Calibri", Font.BOLD, button_width/6));
+        startButton.setBounds((int) (frame.getWidth()/2.5),frame.getHeight()/3, button_width, button_height);
+        startButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
+        add(startButton);
+
+        exitButton = new ExitButton();
+        exitButton.setFont(new Font("Calibri", Font.BOLD, button_width/6));
+        exitButton.setBounds((int) (frame.getWidth()/2.5),frame.getHeight()/3+(button_height+button_height/2)*2, button_width, button_height);
+        exitButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); // Exit the program
+            }
+        });
+
+        add(exitButton);
+
     }
 
 }
-
