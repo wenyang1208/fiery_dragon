@@ -39,12 +39,6 @@ public class MoveBackwardsAction implements Move{
             token.setCurrentSqaure(path);
             path.addToken(token);
         }
-        System.out.println("token pos: " + token.getTokenPosition());
-        System.out.println(positionAfterMovingBack);
-        for(int i =0;i<token.getPaths().size();i++){
-            System.out.println("i: " + i);
-            System.out.println("position of token: " + token.getPaths().get(i).getPosition());
-        }
         return "back";
     }
 
