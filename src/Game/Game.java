@@ -190,13 +190,13 @@ public class Game extends JPanel{
                 clickedLabel.setIcon(flippedCard.getImage());
                 if (flippedCard.getAnimal().getName().equals("pirate_dragon")) {
                   currentPlayer.setMove(new MoveBackwardsAction());
-                  System.out.println(
-                          currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
-//                  passNextToken(labels);
+                  currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
+                  if(currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
+                    passNextToken(labels);
+                  }
                 } else {
                   currentPlayer.setMove(new DoNothingAction());
-                  System.out.println(
-                          currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
+                  currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
                   // if the player flips the pirate dragon, still can uncover another card
                   // but if the player flip different animal from its current position, only pass the next turn.
                   passNextToken(labels);
