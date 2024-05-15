@@ -4,6 +4,7 @@ import Animal.AnimalFactory;
 import Game.GamePanel;
 import GameBoardComponent.VolcanoCard;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The VolcanoCardController class manages the configuration and initialization of volcano cards on the game board.
@@ -43,7 +44,7 @@ public class VolcanoCardController {
       double angle = 2 * Math.PI * i / cardNumber;
       int x = centerX + (int) (radius * Math.sin(angle)) - cardSize / 2;
       int y = centerY + (int) (radius * Math.cos(angle)) - cardSize / 2;
-      VolcanoCard volcanoCard = new VolcanoCard(AnimalFactory.createVolcanoCardAnimal(numberOfCards, numberOfSquaresInACard).get(i), i,cardSize,cardSize);
+      VolcanoCard volcanoCard = new VolcanoCard(AnimalFactory.createVolcanoCardAnimal(numberOfCards, numberOfSquaresInACard).get(i), (cardNumber-1)-i,cardSize,cardSize);
       this.volcanoCards.add(volcanoCard);
       if(i % (int)(numberOfCards*numberOfSquaresInACard/4) == numberOfSquaresInACard){
         this.volcanoCardsNearToCave.add(volcanoCard);
@@ -51,6 +52,8 @@ public class VolcanoCardController {
       volcanoCard.setBounds(x,y,cardSize,cardSize);
       getGamePanel().add(volcanoCard);
     }
+    Collections.reverse(this.volcanoCards);
+    Collections.reverse(this.volcanoCardsNearToCave);
   }
 
   public ArrayList<VolcanoCard> getVolcanoCardsNearToCave(){

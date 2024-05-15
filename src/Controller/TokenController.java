@@ -21,10 +21,10 @@ public class TokenController {
         for(int i=0; i<tokens.size();i++){
             tokens.get(i).getPaths().add(caves.get(i));
             int pos = volcanoCardsNearToCaves.get(tokens.get(i).getTokenNumber()).getPosition();
-            for(int j=pos; j>=0; j--){
+            for(int j=pos; j < volcanoCards.size(); j++){
                 tokens.get(i).getPaths().add(volcanoCards.get(j));
             }
-            for(int k = volcanoCards.size()-1;k>=pos;k--){
+            for(int k = 0; k <= pos;k++){
                 tokens.get(i).getPaths().add(volcanoCards.get(k));
             }
             tokens.get(i).getPaths().add(caves.get(i));

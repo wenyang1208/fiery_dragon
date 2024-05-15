@@ -65,7 +65,7 @@ public class CaveController {
         Cave cave = new Cave(AnimalFactory.createCaveAnimal().get(i),i,caveSize);
         if (player.equals(AnimalFactory.createCaveAnimal().get(i).getClass().getSimpleName())) {
           this.caves.add(cave);
-          int[] offsetsX = {caveSize, caveSize, -caveSize, -caveSize};
+          int[] offsetsX = {-caveSize, -caveSize, caveSize, caveSize};
           int[] offsetsY = {caveSize, -caveSize, -caveSize, caveSize};
           int xOffset = offsetsX[i % 4];
           int yOffset = offsetsY[i % 4];
@@ -76,7 +76,7 @@ public class CaveController {
       }
     }
     for(Entry<Cave, Integer> entry : cavesHashMap.entrySet()){
-      int[] offsetsX = {caveSize, caveSize, -caveSize, -caveSize};
+      int[] offsetsX = {-caveSize, -caveSize, caveSize, caveSize};
       int[] offsetsY = {caveSize, -caveSize, -caveSize, caveSize};
       int xOffset = offsetsX[entry.getValue() % 4];
       int yOffset = offsetsY[entry.getValue() % 4];
