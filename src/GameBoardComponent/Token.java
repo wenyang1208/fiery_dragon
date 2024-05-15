@@ -18,6 +18,8 @@ public class Token extends GameComponent {
   private int tokenNumber;
   private Path path;
   private Image tokenImage;
+  private int numberOfBelowMinSquare = 0;
+  private ArrayList<Path> additionalPath;
   /**
    * Constructs a new Token object with the specified animal and token position.
    *
@@ -28,6 +30,21 @@ public class Token extends GameComponent {
     setTokenSize(tokenSize);
     setTokenNumber(tokenNumber);
     this.paths = new ArrayList<>();
+    this.additionalPath = new ArrayList<>();
+  }
+
+  public ArrayList<Path> getAdditionalVolcanoCardPath(){
+    return this.additionalPath;
+  }
+
+  public void setAdditionalVolcanoCardPath(ArrayList<Path> processPathList){
+    this.additionalPath = processPathList;
+  }
+  public void increaseNumberOfBelowMinSquare(){
+    this.numberOfBelowMinSquare += 1;
+  }
+  public int getNumberOfBelowMinSquare(){
+    return this.numberOfBelowMinSquare;
   }
   public int getTokenPosition(){
     return this.tokenPosition;

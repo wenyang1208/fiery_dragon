@@ -134,9 +134,6 @@ public class Game extends JPanel{
     exitButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-//        setVisible(false);
-//        Home h =
-//        new Home();
         frame.getContentPane().removeAll();
         frame.getContentPane().add(new Home(frame));
         frame.revalidate();
