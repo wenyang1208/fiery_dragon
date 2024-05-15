@@ -1,4 +1,4 @@
-package main.GameBoardComponent;
+package GameBoardComponent;
 
 import Action.Move;
 import Animal.Animal;
