@@ -19,7 +19,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -262,9 +265,15 @@ public class Game extends JPanel{
     int choice = JOptionPane.showConfirmDialog(null, winningMessage,
             "Question", JOptionPane.YES_NO_OPTION);
     if(choice == JOptionPane.YES_OPTION){
-//      setVisible(false);
-//      Game g =
       System.out.println(players);
+      ArrayList<String> clockwiseAnimals = new ArrayList<>(
+          List.of("Spider", "Bat", "Salamander", "BabyDragon"));
+      int startingIndex = clockwiseAnimals.indexOf(result.replaceAll("\\s",""));
+      ArrayList<String> orderedAnimals = new ArrayList<>();
+      for (int i = startingIndex; i < startingIndex + 4; i++) {
+        orderedAnimals.add(clockwiseAnimals.get(i % 4));
+      }
+      Collections.sort(players, Comparator.comparingInt(orderedAnimals::indexOf));
       frame.getContentPane().removeAll();
       frame.getContentPane().add(new Game(frame,players));
       frame.revalidate();
@@ -274,9 +283,6 @@ public class Game extends JPanel{
       frame.getContentPane().add(new Home(frame));
       frame.revalidate();
       frame.repaint();
-//      setVisible(false);
-//      Home h =
-//      new Home();
     }
   }
 
