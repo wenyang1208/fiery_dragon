@@ -3,7 +3,11 @@ package Game;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import javax.swing.JButton;
@@ -24,7 +28,7 @@ public class PlayerInformation extends JDialog implements ActionListener {
     private JCheckBox cb1,cb2,cb3,cb4;
     private JButton b;
     private JFrame frame;
-    private TreeMap< Integer,String> playerInfo;
+    private TreeMap<String, Integer> playerInfo;
     private ArrayList<String> playerSequence;
 
     /**
@@ -71,34 +75,49 @@ public class PlayerInformation extends JDialog implements ActionListener {
             int age = promptForAge("Spider");
             if (age == -1)
                 return; // If user cancels the input, return without proceeding
-            playerInfo.put(age,"Spider");
+            playerInfo.put("Spider", age);
         }
         if (cb2.isSelected()) {
             selectedCount++;
             int age = promptForAge("Bat");
             if (age == -1)
                 return;
-            playerInfo.put(age,"Bat");
+            playerInfo.put("Bat", age);
         }
         if (cb3.isSelected()) {
             selectedCount++;
             int age = promptForAge("Salamander");
             if (age == -1)
                 return;
-            playerInfo.put(age,"Salamander");
+            playerInfo.put("Salamander", age);
         }
         if (cb4.isSelected()) {
             selectedCount++;
             int age = promptForAge("Baby Dragon");
             if (age == -1)
                 return;
-            playerInfo.put(age,"BabyDragon");
+            playerInfo.put("BabyDragon",age);
         }
 
+        // if the required 2 to 4 players are chosen in the game.
         if (selectedCount >= 2 && selectedCount <= 4) {
-            for(Entry<Integer, String> entry : playerInfo.entrySet()){
-                playerSequence.add(entry.getValue());
+            // Find the animal with the smallest age
+            String startingAnimal = Collections.min(playerInfo.entrySet(), Map.Entry.comparingByValue()).getKey();
+
+            // Create the playerSequence list based on the clockwise direction
+            ArrayList<String> clockwiseAnimals = new ArrayList<>(List.of("Spider", "Bat", "Salamander", "BabyDragon"));
+            int startingIndex = clockwiseAnimals.indexOf(startingAnimal);
+            ArrayList<String> orderedAnimals = new ArrayList<>();
+            for (int i = startingIndex; i < startingIndex + 4; i++) {
+                orderedAnimals.add(clockwiseAnimals.get(i % 4));
             }
+
+            for(Entry<String, Integer> player: playerInfo.entrySet()){
+                playerSequence.add(player.getKey());
+            }
+
+            Collections.sort(playerSequence, Comparator.comparingInt(orderedAnimals::indexOf));
+
             setVisible(false);
             dispose();
             frame.getContentPane().removeAll();
