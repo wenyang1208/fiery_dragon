@@ -75,7 +75,7 @@ public class ChitCard extends GameComponent {
   public ImageIcon getImage(){
     if(isFlipped){
       chitCardImage = new ImageIcon(getClass().getClassLoader().getResource(
-              "ChitCardImage/" + getAnimal().getName() + "_" + getValue() + ".png")).getImage();
+          "ChitCardImage/" + getAnimal().getName() + "_" + getValue() + ".png")).getImage();
       setIsFlipped(false);
     }else{
       chitCardImage = new ImageIcon(getClass().getClassLoader().getResource("ChitCardImage/Back.png")).getImage();
