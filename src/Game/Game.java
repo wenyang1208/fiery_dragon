@@ -69,6 +69,7 @@ public class Game extends JPanel{
   public ArrayList<String> getPlayers(){
     return this.players;
   }
+
   /**
    * Initializes the background of the game window.
    *

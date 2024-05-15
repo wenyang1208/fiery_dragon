@@ -28,6 +28,10 @@ public class Home extends JPanel {
     private JButton startButton;
     private JButton exitButton;
     private JFrame frame;
+
+    /**
+     * Constructs a new Home object.
+     * */
     public Home(final JFrame frame){
         this.frame = frame;
         initialisingBackground();
@@ -105,7 +109,5 @@ public class Home extends JPanel {
         });
 
         add(exitButton);
-
     }
-
 }

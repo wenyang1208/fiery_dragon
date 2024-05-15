@@ -1,7 +1,9 @@
 package GameBoardComponent;
 
+import Action.Move;
 import Animal.Animal;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 
@@ -9,19 +11,28 @@ import javax.swing.ImageIcon;
  * The Token class represents a token on the game board.
  */
 public class Token extends GameComponent {
-  private int tokenPosition;
+  private ArrayList<Path> paths;
+  private Move move;
+  private int tokenPosition = 0;
+  private int tokenSize;
+  private int tokenNumber;
   private Path path;
   private Image tokenImage;
   /**
    * Constructs a new Token object with the specified animal and token position.
    *
    * @param animal The animal associated with the token.
-   * @param tokenPosition The position of the token.
    */
-  public Token(Animal animal, int tokenPosition){
+  public Token(Animal animal, int tokenSize, int tokenNumber){
     setAnimal(animal);
-    setTokenPosition(tokenPosition);
+    setTokenSize(tokenSize);
+    setTokenNumber(tokenNumber);
+    this.paths = new ArrayList<>();
   }
+  public int getTokenPosition(){
+    return this.tokenPosition;
+  }
+
   /**
    * Sets the position of the token.
    *
@@ -43,7 +54,13 @@ public class Token extends GameComponent {
    *
    * @return The path representing the current square.
    */
-  public Path getCurrentSqaure(){
+
+  public void setTokenSize(int tokenSize){
+    this.tokenSize = tokenSize-15;
+  }
+
+  public void setTokenNumber(int tokenNumber){this.tokenNumber = tokenNumber;}
+  public Path getCurrentSquare(){
     return this.path;
   }
   /**
@@ -53,11 +70,23 @@ public class Token extends GameComponent {
    */
   public ImageIcon getImage(){
     tokenImage = new ImageIcon(getClass().getClassLoader().getResource("TokenImage/" + getAnimal().getName() + "_token.png")).getImage();
-    Image resizedImage = tokenImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);
+    Image resizedImage = tokenImage.getScaledInstance(getTokenSize(),getTokenSize(), java.awt.Image.SCALE_SMOOTH);
     ImageIcon tokenImageIcon = new ImageIcon(resizedImage);
     return tokenImageIcon;
   }
 
+  public int getTokenSize(){
+    return this.tokenSize;
+  }
+  public int getTokenNumber(){return this.tokenNumber;}
 
+  public void setMove(Move move){
+    this.move = move;
+  }
+  public String executeMove(int chitCardValue, Token token){
+    return move.execute(chitCardValue, this);
+  }
+  public ArrayList<Path> getPaths(){
+    return this.paths;
+  }
 }
-

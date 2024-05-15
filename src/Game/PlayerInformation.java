@@ -14,6 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import GameBoardComponent.ChitCard;
 
+/**
+ * The PlayerInformation class represents the component used to
+ * gather information of how many players are going to play the game,
+ * along with the ages of each player.
+ * */
 public class PlayerInformation extends JDialog implements ActionListener {
     private JLabel l;
     private JCheckBox cb1,cb2,cb3,cb4;
@@ -21,6 +26,10 @@ public class PlayerInformation extends JDialog implements ActionListener {
     private JFrame frame;
     private TreeMap< Integer,String> playerInfo;
     private ArrayList<String> playerSequence;
+
+    /**
+     * Constructor used to prompt players to select the number of players playing the game.
+     * */
     public PlayerInformation(JFrame frame){
         this.frame = frame;
         l = new JLabel("Choose 2 to 4 token animals you want to play with!");
@@ -49,6 +58,12 @@ public class PlayerInformation extends JDialog implements ActionListener {
         playerInfo = new TreeMap<>(); // Initialize the HashMap\
         playerSequence = new ArrayList<>();
     }
+
+    /**
+     * Gets the number of players selected to play along with the ages of each player.
+     * There must be between 2 to 4 players to start the game.
+     * Prompts players to select more players if  number of players selected is not within the valid range.
+     * */
     public void actionPerformed(ActionEvent e) {
         int selectedCount = 0;
         if (cb1.isSelected()) {
@@ -94,6 +109,12 @@ public class PlayerInformation extends JDialog implements ActionListener {
             JOptionPane.showMessageDialog(this, "Please choose between 2 to 4 players.");
         }
     }
+
+    /**
+     * Prompts player for their age.
+     * Age inputed must be valid to continue (between 5 to 99).
+     * Prompts user for input again if previous input does not meet the valid age range
+     * */
     private int promptForAge(String player) {
         int age;
         while (true) {
