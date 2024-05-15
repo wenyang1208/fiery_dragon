@@ -197,12 +197,11 @@ public class Game extends JPanel{
                   currentPlayer.setMove(new DoNothingAction());
                   System.out.println(
                           currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
-//                  passNextToken(labels);
+                  // if the player flips the pirate dragon, still can uncover another card
+                  // but if the player flip different animal from its current position, only pass the next turn.
+                  passNextToken(labels);
                 }
-                passNextToken(labels);
-//                  System.out.println(
-//                      currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
-//                  passNextToken(labels);
+//                passNextToken(labels);
               } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
               }
