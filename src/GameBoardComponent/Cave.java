@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 public class Cave extends JPanel implements Path {
 
   private int caveSize;
+
   private Image caveImage;
   private Animal animal;
   private int position;
@@ -105,4 +106,5 @@ public class Cave extends JPanel implements Path {
     revalidate();
     repaint();
   }
+
 }
