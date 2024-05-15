@@ -11,14 +11,11 @@ import javax.swing.JPanel;
  * The VolcanoCard class represents a volcano card on the game board.
  */
 public class VolcanoCard extends JPanel implements Path {
-
-  private boolean isOccupied;
   private int width;
   private int height;
   private Animal animal;
   private int position;
   private Image volcanoCardImage;
-
   /**
    * Constructs a new VolcanoCard object with the specified animal and position.
    *
@@ -32,7 +29,6 @@ public class VolcanoCard extends JPanel implements Path {
     setWidth(width);
     setHeight(height);
   }
-
   /**
    * Sets the animal associated with the volcano card.
    *
@@ -41,7 +37,6 @@ public class VolcanoCard extends JPanel implements Path {
   public void setAnimal(Animal animal){
     this.animal = animal;
   }
-
   /**
    * Retrieves the animal associated with the volcano card.
    *
@@ -50,7 +45,6 @@ public class VolcanoCard extends JPanel implements Path {
   public Animal getAnimal(){
     return this.animal;
   }
-
   /**
    * Sets the position of the volcano card.
    *
@@ -59,7 +53,6 @@ public class VolcanoCard extends JPanel implements Path {
   public void setPosition(int position) {
     this.position = position;
   }
-
   /**
    * Retrieves the position of the volcano card.
    *
@@ -79,10 +72,9 @@ public class VolcanoCard extends JPanel implements Path {
     super.paintComponent(g);
     //getClass().getClassLoader().getResource("Project_cartoon/Background.jpg")
     volcanoCardImage = new ImageIcon(getClass().getClassLoader().getResource(
-            "VolcanoCardImage/" + getAnimal().getName() + "_volcano_card.png")).getImage();
+        "VolcanoCardImage/" + getAnimal().getName() + "_volcano_card.png")).getImage();
     g.drawImage(volcanoCardImage, 0, 0,getWidth(),getHeight(), null);
   }
-
   /**
    * Adds a token to the volcano card.
    *
