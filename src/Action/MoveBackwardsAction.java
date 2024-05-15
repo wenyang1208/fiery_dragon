@@ -23,16 +23,13 @@ public class MoveBackwardsAction implements Move{
                 token.setAdditionalVolcanoCardPath(processPathList);
             }
             token.increaseNumberOfBelowMinSquare();
-            System.out.println("ac");
             for(int i=0; i<token.getAdditionalVolcanoCardPath().size(); i++){
-                System.out.println("i: " + i);
                 token.getPaths().add(0,token.getAdditionalVolcanoCardPath().get(i));
             }
             token.getPaths().get((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack)).addToken(token);
             token.setTokenPosition((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack));
         }
         else if(positionAfterMovingBack > 0 && !token.getPaths().get(positionAfterMovingBack).isOccupied()){
-            System.out.println("b");
             token.getPaths().get(token.getTokenPosition()).removeToken();
             Path path = token.getPaths().get(token.getTokenPosition()-chitCardValue);
             token.setTokenPosition(token.getTokenPosition()-chitCardValue);
