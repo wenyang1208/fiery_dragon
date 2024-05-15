@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class VolcanoCardController {
   private ArrayList<VolcanoCard> volcanoCards;
   private ArrayList<VolcanoCard> volcanoCardsNearToCave;
-  private GamePanel volcanoCardView;
+  private GamePanel gamePanel;
   public final static int numberOfCards = 8;
   public final static int numberOfSquaresInACard = 3;
   public final static int cardSize = (GamePanel.WIDTH+ GamePanel.HEIGHT)/(numberOfSquaresInACard*numberOfCards) + 10;
@@ -24,7 +24,7 @@ public class VolcanoCardController {
   public VolcanoCardController(GamePanel gamePanel) {
     this.volcanoCards = new ArrayList<VolcanoCard>();
     this.volcanoCardsNearToCave = new ArrayList<VolcanoCard>();
-    this.volcanoCardView = gamePanel;
+    this.gamePanel = gamePanel;
     initialiseVolcanoCards();
   }
 
@@ -49,7 +49,7 @@ public class VolcanoCardController {
         this.volcanoCardsNearToCave.add(volcanoCard);
       }
       volcanoCard.setBounds(x,y,cardSize,cardSize);
-      getGameSetup().add(volcanoCard);
+      getGamePanel().add(volcanoCard);
     }
   }
 
@@ -58,8 +58,8 @@ public class VolcanoCardController {
   }
   public ArrayList<VolcanoCard> getVolcanoCards(){return this.volcanoCards;}
 
-  public GamePanel getGameSetup() {
-    return this.volcanoCardView;
+  public GamePanel getGamePanel() {
+    return this.gamePanel;
   }
 }
 

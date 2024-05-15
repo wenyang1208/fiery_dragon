@@ -86,9 +86,9 @@ public class Game extends JPanel{
     chitCardController = new ChitCardController(gamePanel);
     chitCardController.initialiseChitCardSetup();
     // Cannot create new Game.GameSetup, so I pass the previous Game.GameSetup from the ChitCardContoller as the parameter to the controller.
-    VolcanoCardController volcanoCardController = new VolcanoCardController(chitCardController.getGameSetup());
+    VolcanoCardController volcanoCardController = new VolcanoCardController(chitCardController.getGamePanel());
 
-    CaveController caveController = new CaveController(volcanoCardController.getGameSetup(),volcanoCardController.getVolcanoCardsNearToCave(),players);
+    CaveController caveController = new CaveController(volcanoCardController.getGamePanel(),volcanoCardController.getVolcanoCardsNearToCave(),players);
 
     tokenController = new TokenController(players, volcanoCardController.getVolcanoCards(),caveController.getCaves(),volcanoCardController.getVolcanoCardsNearToCave());
     for(int i = 0; i< tokenController.getTokens().size(); i++){
@@ -107,9 +107,9 @@ public class Game extends JPanel{
     add(currentPlayerTurnLabel);
 
     addButton();
-    add(caveController.getGameSetup());
-    add(chitCardController.getGameSetup());
-    add(volcanoCardController.getGameSetup());
+    add(caveController.getGamePanel());
+    add(chitCardController.getGamePanel());
+    add(volcanoCardController.getGamePanel());
     add(background);
   }
 

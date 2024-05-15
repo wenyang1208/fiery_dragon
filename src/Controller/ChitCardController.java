@@ -12,14 +12,14 @@ import javax.swing.JLabel;
  */
 public class ChitCardController{
   private Deck deck;
-  private GamePanel chitCardView;
+  private GamePanel gamePanel;
   private Map<JLabel, Integer> labelIndexMap;
   private JLabel chitCardImage;
   /**
    * Constructs a new ChitCardController with default settings.
    */
   public ChitCardController(GamePanel gamePanel){
-    this.chitCardView = gamePanel;
+    this.gamePanel = gamePanel;
     this.labelIndexMap = new HashMap<>();
   }
   /**
@@ -32,7 +32,7 @@ public class ChitCardController{
       chitCardImage = new JLabel();
       deck.getChitCards().get(i).setIsFlipped(false);
       chitCardImage.setIcon(deck.getChitCards().get(i).getImage());
-      chitCardView.getChitCardPanel().add(chitCardImage);
+      gamePanel.getChitCardPanel().add(chitCardImage);
       labelIndexMap.put(chitCardImage, i);
     }
   }
@@ -46,9 +46,10 @@ public class ChitCardController{
    *
    * @return The GameSetup object associated with this ChitCardController.
    */
-  public GamePanel getGameSetup(){
-    return chitCardView;
+  public GamePanel getGamePanel(){
+    return gamePanel;
   }
+
   /**
    * Retrieves the list of flipped chit cards.
    *

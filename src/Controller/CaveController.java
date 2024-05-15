@@ -46,7 +46,7 @@ public class CaveController {
    *
    * @return The GameSetup object associated with this CaveController.
    */
-  public GamePanel getGameSetup() {
+  public GamePanel getGamePanel() {
     return this.gamePanel;
   }
 
@@ -70,7 +70,7 @@ public class CaveController {
           int xOffset = offsetsX[i % 4];
           int yOffset = offsetsY[i % 4];
           cave.setBounds(volcanoCards.get(i).getX()+xOffset,volcanoCards.get(i).getY()+yOffset,caveSize,caveSize);
-          getGameSetup().add(cave);
+          getGamePanel().add(cave);
           break;
         }
       }
@@ -81,7 +81,7 @@ public class CaveController {
       int xOffset = offsetsX[entry.getValue() % 4];
       int yOffset = offsetsY[entry.getValue() % 4];
       entry.getKey().setBounds(volcanoCards.get(entry.getValue()).getX()+xOffset,volcanoCards.get(entry.getValue()).getY()+yOffset,caveSize,caveSize);
-      getGameSetup().add(entry.getKey());
+      getGamePanel().add(entry.getKey());
     }
   }
 }
