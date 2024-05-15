@@ -43,8 +43,7 @@ public class VolcanoCardController {
       double angle = 2 * Math.PI * i / cardNumber;
       int x = centerX + (int) (radius * Math.sin(angle)) - cardSize / 2;
       int y = centerY + (int) (radius * Math.cos(angle)) - cardSize / 2;
-      VolcanoCard volcanoCard = new VolcanoCard(AnimalFactory.createVolcanoCardAnimal(numberOfCards,
-          numberOfSquaresInACard).get(i), i,cardSize,cardSize);
+      VolcanoCard volcanoCard = new VolcanoCard(AnimalFactory.createVolcanoCardAnimal(numberOfCards, numberOfSquaresInACard).get(i), i,cardSize,cardSize);
       this.volcanoCards.add(volcanoCard);
       if(i % (int)(numberOfCards*numberOfSquaresInACard/4) == numberOfSquaresInACard){
         this.volcanoCardsNearToCave.add(volcanoCard);
