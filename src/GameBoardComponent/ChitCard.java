@@ -4,21 +4,24 @@ import Animal.Animal;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 /**
- * The ChitCard class represents a chit card component on the game board.
+ * The ChitCard class represents the chit card component on the game board.
  */
 public class ChitCard extends GameComponent {
+  private int chitCardSize;
   private int value;
   private boolean isFlipped;
   private Image chitCardImage;
+
   /**
    * Constructs a new ChitCard object with the specified animal and value.
    *
    * @param animal The animal associated with the chit card.
    * @param value The value of the chit card.
    */
-  public ChitCard(Animal animal, int value){
+  public ChitCard(Animal animal, int value, int chitCardSize){
     setAnimal(animal);
     setValue(value);
+    setChitCardSize(chitCardSize);
   }
   /**
    * Retrieves the value of the chit card.
@@ -56,6 +59,14 @@ public class ChitCard extends GameComponent {
     this.isFlipped = isFlipped;
   }
 
+  public void setChitCardSize(int chitCardSize){
+    this.chitCardSize = chitCardSize;
+  }
+
+  public int getChitCardSize(){
+    return this.chitCardSize;
+  }
+
   /**
    * Retrieves the image icon representing the chit card.
    *
@@ -64,15 +75,14 @@ public class ChitCard extends GameComponent {
   public ImageIcon getImage(){
     if(isFlipped){
       chitCardImage = new ImageIcon(getClass().getClassLoader().getResource(
-          "ChitCardImage/" + getAnimal().getName() + "_" + getValue() + ".png")).getImage();
+              "ChitCardImage/" + getAnimal().getName() + "_" + getValue() + ".png")).getImage();
       setIsFlipped(false);
     }else{
       chitCardImage = new ImageIcon(getClass().getClassLoader().getResource("ChitCardImage/Back.png")).getImage();
       setIsFlipped(true);
     }
-    Image resizedImage = chitCardImage.getScaledInstance(70,70, java.awt.Image.SCALE_SMOOTH);
+    Image resizedImage = chitCardImage.getScaledInstance(getChitCardSize(),getChitCardSize(), java.awt.Image.SCALE_SMOOTH);
     ImageIcon ChitCardImageIcon = new ImageIcon(resizedImage);
     return ChitCardImageIcon;
   }
 }
-

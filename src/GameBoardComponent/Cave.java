@@ -13,6 +13,7 @@ import javax.swing.JPanel;
  */
 public class Cave extends JPanel implements Path {
 
+  private int caveSize;
   private Image caveImage;
   private Animal animal;
   private int position;
@@ -23,12 +24,16 @@ public class Cave extends JPanel implements Path {
    * @param animal   The animal associated with the cave.
    * @param position The position of the cave on the game board.
    */
-  public Cave(Animal animal, int position){
+  public Cave(Animal animal, int position, int caveSize){
     setAnimal(animal);
     setPosition(position);
     setBackground(Color.BLACK);
+    setCaveSize(caveSize);
   }
 
+  public void setCaveSize(int caveSize){
+    this.caveSize = caveSize;
+  }
   /**
    * Sets the animal associated with the cave.
    *
@@ -65,6 +70,10 @@ public class Cave extends JPanel implements Path {
     return this.position;
   }
 
+  public int getCaveSize(){
+    return this.caveSize;
+  }
+
   /**
    * Overrides the paintComponent method to draw the cave image.
    *
@@ -74,7 +83,11 @@ public class Cave extends JPanel implements Path {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     caveImage = new ImageIcon(getClass().getClassLoader().getResource("CaveImage/" + getAnimal().getName() + "_cave.png")).getImage();
-    g.drawImage(caveImage, 0, 0,70,70, null);
+    g.drawImage(caveImage, 0, 0,getCaveSize(),getCaveSize(), null);
+  }
+
+  public boolean isOccupied(){
+    return false;
   }
 
   /**
@@ -83,9 +96,13 @@ public class Cave extends JPanel implements Path {
    * @param token The token to add.
    */
   public void addToken(Token token){
+    token.setCurrentSqaure(this);
     this.add(new JLabel("", token.getImage(), JLabel.CENTER));
+    revalidate();
   }
-
+  public void removeToken(){
+    removeAll();
+    revalidate();
+    repaint();
+  }
 }
-
-

@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
  */
 public abstract class GameComponent {
   private Animal animal;
+
   /**
    * Sets the animal associated with the game component.
    *
@@ -15,6 +16,7 @@ public abstract class GameComponent {
   public void setAnimal(Animal animal){
     this.animal = animal;
   }
+
   /**
    * Retrieves the animal associated with the game component.
    *
@@ -32,4 +34,3 @@ public abstract class GameComponent {
   public abstract ImageIcon getImage();
 
 }
-

@@ -1,11 +1,10 @@
-package GameBoardComponent;
+package main.GameBoardComponent;
 
 import Action.Move;
 import Animal.Animal;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-
 
 /**
  * The Token class represents a token on the game board.
@@ -18,6 +17,7 @@ public class Token extends GameComponent {
   private int tokenNumber;
   private Path path;
   private Image tokenImage;
+
   /**
    * Constructs a new Token object with the specified animal and token position.
    *
