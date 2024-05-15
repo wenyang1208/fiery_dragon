@@ -13,8 +13,6 @@ public class MoveBackwardsAction implements Move{
         int positionAfterMovingBack = token.getTokenPosition()-chitCardValue;
         if(positionAfterMovingBack <= 0 && !token.getCurrentSquare().getClass().getSimpleName().equals("Cave") && !token.getPaths().get(positionAfterMovingBack).isOccupied()){
             token.getPaths().get(token.getTokenPosition()).removeToken();
-            System.out.println(positionAfterMovingBack);
-
             if(token.getNumberOfBelowMinSquare() == 0){
                 token.getPaths().remove(0);
                 for(int i=token.getPaths().size()-3;i>=0;i--){
