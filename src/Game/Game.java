@@ -192,12 +192,14 @@ public class Game extends JPanel{
                   currentPlayer.setMove(new MoveBackwardsAction());
                   System.out.println(
                           currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
+//                  passNextToken(labels);
                 } else {
                   currentPlayer.setMove(new DoNothingAction());
                   System.out.println(
                           currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
-                  passNextToken(labels);
+//                  passNextToken(labels);
                 }
+                passNextToken(labels);
 //                  System.out.println(
 //                      currentPlayer.executeMove(flippedCard.getValue(), currentPlayer));
 //                  passNextToken(labels);
