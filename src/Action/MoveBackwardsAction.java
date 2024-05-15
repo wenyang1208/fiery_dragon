@@ -11,7 +11,7 @@ public class MoveBackwardsAction implements Move{
     public String execute(int chitCardValue, Token token){
         ArrayList<Path>  processPathList = new ArrayList<>();
         int positionAfterMovingBack = token.getTokenPosition()-chitCardValue;
-        if(positionAfterMovingBack <= 0 && !token.getCurrentSquare().getClass().getSimpleName().equals("Cave") && !token.getPaths().get(positionAfterMovingBack).isOccupied()){
+        if(positionAfterMovingBack <= 0 && !token.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
             token.getPaths().get(token.getTokenPosition()).removeToken();
             if(token.getNumberOfBelowMinSquare() == 0){
                 token.getPaths().remove(0);
@@ -24,8 +24,11 @@ public class MoveBackwardsAction implements Move{
             for(int i=0; i<token.getAdditionalVolcanoCardPath().size(); i++){
                 token.getPaths().add(0,token.getAdditionalVolcanoCardPath().get(i));
             }
-            token.getPaths().get((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack)).addToken(token);
-            token.setTokenPosition((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack));
+            if(!token.getPaths().get((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack)).isOccupied()){
+                token.getPaths().get((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack)).addToken(token);
+                token.setTokenPosition((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack));
+            }
+
         }
         else if(positionAfterMovingBack > 0 && !token.getPaths().get(positionAfterMovingBack).isOccupied()){
             token.getPaths().get(token.getTokenPosition()).removeToken();
