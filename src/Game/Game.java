@@ -110,7 +110,7 @@ public class Game extends JPanel{
     currentPlayerTurnLabel.setBackground(new Color(255, 153, 0));
     currentPlayerTurnLabel.setOpaque(true);
     currentPlayerTurnLabel.setForeground(Color.WHITE);
-    currentPlayerTurnLabel.setBounds(0, 0, Game.boardWidth*1/4, 30);
+    currentPlayerTurnLabel.setBounds(0, 0, Game.boardWidth*1/3, 30);
     currentPlayerTurnLabel.setBorder(new LineBorder(Color.WHITE,currentPlayerTurnLabel.getWidth()/100));
     add(currentPlayerTurnLabel);
 
