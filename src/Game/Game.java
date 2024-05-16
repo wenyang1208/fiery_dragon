@@ -194,6 +194,9 @@ public class Game extends JPanel{
                   if(currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
                     passNextToken(labels);
                   }
+                  else{
+                    askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
+                  }
                 } else {
                   currentPlayer.setMove(new DoNothingAction());
                   currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
@@ -201,8 +204,6 @@ public class Game extends JPanel{
                   // but if the player flip different animal from its current position, only pass the next turn.
                   passNextToken(labels);
                 }
-                System.out.println(flippedCard.getAnimal().getName());
-                askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
               } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
               }
