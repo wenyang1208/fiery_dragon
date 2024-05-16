@@ -121,6 +121,9 @@ public class Game extends JPanel{
     add(background);
   }
 
+/**
+ * Adds the key buttons (GameRuleButton, RestartButton, and ExitButton) components to the Game page
+ * */
   public void addButton(){
     int button_height = (Game.boardWidth - GamePanel.WIDTH)/4;
     int button_width = (Game.boardWidth - GamePanel.WIDTH)/2;
@@ -154,6 +157,9 @@ public class Game extends JPanel{
     add(exitButton);
   }
 
+  /**
+   * Runs the entire game in the Game page.
+   * */
   public void run(){
     if (!tokenController.getTokens().isEmpty()) {
       currentPlayer = tokenController.getTokens().get(currentElem);
@@ -161,6 +167,9 @@ public class Game extends JPanel{
     }
   }
 
+  /**
+   *
+   * */
   public void processTokenTurn(){
 
     chitCardController.getDeck().shuffleDeck();
@@ -245,7 +254,9 @@ public class Game extends JPanel{
     }
   }
 
-
+/**
+ * Changes turn to the next player.
+ */
   public void passNextToken(HashMap<JLabel,ChitCard> labels) {
     for (Entry<JLabel, ChitCard> entry : labels.entrySet()) {
       entry.getValue().setIsFlipped(false);
@@ -260,6 +271,9 @@ public class Game extends JPanel{
     currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer.getAnimal().getName()));
   }
 
+  /**
+   *
+   * */
   public void askIfContinueTheTurn(HashMap<JLabel,ChitCard> labels, String flippedCardAnimalName){
     String changeTurnMessage = "You flipped the " + flippedCardAnimalName + " card.\n Do you want to continue your turn?";
     int choice = JOptionPane.showConfirmDialog(null, changeTurnMessage,
