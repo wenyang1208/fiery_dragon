@@ -1,4 +1,5 @@
 package Animal;
+
 /**
  * The BabyDragon class represents a baby dragon, implementing the Animal interface.
  */

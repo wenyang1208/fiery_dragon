@@ -1,6 +1,7 @@
 package Animal;
 
 import java.util.ArrayList;
+
 /**
  * The AnimalFactory class provides static methods for creating different types of animal collections.
  */
@@ -40,6 +41,7 @@ public class AnimalFactory {
     }
     return animalFactories;
   }
+
   /**
    * Creates a collection of animals for the Cave.
    *
@@ -53,6 +55,7 @@ public class AnimalFactory {
     animalFactories.add(new BabyDragon());
     return animalFactories;
   }
+
   /**
    * Creates a collection of animals for a token.
    *
@@ -67,5 +70,3 @@ public class AnimalFactory {
     return animalFactories;
   }
 }
-
-

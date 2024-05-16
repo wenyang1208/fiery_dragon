@@ -1,4 +1,5 @@
 package Animal;
+
 /**
  * The Animal interface represents a generic animal.
  */
