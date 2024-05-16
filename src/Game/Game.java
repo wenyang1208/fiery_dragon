@@ -211,7 +211,6 @@ public class Game extends JPanel{
               System.out.println("Match found!");
               currentPlayer.setMove(new MoveForwardsAction());
               String str = currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
-              System.out.println(flippedCard.getAnimal().getName());
               if (str == null) {
                 try {
                   Thread.sleep(1000);
@@ -228,7 +227,9 @@ public class Game extends JPanel{
                 }
                 labels.clear();
               }
-              askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
+              else{
+                askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
+              }
             }
           }
         }).start();
