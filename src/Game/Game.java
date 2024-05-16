@@ -272,17 +272,21 @@ public class Game extends JPanel{
   }
 
   /**
-   *
+   * Prompts the player if they would like to continue their turn
+   * Changes to next player's turn if 'No' or no option was selected.
    * */
   public void askIfContinueTheTurn(HashMap<JLabel,ChitCard> labels, String flippedCardAnimalName){
     String changeTurnMessage = "You flipped the " + flippedCardAnimalName + " card.\n Do you want to continue your turn?";
     int choice = JOptionPane.showConfirmDialog(null, changeTurnMessage,
         "Question", JOptionPane.YES_NO_OPTION);
-    if(choice == JOptionPane.NO_OPTION){
+    if(choice != JOptionPane.YES_OPTION){
       passNextToken(labels);
     }
   }
 
+  /**
+   * Checks if the chit card is already flipped.
+   * */
   public void checkIfFlippingTheFlippedCard(ChitCard flippedCard){
     if(!flippedCard.isFlipped()){
       isFlippingTheFlippedCard = false;
@@ -292,6 +296,11 @@ public class Game extends JPanel{
     }
   }
 
+  /**
+   * Ends the game with a winner pop-up screen, indicating the winner of the game.
+   * Gives the option to start a new game with the same player information as the previous round.
+   * Returns to Home page if option was not selected.
+   * */
   public void finish(){
     String result = processTokenAnimalName(currentPlayer.getAnimal().getName());
     String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
@@ -319,6 +328,9 @@ public class Game extends JPanel{
     }
   }
 
+  /**
+   * Returns the animal name in a Start Case style.
+   * */
   public String processTokenAnimalName(String AnimalName){
     String[] words = AnimalName.split("_");
     StringBuilder result = new StringBuilder();
