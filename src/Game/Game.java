@@ -69,6 +69,11 @@ public class Game extends JPanel{
     setSize(frame.getWidth(),boardHeight);
   }
 
+  /**
+   * Returns the list of players who are playing the current game.
+   *
+   * @return An ArrayList of players playing the current game.
+   * */
   public ArrayList<String> getPlayers(){
     return this.players;
   }
