@@ -7,6 +7,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 /**
  * The VolcanoCard class represents a volcano card on the game board.
  */
@@ -16,6 +17,7 @@ public class VolcanoCard extends JPanel implements Path {
   private Animal animal;
   private int position;
   private Image volcanoCardImage;
+
   /**
    * Constructs a new VolcanoCard object with the specified animal and position.
    *
@@ -29,6 +31,7 @@ public class VolcanoCard extends JPanel implements Path {
     setWidth(width);
     setHeight(height);
   }
+
   /**
    * Sets the animal associated with the volcano card.
    *
@@ -37,6 +40,7 @@ public class VolcanoCard extends JPanel implements Path {
   public void setAnimal(Animal animal){
     this.animal = animal;
   }
+
   /**
    * Retrieves the animal associated with the volcano card.
    *
@@ -45,6 +49,7 @@ public class VolcanoCard extends JPanel implements Path {
   public Animal getAnimal(){
     return this.animal;
   }
+
   /**
    * Sets the position of the volcano card.
    *
@@ -53,6 +58,7 @@ public class VolcanoCard extends JPanel implements Path {
   public void setPosition(int position) {
     this.position = position;
   }
+
   /**
    * Retrieves the position of the volcano card.
    *
@@ -75,6 +81,7 @@ public class VolcanoCard extends JPanel implements Path {
         "VolcanoCardImage/" + getAnimal().getName() + "_volcano_card.png")).getImage();
     g.drawImage(volcanoCardImage, 0, 0,getWidth(),getHeight(), null);
   }
+
   /**
    * Adds a token to the volcano card.
    *
@@ -86,12 +93,18 @@ public class VolcanoCard extends JPanel implements Path {
     revalidate();
   }
 
+  /**
+   * Removes a token from the volcano card.
+   */
   public void removeToken(){
     removeAll();
     revalidate();
     repaint();
   }
 
+  /**
+   * Checks if the volcano card is occupied by another player.
+   * */
   public boolean isOccupied() {
     if(this.getComponents().length != 0){
       return true;
@@ -101,15 +114,30 @@ public class VolcanoCard extends JPanel implements Path {
     }
   }
 
+  /**
+   * Sets the width of the volcano card
+   * */
   public void setWidth(int width){
     this.width = width;
   }
+
+  /**
+   * Gets the width of the volcano card
+   * */
   public int getWidth(){
     return this.width;
   }
+
+  /**
+   * Sets the height of the volcano card
+   * */
   public void setHeight(int height){
     this.height = height;
   }
+
+  /**
+   * Gets the height of the volcano card
+   * */
   public int getHeight(){
     return this.height;
   }

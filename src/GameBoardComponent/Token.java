@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
-
 /**
  * The Token class represents a token on the game board.
  */
@@ -20,6 +19,7 @@ public class Token extends GameComponent {
   private Image tokenImage;
   private int numberOfBelowMinSquare = 0;
   private ArrayList<Path> additionalPath;
+
   /**
    * Constructs a new Token object with the specified animal and token position.
    *
@@ -58,6 +58,7 @@ public class Token extends GameComponent {
   public void setTokenPosition(int tokenPosition){
     this.tokenPosition = tokenPosition;
   }
+
   /**
    * Sets the current square of the token.
    *
@@ -66,6 +67,7 @@ public class Token extends GameComponent {
   public void setCurrentSqaure(Path path){
     this.path = path;
   }
+
   /**
    * Retrieves the current square of the token.
    *
@@ -80,6 +82,7 @@ public class Token extends GameComponent {
   public Path getCurrentSquare(){
     return this.path;
   }
+
   /**
    * Retrieves the image icon representing the token.
    *
@@ -92,17 +95,38 @@ public class Token extends GameComponent {
     return tokenImageIcon;
   }
 
+  /**
+   * Gets the size of the token
+   * */
   public int getTokenSize(){
     return this.tokenSize;
   }
+
+  /**
+   * Gets the token number assigned to each token in the game.
+   * */
   public int getTokenNumber(){return this.tokenNumber;}
 
+  /**
+   * Sets the type of move the token has to move on the board.
+   * @param move Type of move the token has to move on the board
+   * */
   public void setMove(Move move){
     this.move = move;
   }
+
+  /**
+   * Moves the token on the board.
+   * @param chitCardValue Number of spaces for token to move on the board.
+   * @param token The token to be moved.
+   * */
   public String executeMove(int chitCardValue, Token token){
     return move.execute(chitCardValue, this);
   }
+
+  /**
+   * Gets the path of the token
+   * */
   public ArrayList<Path> getPaths(){
     return this.paths;
   }
