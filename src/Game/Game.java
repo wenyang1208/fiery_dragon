@@ -163,7 +163,7 @@ public class Game extends JPanel{
     for(int i=0; i<chitCardController.getDeck().getChitCards().size();i++){
       System.out.println(i+1 + ": " + chitCardController.getDeck().getChitCards().get(i).getAnimal().getName() + " " + chitCardController.getDeck().getChitCards().get(i).getValue());
     }
-    currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer));
+    currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer.getAnimal().getName()));
 
     MouseAdapter mouseAdapter = new MouseAdapter() {
       @Override
@@ -201,7 +201,8 @@ public class Game extends JPanel{
                   // but if the player flip different animal from its current position, only pass the next turn.
                   passNextToken(labels);
                 }
-//                passNextToken(labels);
+                System.out.println(flippedCard.getAnimal().getName());
+                askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
               } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
               }
@@ -209,6 +210,7 @@ public class Game extends JPanel{
               System.out.println("Match found!");
               currentPlayer.setMove(new MoveForwardsAction());
               String str = currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
+              System.out.println(flippedCard.getAnimal().getName());
               if (str == null) {
                 try {
                   Thread.sleep(1000);
@@ -225,6 +227,7 @@ public class Game extends JPanel{
                 }
                 labels.clear();
               }
+              askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
             }
           }
         }).start();
@@ -247,7 +250,16 @@ public class Game extends JPanel{
     // Update the current and next players
     currentPlayer = tokenController.getTokens().get(currentElem);
     // Print a message indicating the next player's turn
-    currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer));
+    currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer.getAnimal().getName()));
+  }
+
+  public void askIfContinueTheTurn(HashMap<JLabel,ChitCard> labels, String flippedCardAnimalName){
+    String changeTurnMessage = "You flipped the " + flippedCardAnimalName + " card.\n Do you want to continue your turn?";
+    int choice = JOptionPane.showConfirmDialog(null, changeTurnMessage,
+        "Question", JOptionPane.YES_NO_OPTION);
+    if(choice == JOptionPane.NO_OPTION){
+      passNextToken(labels);
+    }
   }
 
   public void checkIfFlippingTheFlippedCard(ChitCard flippedCard){
@@ -260,7 +272,7 @@ public class Game extends JPanel{
   }
 
   public void finish(){
-    String result = processTokenAnimalName(currentPlayer);
+    String result = processTokenAnimalName(currentPlayer.getAnimal().getName());
     String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
     int choice = JOptionPane.showConfirmDialog(null, winningMessage,
             "Question", JOptionPane.YES_NO_OPTION);
@@ -286,8 +298,8 @@ public class Game extends JPanel{
     }
   }
 
-  public String processTokenAnimalName(Token currentPlayer){
-    String[] words = currentPlayer.getAnimal().getName().split("_");
+  public String processTokenAnimalName(String AnimalName){
+    String[] words = AnimalName.split("_");
     StringBuilder result = new StringBuilder();
 
     // Capitalize the first letter of each word and append to result
