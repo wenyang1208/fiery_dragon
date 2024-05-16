@@ -15,15 +15,21 @@ public class ChitCardController{
   private GamePanel gamePanel;
   private Map<JLabel, Integer> labelIndexMap;
   private JLabel chitCardImage;
+
   /**
-   * Constructs a new ChitCardController with default settings.
+   * Constructs a new ChitCardController with the specified GamePanel.
+   *
+   * @param gamePanel The GamePanel object representing the game setup.
    */
   public ChitCardController(GamePanel gamePanel){
     this.gamePanel = gamePanel;
     this.labelIndexMap = new HashMap<>();
   }
+
   /**
-   * Initializes the setup of chit cards.
+   * Gets the map of JLabel components to their corresponding indices.
+   *
+   * @return A map where the keys are JLabel components and the values are their corresponding indices.
    */
   public void initialiseChitCardSetup(){
     deck = new Deck();
@@ -37,23 +43,28 @@ public class ChitCardController{
     }
   }
 
+  /**
+   * Gets the map of JLabel components to their corresponding indices.
+   *
+   * @return A map where the keys are JLabel components and the values are their corresponding indices.
+   */
   public Map<JLabel, Integer> getLabelIndexMap() {
     return labelIndexMap;
   }
 
   /**
-   * Retrieves the GameSetup object associated with this ChitCardController.
+   * Retrieves the GamePanel object associated with this ChitCardController.
    *
-   * @return The GameSetup object associated with this ChitCardController.
+   * @return The GamePanel object associated with this ChitCardController.
    */
   public GamePanel getGamePanel(){
     return gamePanel;
   }
 
   /**
-   * Retrieves the list of flipped chit cards.
+   * Retrieves the deck of chit cards.
    *
-   * @return The list of flipped chit cards.
+   * @return The Deck object containing the chit cards.
    */
   public Deck getDeck(){
     return this.deck;

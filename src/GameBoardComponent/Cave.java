@@ -21,10 +21,11 @@ public class Cave extends JPanel implements Path {
   private int position;
 
   /**
-   * Constructs a new Cave object with the specified animal and position.
+   * Constructs a new Cave object with the specified animal, position, and size.
    *
-   * @param animal   The animal associated with the cave.
+   * @param animal The animal associated with the cave.
    * @param position The position of the cave on the game board.
+   * @param caveSize The size of the cave.
    */
   public Cave(Animal animal, int position, int caveSize){
     setAnimal(animal);

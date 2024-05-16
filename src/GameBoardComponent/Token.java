@@ -21,9 +21,11 @@ public class Token extends GameComponent {
   private ArrayList<Path> additionalPath;
 
   /**
-   * Constructs a new Token object with the specified animal and token position.
+   * Constructs a new Token object with the specified animal, token size, and token number.
    *
    * @param animal The animal associated with the token.
+   * @param tokenSize The size of the token.
+   * @param tokenNumber The number assigned to the token.
    */
   public Token(Animal animal, int tokenSize, int tokenNumber){
     setAnimal(animal);
@@ -33,30 +35,22 @@ public class Token extends GameComponent {
     this.additionalPath = new ArrayList<>();
   }
 
-  public ArrayList<Path> getAdditionalVolcanoCardPath(){
-    return this.additionalPath;
-  }
-
+  /**
+   * Sets the additional paths for volcano cards.
+   *
+   * @param processPathList The list of additional paths to set.
+   */
   public void setAdditionalVolcanoCardPath(ArrayList<Path> processPathList){
     this.additionalPath = processPathList;
   }
-  public void increaseNumberOfBelowMinSquare(){
-    this.numberOfBelowMinSquare += 1;
-  }
-  public int getNumberOfBelowMinSquare(){
-    return this.numberOfBelowMinSquare;
-  }
-  public int getTokenPosition(){
-    return this.tokenPosition;
-  }
 
   /**
-   * Sets the position of the token.
+   * Gets the additional paths for volcano cards.
    *
-   * @param tokenPosition The position to set.
+   * @return A list of additional paths.
    */
-  public void setTokenPosition(int tokenPosition){
-    this.tokenPosition = tokenPosition;
+  public ArrayList<Path> getAdditionalVolcanoCardPath(){
+    return this.additionalPath;
   }
 
   /**
@@ -68,19 +62,76 @@ public class Token extends GameComponent {
     this.path = path;
   }
 
+
   /**
    * Retrieves the current square of the token.
    *
    * @return The path representing the current square.
    */
+  public Path getCurrentSquare(){
+    return this.path;
+  }
 
+  /**
+   * Increases the number of below-minimum squares by one.
+   */
+  public void increaseNumberOfBelowMinSquare(){
+    this.numberOfBelowMinSquare += 1;
+  }
+
+  /**
+   * Gets the number of below-minimum squares.
+   *
+   * @return The number of below-minimum squares.
+   */
+  public int getNumberOfBelowMinSquare(){
+    return this.numberOfBelowMinSquare;
+  }
+
+  /**
+   * Sets the number assigned to the token.
+   *
+   * @param tokenNumber The number to set.
+   */
+  public void setTokenNumber(int tokenNumber){this.tokenNumber = tokenNumber;}
+
+  /**
+   * Gets the token number assigned to each token in the game.
+   * */
+  public int getTokenNumber(){return this.tokenNumber;}
+
+  /**
+   * Sets the position of the token.
+   *
+   * @param tokenPosition The position to set.
+   */
+  public void setTokenPosition(int tokenPosition){
+    this.tokenPosition = tokenPosition;
+  }
+
+  /**
+   * Gets the current position of the token.
+   *
+   * @return The current position of the token.
+   */
+  public int getTokenPosition(){
+    return this.tokenPosition;
+  }
+
+  /**
+   * Sets the size of the token.
+   *
+   * @param tokenSize The size to set.
+   */
   public void setTokenSize(int tokenSize){
     this.tokenSize = tokenSize-15;
   }
 
-  public void setTokenNumber(int tokenNumber){this.tokenNumber = tokenNumber;}
-  public Path getCurrentSquare(){
-    return this.path;
+  /**
+   * Gets the size of the token
+   * */
+  public int getTokenSize(){
+    return this.tokenSize;
   }
 
   /**
@@ -96,16 +147,12 @@ public class Token extends GameComponent {
   }
 
   /**
-   * Gets the size of the token
+   * Gets the path of the token
    * */
-  public int getTokenSize(){
-    return this.tokenSize;
+  public ArrayList<Path> getPaths(){
+    return this.paths;
   }
 
-  /**
-   * Gets the token number assigned to each token in the game.
-   * */
-  public int getTokenNumber(){return this.tokenNumber;}
 
   /**
    * Sets the type of move the token has to move on the board.
@@ -124,10 +171,4 @@ public class Token extends GameComponent {
     return move.execute(chitCardValue, this);
   }
 
-  /**
-   * Gets the path of the token
-   * */
-  public ArrayList<Path> getPaths(){
-    return this.paths;
-  }
 }

@@ -19,10 +19,12 @@ public class VolcanoCard extends JPanel implements Path {
   private Image volcanoCardImage;
 
   /**
-   * Constructs a new VolcanoCard object with the specified animal and position.
+   * Constructs a new VolcanoCard object with the specified animal, position, width, and height.
    *
    * @param animal The animal associated with the volcano card.
    * @param position The position of the volcano card.
+   * @param width The width of the volcano card.
+   * @param height The height of the volcano card.
    */
   public VolcanoCard(Animal animal, int position, int width, int height){
     setAnimal(animal);

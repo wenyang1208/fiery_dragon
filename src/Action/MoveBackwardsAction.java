@@ -7,7 +7,19 @@ import GameBoardComponent.Path;
 import GameBoardComponent.Token;
 import java.util.ArrayList;
 
+/**
+ * The MoveBackwardsAction class implements the Move interface and represents an action
+ * where a token moves backwards based on the chit card value.
+ */
 public class MoveBackwardsAction implements Move{
+
+    /**
+     * Executes the action which moves the token backwards by the specified chit card value.
+     *
+     * @param chitCardValue The value of the chit card that determines how many positions the token moves backwards.
+     * @param token The token on which the action is performed.
+     * @return A string indicating the result of the action, which is "back".
+     */
     public String execute(int chitCardValue, Token token){
         ArrayList<Path>  processPathList = new ArrayList<>();
         int positionAfterMovingBack = token.getTokenPosition()-chitCardValue;
@@ -28,7 +40,6 @@ public class MoveBackwardsAction implements Move{
                 token.getPaths().get((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack)).addToken(token);
                 token.setTokenPosition((token.getAdditionalVolcanoCardPath().size()-1) - abs(positionAfterMovingBack));
             }
-
         }
         else if(positionAfterMovingBack > 0 && !token.getPaths().get(positionAfterMovingBack).isOccupied()){
             token.getPaths().get(token.getTokenPosition()).removeToken();

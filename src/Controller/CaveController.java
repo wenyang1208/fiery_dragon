@@ -21,10 +21,13 @@ public class CaveController {
   private ArrayList<String> players;
   private GamePanel gamePanel;
   private HashMap<Cave,Integer> cavesHashMap;
+
   /**
-   * Constructs a new CaveController with the specified GameSetup object.
+   * Constructs a new CaveController with the specified GamePanel object, list of volcano cards, and list of players.
    *
-   * @param gamePanel The GameSetup object representing the game setup.
+   * @param gamePanel The GamePanel object representing the game setup.
+   * @param volcanoCards The list of volcano cards.
+   * @param players The list of players.
    */
   public CaveController(GamePanel gamePanel, ArrayList<VolcanoCard> volcanoCards,ArrayList<String> players) {
     this.gamePanel = gamePanel;
@@ -41,10 +44,11 @@ public class CaveController {
   public ArrayList<Cave> getCaves() {
     return caves;
   }
+
   /**
-   * Retrieves the GameSetup object associated with this CaveController.
+   * Gets the game panel associated with this controller.
    *
-   * @return The GameSetup object associated with this CaveController.
+   * @return The GamePanel object.
    */
   public GamePanel getGamePanel() {
     return this.gamePanel;

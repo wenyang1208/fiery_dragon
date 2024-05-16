@@ -14,10 +14,11 @@ public class ChitCard extends GameComponent {
   private Image chitCardImage;
 
   /**
-   * Constructs a new ChitCard object with the specified animal and value.
+   * Constructs a new ChitCard object with the specified animal, value, and size.
    *
    * @param animal The animal associated with the chit card.
    * @param value The value of the chit card.
+   * @param chitCardSize The size of the chit card.
    */
   public ChitCard(Animal animal, int value, int chitCardSize){
     setAnimal(animal);

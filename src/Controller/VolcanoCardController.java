@@ -56,11 +56,27 @@ public class VolcanoCardController {
     Collections.reverse(this.volcanoCardsNearToCave);
   }
 
+  /**
+   * Gets the list of volcano cards that are near to the cave.
+   *
+   * @return An ArrayList of VolcanoCard objects near to the cave.
+   */
   public ArrayList<VolcanoCard> getVolcanoCardsNearToCave(){
     return this.volcanoCardsNearToCave;
   }
+
+  /**
+   * Gets the list of all volcano cards.
+   *
+   * @return An ArrayList of all VolcanoCard objects.
+   */
   public ArrayList<VolcanoCard> getVolcanoCards(){return this.volcanoCards;}
 
+  /**
+   * Gets the game panel associated with this controller.
+   *
+   * @return The GamePanel object.
+   */
   public GamePanel getGamePanel() {
     return this.gamePanel;
   }
