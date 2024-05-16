@@ -2,6 +2,9 @@ package Game;
 
 import javax.swing.JFrame;
 
+/**
+ * The Application class is the main class that starts the whole game
+ * */
 public class Application {
     public static final int frameWidth = 1050;
     public static final int frameHeight = 750;
