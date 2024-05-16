@@ -13,6 +13,12 @@ import javax.swing.JFrame;
  * */
 public class StartButton extends JButton implements ActionListener {
     private JFrame frame;
+
+    /**
+     * Constructs the StartButton object, specifying its visibility,
+     * foreground and background color, and text inside the button.
+     * Along with actions performed when button is clicked on.
+     * */
     public StartButton(JFrame frame){
         this.frame = frame;
         setVisible(true);

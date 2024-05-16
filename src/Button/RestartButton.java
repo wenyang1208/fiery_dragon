@@ -19,6 +19,11 @@ public class RestartButton extends JButton implements ActionListener {
     private JFrame frame;
     private Game game;
 
+    /**
+     * Constructs the RestartButton object, specifying its visibility,
+     * foreground and background color, and text inside the button.
+     * Along with actions performed when button is clicked on.
+     * */
     public RestartButton(JFrame frame,Game game){
         this.frame = frame;
         this.game = game;

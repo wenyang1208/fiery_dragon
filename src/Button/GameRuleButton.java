@@ -16,6 +16,12 @@ import javax.swing.border.LineBorder;
  * */
 public class GameRuleButton extends JButton implements ActionListener {
 
+
+    /**
+     * Constructs the GameRuleButton object, specifying its visibility,
+     * foreground and background color, and text inside the button
+     * Along with actions performed when button is clicked on.
+     * */
     public GameRuleButton(){
         setVisible(true);
         setBackground(new Color(255, 153, 0));
@@ -25,7 +31,7 @@ public class GameRuleButton extends JButton implements ActionListener {
     }
 
     /**
-     * Displays a pop up window which displays the rules of the game.
+     * Displays a pop-up window which displays the rules of the game.
      * */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -40,6 +46,5 @@ public class GameRuleButton extends JButton implements ActionListener {
         // Show the message dialog
         JOptionPane.showMessageDialog(null, gameRulesMessage, "Game Rules", JOptionPane.INFORMATION_MESSAGE);
     }
-
 }
 
