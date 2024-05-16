@@ -22,6 +22,7 @@ public interface Path{
    * @return The animal associated with the path.
    */
   Animal getAnimal();
+
   /**
    * Adds a token to the path.
    *
@@ -29,8 +30,14 @@ public interface Path{
    */
   void addToken(Token token);
 
+  /**
+   * Removes a token from the path.
+   */
   void removeToken();
 
+  /**
+   * Checks if volcano card is occupied by another token.
+   * */
   boolean isOccupied();
 
 }

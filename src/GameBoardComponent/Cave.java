@@ -7,6 +7,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 /**
  * The Cave class represents a cave on the game board.
  * It extends JPanel and implements the Path interface.
@@ -32,9 +33,22 @@ public class Cave extends JPanel implements Path {
     setCaveSize(caveSize);
   }
 
+  /**
+   * Sets the size of the chit card.
+   *
+   * @param caveSize The size of the cave.
+   */
   public void setCaveSize(int caveSize){
     this.caveSize = caveSize;
   }
+
+  /**
+   * Gets the size of the cave.
+   */
+  public int getCaveSize(){
+    return this.caveSize;
+  }
+
   /**
    * Sets the animal associated with the cave.
    *
@@ -71,10 +85,6 @@ public class Cave extends JPanel implements Path {
     return this.position;
   }
 
-  public int getCaveSize(){
-    return this.caveSize;
-  }
-
   /**
    * Overrides the paintComponent method to draw the cave image.
    *
@@ -87,6 +97,9 @@ public class Cave extends JPanel implements Path {
     g.drawImage(caveImage, 0, 0,getCaveSize(),getCaveSize(), null);
   }
 
+  /**
+   * Checks if the cave is occupied by a token.
+   * */
   public boolean isOccupied(){
     return false;
   }
@@ -101,6 +114,10 @@ public class Cave extends JPanel implements Path {
     this.add(new JLabel("", token.getImage(), JLabel.CENTER));
     revalidate();
   }
+
+  /**
+   * Removes a token from the cave.
+   */
   public void removeToken(){
     removeAll();
     revalidate();

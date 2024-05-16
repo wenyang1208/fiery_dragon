@@ -3,6 +3,7 @@ package GameBoardComponent;
 import Animal.Animal;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+
 /**
  * The ChitCard class represents the chit card component on the game board.
  */
@@ -23,6 +24,7 @@ public class ChitCard extends GameComponent {
     setValue(value);
     setChitCardSize(chitCardSize);
   }
+
   /**
    * Retrieves the value of the chit card.
    *
@@ -59,10 +61,18 @@ public class ChitCard extends GameComponent {
     this.isFlipped = isFlipped;
   }
 
+  /**
+   * Sets the size of the chit card.
+   *
+   * @param chitCardSize The size of the chit card.
+   */
   public void setChitCardSize(int chitCardSize){
     this.chitCardSize = chitCardSize;
   }
 
+  /**
+   * Gets the size of the chit card.
+   */
   public int getChitCardSize(){
     return this.chitCardSize;
   }

@@ -2,6 +2,7 @@ package GameBoardComponent;
 
 import Animal.Animal;
 import javax.swing.ImageIcon;
+
 /**
  * The GameComponent class represents a component used in the game board.
  */
