@@ -2,7 +2,7 @@
 Created by:
 - Chong Jet Shen
 - Chua Wen Yang
-- Chen Jet Kern
+- Chen Jac Kern
 
 ![](../../../Pictures/Screenshots/Screenshot 2024-05-17 085911.png)
 
