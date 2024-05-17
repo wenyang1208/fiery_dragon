@@ -4,11 +4,6 @@ Created by:
 - Chua Wen Yang
 - Chen Jac Kern
 
-![](../../../Pictures/Screenshots/Screenshot 2024-05-17 085911.png)
-
-
-![](../../../Pictures/Screenshots/Screenshot 2024-05-17 085942.png)
-
 # Project Description
 
 This repository contains the source code and documentation of Sprint 3 of FIT3077 - Software engineering: Architecture and design.
