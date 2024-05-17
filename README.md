@@ -1,4 +1,4 @@
-# FIT3077 Sprint 2 - Fiery Dragon (Semester 1, 2024)
+# FIT3077 Sprint 3 - Fiery Dragon (Semester 1, 2024)
 Created by:
 - Chong Jet Shen
 - Chua Wen Yang
