@@ -11,6 +11,11 @@ This repository contains the source code and documentation of Sprint 3 of FIT307
 Fiery Dragons is a memory based game for 2-4 players ages 5-99 and takes about 15 minutes to play.
 Players act as dragons trying to get back to their cave by searching for the right cards to help them move.
 
+Preview of Home Page:
+![](../../../Pictures/Screenshots/Screenshot 2024-05-17 085911.png)
+
+Preview of Game:
+![](../../../Pictures/Screenshots/Screenshot 2024-05-17 085942.png)
 
 # Requirement
 
