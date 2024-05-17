@@ -20,9 +20,6 @@ public class Application {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-//    Home h =
-//    new Home();
-//    Game g = new Game();
     }
 
 }

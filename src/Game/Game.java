@@ -182,7 +182,10 @@ public class Game extends JPanel{
   }
 
   /**
-   *
+   * Process the turns of each player in the game.
+   * Includes the flipping of chit card functionality along with
+   * moving each token based on the animal and value on the chit card.
+   * And finally checking if player wins the game.
    * */
   public void processTokenTurn(){
 
