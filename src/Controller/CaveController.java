@@ -1,15 +1,11 @@
 package Controller;
 
-import Animal.Animal;
 import Animal.AnimalFactory;
 import Game.GamePanel;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import javax.swing.JLabel;
 import GameBoardComponent.Cave;
 import java.util.ArrayList;
-import GameBoardComponent.ChitCard;
-import GameBoardComponent.Token;
 import GameBoardComponent.VolcanoCard;
 
 /**
@@ -36,6 +32,7 @@ public class CaveController {
     this.cavesHashMap =new HashMap<>();
     initialiseCaveSetup(volcanoCards);
   }
+
   /**
    * Retrieves the list of caves.
    *
@@ -53,7 +50,6 @@ public class CaveController {
   public GamePanel getGamePanel() {
     return this.gamePanel;
   }
-
 
   /**
    * Initializes the setup of caves on the game board.
