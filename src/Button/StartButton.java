@@ -1,13 +1,12 @@
 package Button;
 
-import Game.Game;
-import Game.Home;
 import Game.PlayerInformation;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
 /**
  * The StartButton class represents the button component used to start the game.
  * */

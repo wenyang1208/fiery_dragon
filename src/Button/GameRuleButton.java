@@ -1,21 +1,15 @@
 package Button;
 
-import Game.Game;
-import Game.GamePanel;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
 
 /**
  * The GameRuleButton represents the button component used to display the rules of the game
  * */
 public class GameRuleButton extends JButton implements ActionListener {
-
 
     /**
      * Constructs the GameRuleButton object, specifying its visibility,
