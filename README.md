@@ -12,10 +12,10 @@ Fiery Dragons is a memory based game for 2-4 players ages 5-99 and takes about 1
 Players act as dragons trying to get back to their cave by searching for the right cards to help them move.
 
 Preview of Home Page:
-![](../../../Pictures/Screenshots/Screenshot 2024-05-17 085911.png)
+![](src/Project_cartoon/HomePagePreview.png)
 
 Preview of Game:
-![](../../../Pictures/Screenshots/Screenshot 2024-05-17 085942.png)
+![](src/Project_cartoon/GamePreview.png)
 
 # Requirement
 
