@@ -105,6 +105,20 @@ public class Game extends JPanel{
       caveController.getCaves().get(i).addToken(token);
     }
 
+
+     //testing for video demo
+//    Token testingToken1 = tokenController.getTokens().get(0);
+//    caveController.getCaves().get(0).removeToken();
+//    testingToken1.setTokenPosition(testingToken1.getPaths().size()-2);
+//    testingToken1.setCurrentSqaure(testingToken1.getPaths().get(testingToken1.getPaths().size()-2));
+//    testingToken1.getPaths().get(testingToken1.getPaths().size()-2).addToken(testingToken1);
+//
+//    Token testingToken2 = tokenController.getTokens().get(1);
+//    caveController.getCaves().get(1).removeToken();
+//    testingToken2.setTokenPosition(18)
+//    testingToken2.setCurrentSqaure(testingToken1.getPaths().get(18));
+//    testingToken2.getPaths().get(18).addToken(testingToken2);
+
     currentPlayerTurnLabel = new JLabel();
     currentPlayerTurnLabel.setFont(new Font("Calibri", Font.BOLD, 20));
     currentPlayerTurnLabel.setBackground(new Color(255, 153, 0));
