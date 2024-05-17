@@ -2,7 +2,6 @@ package Action;
 
 import static java.lang.Math.abs;
 
-import Controller.VolcanoCardController;
 import GameBoardComponent.Path;
 import GameBoardComponent.Token;
 import java.util.ArrayList;

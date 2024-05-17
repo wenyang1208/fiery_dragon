@@ -2,6 +2,7 @@ package Action;
 
 import GameBoardComponent.Path;
 import GameBoardComponent.Token;
+
 /**
  * The MoveForwardsAction class implements the Move interface and represents an action
  * where a token moves forwards based on the chit card value.
