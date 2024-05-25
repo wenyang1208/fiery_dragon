@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.lang.Thread;
 import Controller.CaveController;
 import Controller.ChitCardController;
@@ -53,6 +54,8 @@ public class Game extends JPanel{
   private JLabel currentPlayerTurnLabel;
   private JFrame frame;
   private ArrayList<String> players;
+
+  private MouseAdapter mouseAdapter;
 
   /**
    * Constructs a new Game object.
@@ -106,7 +109,7 @@ public class Game extends JPanel{
     }
 
 
-     //testing for video demo
+    //testing for video demo
 //    Token testingToken1 = tokenController.getTokens().get(0);
 //    caveController.getCaves().get(0).removeToken();
 //    testingToken1.setTokenPosition(testingToken1.getPaths().size()-2);
@@ -135,9 +138,9 @@ public class Game extends JPanel{
     add(background);
   }
 
-/**
- * Adds the key buttons (GameRuleButton, RestartButton, and ExitButton) components to the Game page
- * */
+  /**
+   * Adds the key buttons (GameRuleButton, RestartButton, and ExitButton) components to the Game page
+   * */
   public void addButton(){
     int button_height = (Game.boardWidth - GamePanel.WIDTH)/4;
     int button_width = (Game.boardWidth - GamePanel.WIDTH)/2;
@@ -182,21 +185,17 @@ public class Game extends JPanel{
   }
 
   /**
-   * Process the turns of each player in the game.
-   * Includes the flipping of chit card functionality along with
-   * moving each token based on the animal and value on the chit card.
-   * And finally checking if player wins the game.
+   *
    * */
-  public void processTokenTurn(){
-
+  public void processTokenTurn() {
     chitCardController.getDeck().shuffleDeck();
 
-    for(int i=0; i<chitCardController.getDeck().getChitCards().size();i++){
-      System.out.println(i+1 + ": " + chitCardController.getDeck().getChitCards().get(i).getAnimal().getName() + " " + chitCardController.getDeck().getChitCards().get(i).getValue());
+    for (int i = 0; i < chitCardController.getDeck().getChitCards().size(); i++) {
+      System.out.println(i + 1 + ": " + chitCardController.getDeck().getChitCards().get(i).getAnimal().getName() + " " + chitCardController.getDeck().getChitCards().get(i).getValue());
     }
     currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer.getAnimal().getName()));
 
-    MouseAdapter mouseAdapter = new MouseAdapter() {
+    mouseAdapter = new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
@@ -207,73 +206,70 @@ public class Game extends JPanel{
 
         checkIfFlippingTheFlippedCard(flippedCard);
 
-        labels.put(clickedLabel,flippedCard);
+        labels.put(clickedLabel, flippedCard);
         flippedCard.setIsFlipped(true);
         clickedLabel.setIcon(flippedCard.getImage());
 
+        // Disable all chit cards by removing mouse listeners
+        disableChitCardMouseListeners();
+
         new Thread(() -> {
-          if(isFlippingTheFlippedCard) {
-            if (!currentPlayer.getCurrentSquare().getAnimal().getName()
-                    .equals(flippedCard.getAnimal().getName())) {
-              try {
-                Thread.sleep(1000);
+          try {
+            Thread.sleep(1000); // Sleep period
+
+            if (isFlippingTheFlippedCard) {
+              if (!currentPlayer.getCurrentSquare().getAnimal().getName()
+                  .equals(flippedCard.getAnimal().getName())) {
                 flippedCard.setIsFlipped(true);
                 clickedLabel.setIcon(flippedCard.getImage());
                 if (flippedCard.getAnimal().getName().equals("pirate_dragon")) {
                   currentPlayer.setMove(new MoveBackwardsAction());
                   currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
-                  if(currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
+                  if (currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")) {
                     passNextToken(labels);
-                  }
-                  else{
+                  } else {
                     askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
                   }
                 } else {
                   currentPlayer.setMove(new DoNothingAction());
                   currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
-                  // if the player flips the pirate dragon, still can uncover another card
-                  // but if the player flip different animal from its current position, only pass the next turn.
                   passNextToken(labels);
                 }
-              } catch (InterruptedException ex) {
-                throw new RuntimeException(ex);
-              }
-            } else {
-              System.out.println("Match found!");
-              currentPlayer.setMove(new MoveForwardsAction());
-              String str = currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
-              if (str == null) {
-                try {
-                  Thread.sleep(1000);
+              } else {
+                System.out.println("Match found!");
+                currentPlayer.setMove(new MoveForwardsAction());
+                String str = currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
+                if (str == null) {
                   flippedCard.setIsFlipped(true);
                   clickedLabel.setIcon(flippedCard.getImage());
-                } catch (InterruptedException ex) {
-                  throw new RuntimeException(ex);
+                  passNextToken(labels);
+                } else if (str.equals("win")) {
+                  finish();
+                  disableChitCardMouseListeners();
+                  labels.clear();
+                } else {
+                  askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
                 }
-                passNextToken(labels);
-              } else if (str.equals("win")) {
-                finish();
-                for (JLabel j : chitCardController.getLabelIndexMap().keySet()) {
-                  j.removeMouseListener(this);
-                }
-                labels.clear();
-              }
-              else{
-                askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
               }
             }
+          } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+          } finally {
+            // Re-enable all chit cards by adding mouse listeners back
+            enableChitCardMouseListeners(mouseAdapter);
           }
         }).start();
       }
     };
+
     for (JLabel j : chitCardController.getLabelIndexMap().keySet()) {
       j.addMouseListener(mouseAdapter);
     }
   }
 
-/**
- * Changes turn to the next player.
- */
+  /**
+   * Changes turn to the next player.
+   */
   public void passNextToken(HashMap<JLabel,ChitCard> labels) {
     for (Entry<JLabel, ChitCard> entry : labels.entrySet()) {
       entry.getValue().setIsFlipped(false);
@@ -322,7 +318,7 @@ public class Game extends JPanel{
     String result = processTokenAnimalName(currentPlayer.getAnimal().getName());
     String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
     int choice = JOptionPane.showConfirmDialog(null, winningMessage,
-            "Question", JOptionPane.YES_NO_OPTION);
+        "Question", JOptionPane.YES_NO_OPTION);
     if(choice == JOptionPane.YES_OPTION){
       System.out.println(players);
       ArrayList<String> clockwiseAnimals = new ArrayList<>(
@@ -365,6 +361,26 @@ public class Game extends JPanel{
       result.setLength(result.length() - 1);
     }
     return result.toString();
+  }
+
+  /**
+   * Disables mouse listeners for all chit cards.
+   */
+  private void disableChitCardMouseListeners() {
+    for (JLabel label : chitCardController.getLabelIndexMap().keySet()) {
+      for (MouseListener listener : label.getMouseListeners()) {
+        label.removeMouseListener(listener);
+      }
+    }
+  }
+
+  /**
+   * Enables mouse listeners for all chit cards.
+   */
+  private void enableChitCardMouseListeners(MouseAdapter mouseAdapter) {
+    for (JLabel label : chitCardController.getLabelIndexMap().keySet()) {
+      label.addMouseListener(mouseAdapter);
+    }
   }
 }
 
