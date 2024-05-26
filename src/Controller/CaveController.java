@@ -107,27 +107,21 @@ public class CaveController {
   }
 
   public void setCavesPositions(Cave cave, ArrayList<VolcanoCard> volcanoCards, int i, int caveSize, List<Integer> positionSeq) {
-      if (volcanoCards.get(i).getPosition() == positionSeq.get(2)) {
-        cave.setBounds(volcanoCards.get(i).getX() - volcanoCards.get(i).getWidth(),
-            volcanoCards.get(i).getY(), caveSize, caveSize);
-      } else if (volcanoCards.get(i).getPosition() == positionSeq.get(4)) {
-        cave.setBounds(volcanoCards.get(i).getX(),
-            volcanoCards.get(i).getY() - volcanoCards.get(i).getHeight(), caveSize, caveSize);
-      } else if (volcanoCards.get(i).getPosition() == positionSeq.get(6)) {
-        cave.setBounds(volcanoCards.get(i).getX() + volcanoCards.get(i).getWidth(),
-            volcanoCards.get(i).getY(), caveSize, caveSize);
-      } else if (volcanoCards.get(i).getPosition() == positionSeq.get(0)) {
-        cave.setBounds(volcanoCards.get(i).getX(),
-            volcanoCards.get(i).getY() + volcanoCards.get(i).getHeight(), caveSize, caveSize);
-      } else {
-        int[] offsetsX = {-caveSize, -caveSize, caveSize, caveSize};
-        int[] offsetsY = {caveSize, -caveSize, -caveSize, caveSize};
-        int xOffset = offsetsX[i % 4];
-        int yOffset = offsetsY[i % 4];
-        cave.setBounds(volcanoCards.get(i).getX() + xOffset, volcanoCards.get(i).getY() + yOffset,
-            caveSize, caveSize);
+    int positionIndex = 0;
+    for (int j = 0; j < positionSeq.size(); j++) {
+      int element = positionSeq.get(j);
+      if (volcanoCards.get(i).getPosition() == element) {
+        positionIndex =  j;
+        break;
       }
-      addCaveToPanel(cave);
+    }
+    int[] offsetX = {0, -1, -1, -1, 0, 1, 1, 1};
+    int[] offsetY = {1, 1, 0, -1, -1, -1, 0, 1};
+    int x = volcanoCards.get(i).getX() + offsetX[positionIndex] * volcanoCards.get(i).getWidth();
+    int y = volcanoCards.get(i).getY() + offsetY[positionIndex] * volcanoCards.get(i).getHeight();
+
+    cave.setBounds(x, y, caveSize, caveSize);
+    addCaveToPanel(cave);
     }
 }
 
