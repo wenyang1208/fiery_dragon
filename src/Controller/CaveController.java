@@ -101,7 +101,7 @@ public class CaveController {
 
     while (current <= n) {
       sequence.add(current);
-      current += 3; // Increment by 3
+      current += VolcanoCardController.numberOfSquaresInACard; // Increment by 3
     }
     return sequence;
   }
