@@ -18,22 +18,35 @@ public class VolcanoCard extends JPanel implements Path {
   private int position;
   private Image volcanoCardImage;
 
+  private boolean isCaveContained;
+
+
   /**
    * Constructs a new VolcanoCard object with the specified animal, position, width, and height.
    *
-   * @param animal The animal associated with the volcano card.
-   * @param position The position of the volcano card.
-   * @param width The width of the volcano card.
-   * @param height The height of the volcano card.
+   * @param animal          The animal associated with the volcano card.
+   * @param position        The position of the volcano card.
+   * @param width           The width of the volcano card.
+   * @param height          The height of the volcano card.
+   * @param isCaveContained
    */
-  public VolcanoCard(Animal animal, int position, int width, int height){
+  public VolcanoCard(Animal animal, int position, int width, int height, boolean isCaveContained){
+    this.isCaveContained = isCaveContained;
     setAnimal(animal);
     setPosition(position);
     setBackground(Color.BLACK);
     setWidth(width);
     setHeight(height);
+    setCaveContained(isCaveContained);
   }
 
+  public boolean isCaveContained() {
+    return isCaveContained;
+  }
+
+  public void setCaveContained(boolean caveContained) {
+    isCaveContained = caveContained;
+  }
   /**
    * Sets the animal associated with the volcano card.
    *

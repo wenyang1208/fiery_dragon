@@ -3,6 +3,7 @@ package GameBoardComponent;
 import Animal.Animal;
 import Animal.AnimalFactory;
 import Controller.VolcanoCardController;
+import Game.GamePanel;
 import java.util.ArrayList;
 import java.util.Collections;
 

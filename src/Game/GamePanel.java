@@ -8,8 +8,8 @@ import javax.swing.JPanel;
  * including chit card panels, volcano card panels, and cave panels.
  */
 public class GamePanel extends JPanel {
-    public final static int WIDTH = Game.boardWidth-200;
-    public final static int HEIGHT = Game.boardHeight-100;
+    public final static int WIDTH = Game.boardWidth-300;
+    public final static int HEIGHT = Game.boardHeight;
     private JPanel chitCardPanel;
 
     /**
@@ -17,7 +17,7 @@ public class GamePanel extends JPanel {
      */
     public GamePanel() {
         setBackground(Color.BLACK);
-        setBounds(30, 30, WIDTH, HEIGHT);
+        setBounds(30, 0, WIDTH, HEIGHT);
         setLayout(null);
         setupChitCardPanel();
     }
@@ -37,7 +37,7 @@ public class GamePanel extends JPanel {
         chitCardPanel = new JPanel();
         chitCardPanel.setLayout(new GridLayout(4, 4));
         chitCardPanel.setBackground(Color.BLACK);
-        chitCardPanel.setBounds(WIDTH/4, HEIGHT/4, WIDTH/2, HEIGHT/2);
+        chitCardPanel.setBounds(WIDTH/3, HEIGHT/3, (GamePanel.WIDTH+ GamePanel.HEIGHT)/6, (GamePanel.WIDTH+ GamePanel.HEIGHT)/6);
         add(chitCardPanel);
     }
 

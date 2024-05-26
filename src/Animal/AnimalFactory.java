@@ -1,11 +1,28 @@
 package Animal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The AnimalFactory class provides static methods for creating different types of animal collections.
  */
 public class AnimalFactory {
+
+  // Map to hold the mapping between animal names and their respective objects
+  private static final Map<String, Animal> animalMap = new HashMap<>();
+
+  static {
+    // Initialize the map with animal name-object pairs
+    animalMap.put("Spider", new Spider());
+    animalMap.put("Bat", new Bat());
+    animalMap.put("Salamander", new Salamander());
+    animalMap.put("BabyDragon", new BabyDragon());
+    animalMap.put("true", new PirateDragon());
+  }
 
   /**
    * Creates a collection of animals for the Chit Card.
@@ -26,19 +43,41 @@ public class AnimalFactory {
   /**
    * Creates a collection of animals for the Volcano Card.
    *
-   * @param numberOfCards          The number of volcano cards.
-   * @param numberOfSquaresInACard The number of squares in each volcano card.
    * @return An ArrayList containing animals for the Volcano Card.
    */
-  public static ArrayList<Animal> createVolcanoCardAnimal(int numberOfCards, int numberOfSquaresInACard){
+  public static ArrayList<Animal> createVolcanoCardAnimal() {
     ArrayList<Animal> animalFactories = new ArrayList<>();
-    int totalNumberOfSquares = numberOfCards * numberOfSquaresInACard;
-    for (int i = 1; i <= Math.round(totalNumberOfSquares/4); i++){
-      animalFactories.add(new Spider());
-      animalFactories.add(new Bat());
-      animalFactories.add(new Salamander());
-      animalFactories.add(new BabyDragon());
+
+    // Pre-defined arrangement of animals for each card
+    String[][] arrangements = {
+        {"BabyDragon", "Salamander", "Bat"},
+//        {"Bat", "BabyDragon", "Salamander", "true"},//cave
+        {"BabyDragon", "Bat", "Spider"},
+        {"Bat", "BabyDragon", "Salamander", "true"},//cave
+//        {"Bat", "Spider", "BabyDragon", "true"}, //cave
+        {"Spider", "Salamander", "BabyDragon"},
+        {"Bat", "Spider", "BabyDragon", "true"}, //cave
+        {"Salamander", "Spider", "Bat", "true"}, //cave
+        {"Salamander", "BabyDragon", "Spider"},
+        {"Spider", "Bat", "Salamander","true"} //cave
+    };
+
+    // Convert the array to a list and shuffle it
+    List<String[]> arrangementsList = Arrays.asList(arrangements);
+    Collections.shuffle(arrangementsList);
+
+    // Populate the animalFactories list based on the shuffled arrangements
+    for (String[] arrangement : arrangementsList) {
+      for (String animalName : arrangement) {
+        Animal animal = animalMap.get(animalName);
+        if (animal != null) {
+          animalFactories.add(animal);
+        } else {
+          throw new IllegalArgumentException("Unknown animal name: " + animalName);
+        }
+      }
     }
+
     return animalFactories;
   }
 
