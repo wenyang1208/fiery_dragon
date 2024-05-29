@@ -1,6 +1,8 @@
 package Game;
 import Action.DoNothingAction;
-import Action.MoveBackwardsAction;
+import Action.Flip;
+import Action.FlipNewDragon;
+import Action.FlipPirateDragon;
 import Action.MoveForwardsAction;
 import Button.ExitButton;
 import Button.GameRuleButton;
@@ -24,6 +26,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -43,6 +46,9 @@ public class Game extends JPanel{
   public static final int boardHeight = Application.frameHeight;
   private ChitCardController chitCardController;
   private TokenController tokenController;
+  private VolcanoCardController volcanoCardController;
+
+  private CaveController caveController;
   JLabel background;
   private Token currentPlayer;
   private int currentElem;
@@ -54,8 +60,9 @@ public class Game extends JPanel{
   private JLabel currentPlayerTurnLabel;
   private JFrame frame;
   private ArrayList<String> players;
-
   private MouseAdapter mouseAdapter;
+  private ChitCard flippedCard;
+  private Map<String, Flip> flipMap;
 
   /**
    * Constructs a new Game object.
@@ -65,6 +72,7 @@ public class Game extends JPanel{
   public Game(JFrame frame, ArrayList<String> players){
     this.frame = frame;
     this.players = players;
+    this.flipMap = new HashMap<String, Flip>();
     initialisingBackground(players);
     run();
     setLayout(null);
@@ -79,6 +87,15 @@ public class Game extends JPanel{
    * */
   public ArrayList<String> getPlayers(){
     return this.players;
+  }
+
+  public Token getCurrentPlayer(){return this.currentPlayer;}
+  public ChitCard getFlippedCard(){return this.flippedCard;}
+  public VolcanoCardController getVolcanoCardController() {
+    return volcanoCardController;
+  }
+  public CaveController getCaveController() {
+    return caveController;
   }
 
   /**
@@ -97,9 +114,9 @@ public class Game extends JPanel{
     chitCardController = new ChitCardController(gamePanel);
     chitCardController.initialiseChitCardSetup();
     // Cannot create new Game.GameSetup, so I pass the previous Game.GameSetup from the ChitCardContoller as the parameter to the controller.
-    VolcanoCardController volcanoCardController = new VolcanoCardController(chitCardController.getGamePanel());
+    volcanoCardController = new VolcanoCardController(chitCardController.getGamePanel());
 
-    CaveController caveController = new CaveController(volcanoCardController.getGamePanel(),volcanoCardController.getVolcanoCardsNearToCave(),players);
+    caveController = new CaveController(volcanoCardController.getGamePanel(),volcanoCardController.getVolcanoCardsNearToCave(),players);
 
     tokenController = new TokenController(players, volcanoCardController.getVolcanoCards(),caveController.getCaves(),volcanoCardController.getVolcanoCardsNearToCave());
     for(int i = 0; i< tokenController.getTokens().size(); i++){
@@ -179,15 +196,17 @@ public class Game extends JPanel{
    * */
   public void run(){
     if (!tokenController.getTokens().isEmpty()) {
+      flipMap.put("pirate_dragon", new FlipPirateDragon());
+      flipMap.put("new_dragon", new FlipNewDragon());
       currentPlayer = tokenController.getTokens().get(currentElem);
-      processTokenTurn();
+      processTokenTurn(this);
     }
   }
 
   /**
    *
    * */
-  public void processTokenTurn() {
+  public void processTokenTurn(Game game) {
     chitCardController.getDeck().shuffleDeck();
 
     for (int i = 0; i < chitCardController.getDeck().getChitCards().size(); i++) {
@@ -202,7 +221,7 @@ public class Game extends JPanel{
 
         JLabel clickedLabel = (JLabel) e.getSource();
         int index = chitCardController.getLabelIndexMap().get(clickedLabel);
-        ChitCard flippedCard = chitCardController.getDeck().getChitCards().get(index);
+        flippedCard = chitCardController.getDeck().getChitCards().get(index);
 
         checkIfFlippingTheFlippedCard(flippedCard);
 
@@ -210,7 +229,6 @@ public class Game extends JPanel{
         flippedCard.setIsFlipped(true);
         clickedLabel.setIcon(flippedCard.getImage());
 
-        // Disable all chit cards by removing mouse listeners
         disableChitCardMouseListeners();
 
         new Thread(() -> {
@@ -222,9 +240,9 @@ public class Game extends JPanel{
                   .equals(flippedCard.getAnimal().getName())) {
                 flippedCard.setIsFlipped(true);
                 clickedLabel.setIcon(flippedCard.getImage());
-                if (flippedCard.getAnimal().getName().equals("pirate_dragon")) {
-                  currentPlayer.setMove(new MoveBackwardsAction());
-                  currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
+                if (flippedCard.getAnimal().isSpeical()) {
+                  Flip flip = flipMap.get(flippedCard.getAnimal().getName());
+                  flip.flip(game);
                   if (currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")) {
                     passNextToken(labels);
                   } else {
@@ -232,13 +250,13 @@ public class Game extends JPanel{
                   }
                 } else {
                   currentPlayer.setMove(new DoNothingAction());
-                  currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
+                  currentPlayer.executeMove(flippedCard.getValue(), game);
                   passNextToken(labels);
                 }
               } else {
                 System.out.println("Match found!");
                 currentPlayer.setMove(new MoveForwardsAction());
-                String str = currentPlayer.executeMove(flippedCard.getValue(), currentPlayer);
+                String str = currentPlayer.executeMove(flippedCard.getValue(), game);
                 if (str == null) {
                   flippedCard.setIsFlipped(true);
                   clickedLabel.setIcon(flippedCard.getImage());

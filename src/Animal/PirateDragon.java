@@ -27,5 +27,10 @@ public class PirateDragon implements Animal {
     return maxVal;
   }
 
+  @Override
+  public boolean isSpeical() {
+    return true;
+  }
+
 }
 

@@ -2,6 +2,7 @@ package Action;
 
 import static java.lang.Math.abs;
 
+import Game.Game;
 import GameBoardComponent.Path;
 import GameBoardComponent.Token;
 import java.util.ArrayList;
@@ -15,11 +16,14 @@ public class MoveBackwardsAction implements Move{
     /**
      * Executes the action which moves the token backwards by the specified chit card value.
      *
-     * @param chitCardValue The value of the chit card that determines how many positions the token moves backwards.
-     * @param token The token on which the action is performed.
+     * @param chitCardValue The value of the chit card that determines how many positions the token
+     *                      moves backwards.
+     * @param token         The token on which the action is performed.
+     * @param game
      * @return A string indicating the result of the action, which is "back".
      */
-    public String execute(int chitCardValue, Token token){
+    public String execute(int chitCardValue, Game game){
+        Token token = game.getCurrentPlayer();
         ArrayList<Path>  processPathList = new ArrayList<>();
         int positionAfterMovingBack = token.getTokenPosition()-chitCardValue;
         if(positionAfterMovingBack <= 0 && !token.getCurrentSquare().getClass().getSimpleName().equals("Cave")){

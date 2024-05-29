@@ -27,5 +27,9 @@ public class Salamander implements Animal {
     return maxVal;
   }
 
+  @Override
+  public boolean isSpeical() {
+    return false;
+  }
 }
 

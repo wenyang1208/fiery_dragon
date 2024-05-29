@@ -2,6 +2,7 @@ package GameBoardComponent;
 
 import Action.Move;
 import Animal.Animal;
+import Game.Game;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -164,11 +165,13 @@ public class Token extends GameComponent {
 
   /**
    * Moves the token on the board.
+   *
    * @param chitCardValue Number of spaces for token to move on the board.
-   * @param token The token to be moved.
-   * */
-  public String executeMove(int chitCardValue, Token token){
-    return move.execute(chitCardValue, this);
+   * @param token         The token to be moved.
+   * @param game
+   */
+  public String executeMove(int chitCardValue, Game game){
+    return move.execute(chitCardValue, game);
   }
 
 }

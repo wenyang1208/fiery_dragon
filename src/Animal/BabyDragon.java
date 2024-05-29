@@ -28,4 +28,8 @@ public class BabyDragon implements Animal {
     return maxVal;
   }
 
+  @Override
+  public boolean isSpeical() {
+    return false;
+  }
 }

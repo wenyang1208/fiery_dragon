@@ -19,5 +19,7 @@ public interface Animal {
    */
   int getMaxVal();
 
+  boolean isSpeical();
+
 
 }

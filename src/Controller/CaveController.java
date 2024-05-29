@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import GameBoardComponent.Cave;
@@ -23,8 +24,12 @@ public class CaveController {
   private ArrayList<Cave> caves;
   private ArrayList<String> players;
   private GamePanel gamePanel;
-  private HashMap<Cave, Integer> cavesHashMap;
+  private LinkedHashMap<Cave, Integer> cavesHashMap;
   private Set<String> addedCaves;
+
+  public LinkedHashMap<Cave, Integer> getCavesHashMap() {
+    return cavesHashMap;
+  }
 
   /**
    * Constructs a new CaveController with the specified GamePanel object, list of volcano cards, and
@@ -39,7 +44,7 @@ public class CaveController {
     this.gamePanel = gamePanel;
     this.players = players;
     this.caves = new ArrayList<>();
-    this.cavesHashMap = new HashMap<>();
+    this.cavesHashMap = new LinkedHashMap<>();
     this.addedCaves = new HashSet<>();
     initialiseCaveSetup(volcanoCards);
   }

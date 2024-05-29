@@ -1,7 +1,7 @@
 package Animal;
 
-public class NewDragonCard implements Animal{
-  private final static String name = "new_dragon_card";
+public class NewDragon implements Animal{
+  private final static String name = "new_dragon";
   private final static int maxVal = 1;
 
   @Override
@@ -12,5 +12,10 @@ public class NewDragonCard implements Animal{
   @Override
   public int getMaxVal() {
     return maxVal;
+  }
+
+  @Override
+  public boolean isSpeical() {
+    return true;
   }
 }

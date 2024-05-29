@@ -1,5 +1,6 @@
 package Action;
 
+import Game.Game;
 import GameBoardComponent.Token;
 
 /**
@@ -11,10 +12,11 @@ public class DoNothingAction implements Move{
      * Executes the action which, in this case, results in the token doing nothing.
      *
      * @param chitCardValue The value of the chit card that might influence the action.
-     * @param token The token on which the action is performed.
+     * @param token         The token on which the action is performed.
+     * @param game
      * @return A string indicating the result of the action, which is always "stay".
      */
-    public String execute(int chitCardValue, Token token){
+    public String execute(int chitCardValue, Game game){
         return "stay";
     }
 }

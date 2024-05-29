@@ -27,4 +27,9 @@ public class Bat implements Animal {
   public int getMaxVal(){
     return maxVal;
   }
+
+  @Override
+  public boolean isSpeical() {
+    return false;
+  }
 }

@@ -37,10 +37,10 @@ public class AnimalFactory {
     animalFactories.add(new BabyDragon());
     animalFactories.add(new PirateDragon());
     animalFactories.add(new PirateDragon());
-    animalFactories.add(new NewDragonCard());
-    animalFactories.add(new NewDragonCard());
-    animalFactories.add(new NewDragonCard());
-    animalFactories.add(new NewDragonCard());
+    animalFactories.add(new NewDragon());
+    animalFactories.add(new NewDragon());
+    animalFactories.add(new NewDragon());
+    animalFactories.add(new NewDragon());
     return animalFactories;
   }
 
