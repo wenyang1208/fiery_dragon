@@ -35,7 +35,7 @@ public class GamePanel extends JPanel {
      * */
     public void setupChitCardPanel() {
         chitCardPanel = new JPanel();
-        chitCardPanel.setLayout(new GridLayout(4, 4));
+        chitCardPanel.setLayout(new GridLayout(5, 4));
         chitCardPanel.setBackground(Color.BLACK);
         chitCardPanel.setBounds(WIDTH/3, HEIGHT/3, (GamePanel.WIDTH+ GamePanel.HEIGHT)/6, (GamePanel.WIDTH+ GamePanel.HEIGHT)/6);
         add(chitCardPanel);
