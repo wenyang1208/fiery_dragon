@@ -60,6 +60,7 @@ public class Game extends JPanel{
   private Map<String, Flip> flipMap;
   private Timer timer; // Java Swing timer, not Java util Timer
   private JLabel timeLeftLabel;
+  private int timeLeft;
 
   /**
    * Constructs a new Game object.
@@ -84,15 +85,44 @@ public class Game extends JPanel{
    * @param timeLimit the amount of time (milliseconds) allowed for the game to be played.
    * */
   private void screenTimeLimit(int timeLimit){
-    timer = new Timer(timeLimit, new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        System.out.println("You have reached the time limit!");
+    timeLeft = timeLimit;
+  timer = new Timer(1000, new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      updateTimeLabel();
+      timeLeft -= 1000;
+      if (timeLeft <= -2000){ // 2 second delay
+
+//        ((Timer) e.getSource()).stop();
+        timer.stop();
+        System.out.println(tokenController);
+//        for (String token: players){
+//          System.out.println(token.get);
+//        }
+        System.out.println("Time is up");
         timeLeftLabel.setText("Time is up!");
+        finish();
       }
-    });
-    timer.setRepeats(false);
+    }
+  });
+
+//    timer = new Timer(timeLimit, new ActionListener() {
+//      @Override
+//      public void actionPerformed(ActionEvent e) {
+//        System.out.println("Time is up");
+//        timeLeftLabel.setText("Time is up!");
+//      }
+//    });
+
+//    timer.setRepeats(false);
     timer.start();
+  }
+
+  private void updateTimeLabel(){
+    long hours = timeLeft / (1000 * 60 * 60);
+    long minutes = (timeLeft / (1000 * 60)) % 60;
+    long seconds = (timeLeft / 1000) % 60;
+    timeLeftLabel.setText(String.format("Time left: %02d:%02d:%02d", hours, minutes, seconds));
   }
 
   /**
@@ -163,7 +193,8 @@ public class Game extends JPanel{
     currentPlayerTurnLabel.setBorder(new LineBorder(Color.WHITE,currentPlayerTurnLabel.getWidth()/100));
     add(currentPlayerTurnLabel);
 
-    timeLeftLabel = new JLabel();
+    // Label to display amount of allowed screen time left
+    timeLeftLabel = new JLabel("Time left: 00:00:00");
     timeLeftLabel.setFont(new Font("Calibri", Font.BOLD, 20));
     timeLeftLabel.setBackground(Color.green);
     timeLeftLabel.setOpaque(true);
