@@ -74,9 +74,14 @@ public class Game extends JPanel{
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-
+    screenTimeLimit(10000);
   }
 
+  /**
+   * Sets the amount of screen time allowed in this game.
+   *
+   * @param timeLimit the amount of time (milliseconds) allowed for the game to be played.
+   * */
   private void screenTimeLimit(int timeLimit){
     timer = new Timer(timeLimit, new ActionListener() {
       @Override
