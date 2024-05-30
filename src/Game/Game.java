@@ -76,7 +76,7 @@ public class Game extends JPanel{
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-    screenTimeLimit(50000);
+    screenTimeLimit(10000);
   }
 
   /**
@@ -99,9 +99,13 @@ public class Game extends JPanel{
         int winnerIndex = 0;
         for (int i=0; i < tokenController.getTokens().size(); i++){
           currentPlayer = tokenController.getTokens().get(i);
-          System.out.println((i+1)+": "+currentPlayer.getTokenPosition());
-          System.out.println(currentPlayer.getPaths().size());
+
+          System.out.println((i+1)+": "+currentPlayer.getTokenPosition()+"\n"+currentPlayer.getAnimal().getName());
+          System.out.println("steps to finish for player "+(i+1) + ": " + (currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()));
+
+          System.out.println();
           if (closestPlayer > currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()){
+            System.out.println("True");
             closestPlayer = currentPlayer.getPaths().size() - currentPlayer.getTokenPosition();
             winnerIndex += 1;
           }
