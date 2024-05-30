@@ -28,15 +28,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import GameBoardComponent.ChitCard;
 import GameBoardComponent.Token;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  * The Game class represents the main game window and manages the initialization of game components.
@@ -63,6 +58,7 @@ public class Game extends JPanel{
   private MouseAdapter mouseAdapter;
   private ChitCard flippedCard;
   private Map<String, Flip> flipMap;
+  private Timer timer; // Java Swing timer, not Java util Timer
 
   /**
    * Constructs a new Game object.
@@ -78,6 +74,18 @@ public class Game extends JPanel{
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
+
+  }
+
+  private void screenTimeLimit(int timeLimit){
+    timer = new Timer(timeLimit, new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        System.out.println("You have reached the time limit!");
+      }
+    });
+    timer.setRepeats(false);
+    timer.start();
   }
 
   /**
