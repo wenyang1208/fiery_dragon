@@ -59,6 +59,7 @@ public class Game extends JPanel{
   private ChitCard flippedCard;
   private Map<String, Flip> flipMap;
   private Timer timer; // Java Swing timer, not Java util Timer
+  private JLabel timeLeftLabel;
 
   /**
    * Constructs a new Game object.
@@ -87,6 +88,7 @@ public class Game extends JPanel{
       @Override
       public void actionPerformed(ActionEvent e) {
         System.out.println("You have reached the time limit!");
+        timeLeftLabel.setText("Time is up!");
       }
     });
     timer.setRepeats(false);
@@ -160,6 +162,18 @@ public class Game extends JPanel{
     currentPlayerTurnLabel.setBounds(0, 0, Game.boardWidth*1/3, 30);
     currentPlayerTurnLabel.setBorder(new LineBorder(Color.WHITE,currentPlayerTurnLabel.getWidth()/100));
     add(currentPlayerTurnLabel);
+
+    timeLeftLabel = new JLabel();
+    timeLeftLabel.setFont(new Font("Calibri", Font.BOLD, 20));
+    timeLeftLabel.setBackground(Color.green);
+    timeLeftLabel.setOpaque(true);
+    timeLeftLabel.setForeground(Color.RED);
+    timeLeftLabel.setBounds(Game.boardWidth*3/4, 0, Game.boardWidth*1/4, 30);
+    timeLeftLabel.setBorder(new LineBorder(Color.WHITE,currentPlayerTurnLabel.getWidth()/100));
+    timeLeftLabel.setHorizontalAlignment(JLabel.CENTER);
+    add(timeLeftLabel);
+
+
 
     addButton();
     add(caveController.getGamePanel());
