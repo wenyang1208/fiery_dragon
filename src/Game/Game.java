@@ -76,7 +76,7 @@ public class Game extends JPanel{
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-    screenTimeLimit(10000);
+    screenTimeLimit(50000);
   }
 
   /**
@@ -95,12 +95,22 @@ public class Game extends JPanel{
 
 //        ((Timer) e.getSource()).stop();
         timer.stop();
-        System.out.println(tokenController);
-//        for (String token: players){
-//          System.out.println(token.get);
-//        }
+        double closestPlayer = Double.POSITIVE_INFINITY;
+        int winnerIndex = 0;
+        for (int i=0; i < tokenController.getTokens().size(); i++){
+          currentPlayer = tokenController.getTokens().get(i);
+          System.out.println((i+1)+": "+currentPlayer.getTokenPosition());
+          System.out.println(currentPlayer.getPaths().size());
+          if (closestPlayer > currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()){
+            closestPlayer = currentPlayer.getPaths().size() - currentPlayer.getTokenPosition();
+            winnerIndex += 1;
+          }
+        }
+
         System.out.println("Time is up");
         timeLeftLabel.setText("Time is up!");
+
+        currentPlayer = tokenController.getTokens().get(winnerIndex);
         finish();
       }
     }
