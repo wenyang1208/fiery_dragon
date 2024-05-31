@@ -76,7 +76,7 @@ public class Game extends JPanel{
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-    screenTimeLimit(10000);
+    screenTimeLimit(50000);
   }
 
   /**
@@ -99,11 +99,10 @@ public class Game extends JPanel{
         for (int i=0; i < tokenController.getTokens().size(); i++){
           currentPlayer = tokenController.getTokens().get(i);
 
-          System.out.println("\n"+(i+1)+": "+currentPlayer.getTokenPosition());
-          System.out.println(currentPlayer.getAnimal().getName());
-          System.out.println("steps to finish for player "+(i+1) + ": " + (currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()));
-
-          System.out.println("closest "+closestPlayer);
+//          System.out.println("\n"+(i+1)+": "+currentPlayer.getTokenPosition());
+//          System.out.println(currentPlayer.getAnimal().getName());
+//          System.out.println("steps to finish for player "+(i+1) + ": " + (currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()));
+//          System.out.println("closest "+closestPlayer);
           if (closestPlayer > currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()){
             System.out.println("True");
             closestPlayer = currentPlayer.getPaths().size() - currentPlayer.getTokenPosition();
@@ -112,8 +111,9 @@ public class Game extends JPanel{
         }
         timeLeftLabel.setText("Time is up!");
 
-        currentPlayer = tokenController.getTokens().get(winnerIndex-1);
-        System.out.println("winner is supposed to be: "+currentPlayer.getAnimal().getName());
+        currentPlayer = tokenController.getTokens().get(winnerIndex-1); // index 0...n-1 but winnerIndex up to n
+
+//        System.out.println("winner is supposed to be: "+currentPlayer.getAnimal().getName());
         finish();
       }
     }
