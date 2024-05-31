@@ -93,28 +93,27 @@ public class Game extends JPanel{
       timeLeft -= 1000;
       if (timeLeft <= -2000){ // 2 second delay
 
-//        ((Timer) e.getSource()).stop();
         timer.stop();
         double closestPlayer = Double.POSITIVE_INFINITY;
         int winnerIndex = 0;
         for (int i=0; i < tokenController.getTokens().size(); i++){
           currentPlayer = tokenController.getTokens().get(i);
 
-          System.out.println((i+1)+": "+currentPlayer.getTokenPosition()+"\n"+currentPlayer.getAnimal().getName());
+          System.out.println("\n"+(i+1)+": "+currentPlayer.getTokenPosition());
+          System.out.println(currentPlayer.getAnimal().getName());
           System.out.println("steps to finish for player "+(i+1) + ": " + (currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()));
 
-          System.out.println();
+          System.out.println("closest "+closestPlayer);
           if (closestPlayer > currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()){
             System.out.println("True");
             closestPlayer = currentPlayer.getPaths().size() - currentPlayer.getTokenPosition();
             winnerIndex += 1;
           }
         }
-
-        System.out.println("Time is up");
         timeLeftLabel.setText("Time is up!");
 
-        currentPlayer = tokenController.getTokens().get(winnerIndex);
+        currentPlayer = tokenController.getTokens().get(winnerIndex-1);
+        System.out.println("winner is supposed to be: "+currentPlayer.getAnimal().getName());
         finish();
       }
     }
