@@ -20,6 +20,7 @@ public class Token extends GameComponent {
   private Image tokenImage;
   private int numberOfBelowMinSquare = 0;
   private ArrayList<Path> additionalPath;
+  private boolean isFlipNewDragon = false;
 
   /**
    * Constructs a new Token object with the specified animal, token size, and token number.
@@ -34,6 +35,14 @@ public class Token extends GameComponent {
     setTokenNumber(tokenNumber);
     this.paths = new ArrayList<>();
     this.additionalPath = new ArrayList<>();
+  }
+
+  public boolean isFlipNewDragon() {
+    return isFlipNewDragon;
+  }
+
+  public void setFlipNewDragon(boolean flipNewDragon) {
+    isFlipNewDragon = flipNewDragon;
   }
 
   /**

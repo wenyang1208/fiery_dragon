@@ -2,6 +2,7 @@ package GameBoardComponent;
 
 import Animal.Animal;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -105,6 +106,11 @@ public class Cave extends JPanel implements Path {
     return false;
   }
 
+  @Override
+  public Component[] getCustomComponents() {
+    return getComponents();
+  }
+
   /**
    * Adds a token to the cave.
    *
@@ -114,6 +120,7 @@ public class Cave extends JPanel implements Path {
     token.setCurrentSqaure(this);
     this.add(new JLabel("", token.getImage(), JLabel.CENTER));
     revalidate();
+    repaint();
   }
 
   /**

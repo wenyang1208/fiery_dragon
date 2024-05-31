@@ -8,6 +8,7 @@ import Button.ExitButton;
 import Button.GameRuleButton;
 import Button.RestartButton;
 import Controller.TokenController;
+import GameBoardComponent.Path;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -61,6 +62,25 @@ public class Game extends JPanel{
   private Timer timer; // Java Swing timer, not Java util Timer
   private JLabel timeLeftLabel;
   private int timeLeft;
+
+  public ArrayList<Path> getCompletedPaths() {
+    return completedPaths;
+  }
+
+  public void setCompletedPaths(ArrayList<Path> completedPaths) {
+    this.completedPaths = completedPaths;
+  }
+
+  private ArrayList<Path> completedPaths;
+  private boolean isCreatedPaths;
+
+  public boolean isCreatedPaths() {
+    return isCreatedPaths;
+  }
+
+  public void setCreatedPaths(boolean createdPaths) {
+    isCreatedPaths = createdPaths;
+  }
 
   /**
    * Constructs a new Game object.

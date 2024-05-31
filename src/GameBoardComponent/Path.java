@@ -1,6 +1,7 @@
 package GameBoardComponent;
 
 import Animal.Animal;
+import java.awt.Component;
 import javax.swing.JPanel;
 
 /**
@@ -39,5 +40,7 @@ public interface Path{
    * Checks if volcano card is occupied by another token.
    * */
   boolean isOccupied();
+
+  Component[] getCustomComponents();
 
 }

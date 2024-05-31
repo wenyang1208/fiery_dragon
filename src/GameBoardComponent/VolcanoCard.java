@@ -2,6 +2,7 @@ package GameBoardComponent;
 
 import Animal.Animal;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -127,6 +128,11 @@ public class VolcanoCard extends JPanel implements Path {
     else{
       return false;
     }
+  }
+
+  @Override
+  public Component[] getCustomComponents() {
+    return getComponents();
   }
 
   /**
