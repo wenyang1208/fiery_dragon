@@ -14,59 +14,42 @@ public class MoveNearestCaveAction implements Move{
   private ArrayList<Path> paths;
   private int index;
   private boolean caveIndexIsFound = false;
+  private int[] caveIndices;
   @Override
   public String execute(int chitCardValue, Game game) {
     Token currentPlayer = game.getCurrentPlayer();
     currentPlayer.setFlipNewDragon(true);
-    if(!game.isCreatedPaths() && !currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
-      game.setCompletedPaths(setPathIncludingCave(game));
-    }
-    if(!currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")) {
-      currentPlayer.getPaths().get(currentPlayer.getTokenPosition()).removeToken();
-      // Find the index of the nearest cave in the completedPaths from range 0-27 paths (including volcano card and cave)
-      for(int i=0; i<currentPlayer.getPaths().size(); i++){
-        System.out.println("pathsd " + currentPlayer.getPaths().get(i).getPosition());
-        System.out.println("pathasd " + currentPlayer.getPaths().get(i).getAnimal().getName());
+    if(!currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
+      if(!game.isCreatedPaths()){
+        game.setCompletedPaths(setPathIncludingCave(game));
       }
-      for(int i=currentPlayer.getCurrentSquare().getPosition(); i>=0; i--){
-        if(game.getCompletedPaths().get(i).getClass().getSimpleName().equals("Cave")) {
-          index = i;
-          caveIndexIsFound = true;
-          break;
-        }
+      currentPlayer.getCurrentSquare().removeToken();
+      // Remove the previous path of the token!
+      for(int i=0; i<currentPlayer.getTokenPosition(); i++){
+        currentPlayer.getPaths().remove(0);
       }
-      if(!caveIndexIsFound){
-        for(int i=game.getCompletedPaths().size(); i>=currentPlayer.getCurrentSquare().getPosition(); i--){
-          if(game.getCompletedPaths().get(i).getClass().getSimpleName().equals("Cave")) {
-            index = i;
-            caveIndexIsFound = true;
-            break;
-          }
-        }
+      // Find the nearest unoccupied cave, correct path
+      int currentPositionIndex = currentPlayer.getCurrentSquare().getPosition();
+      while(!game.getCompletedPaths().get(currentPositionIndex).getClass().getSimpleName().equals("Cave") || game.getCompletedPaths().get(currentPositionIndex).isOccupied()){
+        currentPositionIndex = (currentPositionIndex - 1 + game.getCompletedPaths().size()) % game.getCompletedPaths().size();
       }
-      // collect new paths
-      ArrayList<Path> in = new ArrayList<>();
-      for(int i=index; i<=currentPlayer.getCurrentSquare().getPosition(); i++){
-        in.add(0,game.getCompletedPaths().get(i));
+      // Modify the paths of the current player
+      ArrayList<Path> auxPath = new ArrayList<>();
+      while(game.getCompletedPaths().get(currentPositionIndex).getPosition() != currentPlayer.getCurrentSquare().getPosition()){
+        System.out.println(currentPositionIndex);
+        auxPath.add(game.getCompletedPaths().get(currentPositionIndex));
+        currentPositionIndex= (currentPositionIndex + 1) % game.getCompletedPaths().size();
       }
-      int insertIndex = 0;
-      // find place to insert
-      for(int i=0; i<currentPlayer.getPaths().size(); i++){
-        if(currentPlayer.getPaths().get(i).getPosition() == currentPlayer.getCurrentSquare().getPosition()){
-          insertIndex = i;
-          break;
-        }
+      for(int i = 0; i<currentPlayer.getPaths().size(); i++){
+        auxPath.add(currentPlayer.getPaths().get(i));
       }
-      for(int i=0; i<in.size(); i++){
-        currentPlayer.getPaths().add(insertIndex+1,in.get(i));
+      currentPlayer.getPaths().clear();
+      for(int i = 0; i<auxPath.size(); i++){
+        currentPlayer.getPaths().add(auxPath.get(i));
       }
-      for(int i=0; i<currentPlayer.getPaths().size(); i++){
-        System.out.println("sdc " + currentPlayer.getPaths().get(i).getPosition());
-        System.out.println("path " + currentPlayer.getPaths().get(i).getAnimal().getName());
-      }
-      Path path = currentPlayer.getPaths().get(currentPlayer.getTokenPosition()+1);
+      Path path = currentPlayer.getPaths().get(0);
       currentPlayer.setCurrentSqaure(path);
-      currentPlayer.setTokenPosition(currentPlayer.getTokenPosition()+1);
+      currentPlayer.setTokenPosition(0);
       path.addToken(currentPlayer);
     }
     return "hu";
@@ -74,9 +57,8 @@ public class MoveNearestCaveAction implements Move{
 
   public ArrayList<Path> setPathIncludingCave(Game game){
       paths = new ArrayList<>();
-      int[] caveIndices = new int[4];
+      caveIndices = new int[4];
       int counter = 0;
-      int counter2 = 0;
       // Add volcano cards first
       for(int i=0; i < game.getVolcanoCardController().getVolcanoCards().size(); i++){
         paths.add(game.getVolcanoCardController().getVolcanoCards().get(i));
@@ -84,14 +66,18 @@ public class MoveNearestCaveAction implements Move{
       // Find the position of the volcano card with cave
       for(int i=0; i < game.getVolcanoCardController().getVolcanoCardsNearToCave().size(); i++){
         caveIndices[i] = game.getVolcanoCardController().getVolcanoCardsNearToCave().get(i).getPosition();
-        if(game.getCurrentPlayer().getPaths().get(0).getPosition() == i){
-          game.getCurrentPlayer().getPaths().get(0).setPosition(caveIndices[i]+counter2);
-          counter2 += 1;
-        }
       }
       // Insert cave into the path lists at the correct index
+      ArrayList<String> usedCaves = new ArrayList<>();
+      for(int i=0; i<game.getCaveController().getCaves().size(); i++){
+        paths.add(game.getCaveController().getCaves().get(i).getPosition(),game.getCaveController().getCaves().get(i));
+        usedCaves.add(game.getCaveController().getCaves().get(i).getAnimal().getName());
+      }
+
       for (Entry<Cave, Integer> entry : game.getCaveController().getCavesHashMap().entrySet()) {
-        paths.add(caveIndices[entry.getValue()]+counter,entry.getKey());
+        if(!usedCaves.contains(entry.getKey().getAnimal().getName())){
+          paths.add(caveIndices[entry.getValue()]+counter,entry.getKey());
+        }
         counter += 1;
       }
       // Make the path positions become correct

@@ -73,13 +73,13 @@ public class CaveController {
   public void initialiseCaveSetup(ArrayList<VolcanoCard> volcanoCards) {
     int caveSize = VolcanoCardController.cardSize;
     for (int i = 0; i < AnimalFactory.createCaveAnimal().size(); i++) {
-      Cave cave = new Cave(AnimalFactory.createCaveAnimal().get(i), i, caveSize);
+      Cave cave = new Cave(AnimalFactory.createCaveAnimal().get(i), (volcanoCards.get(i).getPosition()+i), caveSize);
       this.cavesHashMap.put(cave, i);
     }
     List<Integer> positionSeq = generateSequence(VolcanoCardController.numberOfCards * VolcanoCardController.numberOfSquaresInACard);
     for (String player : players) {
       for (int i = 0; i < AnimalFactory.createCaveAnimal().size(); i++) {
-        Cave cave = new Cave(AnimalFactory.createCaveAnimal().get(i), i, caveSize);
+        Cave cave = new Cave(AnimalFactory.createCaveAnimal().get(i), (volcanoCards.get(i).getPosition()+i), caveSize);
         if (player.equals(AnimalFactory.createCaveAnimal().get(i).getClass().getSimpleName())) {
           this.caves.add(cave);
           setCavesPositions(cave, volcanoCards,i,caveSize,positionSeq);

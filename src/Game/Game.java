@@ -96,7 +96,7 @@ public class Game extends JPanel{
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-    screenTimeLimit(50000);
+//    screenTimeLimit(50000);
   }
 
   /**

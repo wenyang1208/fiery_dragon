@@ -102,8 +102,13 @@ public class Cave extends JPanel implements Path {
   /**
    * Checks if the cave is occupied by a token.
    * */
-  public boolean isOccupied(){
-    return false;
+  public boolean isOccupied() {
+    if(this.getComponents().length != 0){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   @Override
@@ -118,7 +123,8 @@ public class Cave extends JPanel implements Path {
    */
   public void addToken(Token token){
     token.setCurrentSqaure(this);
-    this.add(new JLabel("", token.getImage(), JLabel.CENTER));
+    JLabel tokenLabel = new JLabel("", token.getImage(), JLabel.CENTER);
+    this.add(tokenLabel);
     revalidate();
     repaint();
   }
