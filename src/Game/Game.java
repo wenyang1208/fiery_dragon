@@ -62,7 +62,9 @@ public class Game extends JPanel{
   private Timer timer; // Java Swing timer, not Java util Timer
   private JLabel timeLeftLabel;
   private int timeLeft;
-
+  public HashMap<JLabel, ChitCard> getLabels() {
+    return labels;
+  }
   public ArrayList<Path> getCompletedPaths() {
     return completedPaths;
   }
@@ -332,12 +334,12 @@ public class Game extends JPanel{
                 flippedCard.setIsFlipped(true);
                 clickedLabel.setIcon(flippedCard.getImage());
                 if (flippedCard.getAnimal().isSpeical()) {
-                  Flip flip = flipMap.get(flippedCard.getAnimal().getName());
-                  flip.flip(game);
-                  if (currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")) {
-                    passNextToken(labels);
-                  } else {
+                  if (!currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
+                    Flip flip = flipMap.get(flippedCard.getAnimal().getName());
+                    flip.flip(game);
                     askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
+                  }else{
+                    passNextToken(labels);
                   }
                 } else {
                   currentPlayer.setMove(new DoNothingAction());
