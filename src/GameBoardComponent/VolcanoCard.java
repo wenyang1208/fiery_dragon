@@ -130,10 +130,6 @@ public class VolcanoCard extends JPanel implements Path {
     }
   }
 
-  @Override
-  public Component[] getCustomComponents() {
-    return getComponents();
-  }
 
   /**
    * Sets the width of the volcano card

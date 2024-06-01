@@ -41,6 +41,4 @@ public interface Path{
    * */
   boolean isOccupied();
 
-  Component[] getCustomComponents();
-
 }

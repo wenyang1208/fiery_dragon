@@ -111,11 +111,6 @@ public class Cave extends JPanel implements Path {
     }
   }
 
-  @Override
-  public Component[] getCustomComponents() {
-    return getComponents();
-  }
-
   /**
    * Adds a token to the cave.
    *
