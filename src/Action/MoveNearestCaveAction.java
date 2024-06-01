@@ -36,7 +36,6 @@ public class MoveNearestCaveAction implements Move{
       // Modify the paths of the current player
       ArrayList<Path> auxPath = new ArrayList<>();
       while(game.getCompletedPaths().get(currentPositionIndex).getPosition() != currentPlayer.getCurrentSquare().getPosition()){
-        System.out.println(currentPositionIndex);
         auxPath.add(game.getCompletedPaths().get(currentPositionIndex));
         currentPositionIndex= (currentPositionIndex + 1) % game.getCompletedPaths().size();
       }
@@ -52,7 +51,7 @@ public class MoveNearestCaveAction implements Move{
       currentPlayer.setTokenPosition(0);
       path.addToken(currentPlayer);
     }
-    return "hu";
+    return "none";
   }
 
   public ArrayList<Path> setPathIncludingCave(Game game){

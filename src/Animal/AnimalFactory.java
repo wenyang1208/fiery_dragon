@@ -68,7 +68,7 @@ public class AnimalFactory {
 
     // Convert the array to a list and shuffle it
     List<String[]> arrangementsList = Arrays.asList(arrangements);
-//    Collections.shuffle(arrangementsList);
+    Collections.shuffle(arrangementsList);
 
     // Populate the animalFactories list based on the shuffled arrangements
     for (String[] arrangement : arrangementsList) {
