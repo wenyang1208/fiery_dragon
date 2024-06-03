@@ -65,6 +65,7 @@ public class Game extends JPanel{
   private Timer timer; // Java Swing timer, not Java util Timer
   private JLabel timeLeftLabel;
   private int timeLeft;
+  private int timeLimit;
   public HashMap<JLabel, ChitCard> getLabels() {
     return labels;
   }
@@ -92,9 +93,10 @@ public class Game extends JPanel{
    *
    * @throws IOException If an I/O error occurs.
    */
-  public Game(JFrame frame, ArrayList<String> players){
+  public Game(JFrame frame, ArrayList<String> players, int timeLimit){
     this.frame = frame;
     this.players = players;
+    this.timeLimit = timeLimit;
     this.flipMap = new HashMap<String, Flip>();
     initialisingBackground(players);
     run();
@@ -102,7 +104,10 @@ public class Game extends JPanel{
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
 //    screenTimeLimit(3600000);
-    screenTimeLimit(10000);
+//    screenTimeLimit(10000);
+
+//    TimeLimit timeLimit = new TimeLimit(frame);
+    System.out.println("time limit hehe: "+timeLimit);
   }
 
   /**
@@ -169,6 +174,10 @@ public class Game extends JPanel{
    * */
   public ArrayList<String> getPlayers(){
     return this.players;
+  }
+
+  public int getTimeLimit(){
+    return this.timeLimit;
   }
 
   public Token getCurrentPlayer(){return this.currentPlayer;}
@@ -455,7 +464,7 @@ public class Game extends JPanel{
       }
       Collections.sort(players, Comparator.comparingInt(orderedAnimals::indexOf));
       frame.getContentPane().removeAll();
-      frame.getContentPane().add(new Game(frame,players));
+      frame.getContentPane().add(new Game(frame, players, timeLimit));
       frame.revalidate();
       frame.repaint();
     }else{

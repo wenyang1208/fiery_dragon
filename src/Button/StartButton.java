@@ -1,7 +1,6 @@
 package Button;
 
 import Game.PlayerInformation;
-import Game.TimeLimit;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +39,7 @@ public class StartButton extends JButton implements ActionListener {
 //    frame.getContentPane().add(new PlayerInformation(frame));
 //    frame.revalidate();
 //    frame.repaint();
+//        new TimeLimit(frame);
         new PlayerInformation(frame);
 //    new Game();
     }
