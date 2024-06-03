@@ -155,7 +155,7 @@ public class PlayerInformation extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please enter a valid time.");
             }
         }
-        return timeSet;
+        return timeSet * 60 * 1000; // convert from minutes to milliseconds
     }
 
     /**

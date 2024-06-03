@@ -104,20 +104,19 @@ public class Game extends JPanel{
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
 //    screenTimeLimit(3600000);
-//    screenTimeLimit(10000);
-
-//    TimeLimit timeLimit = new TimeLimit(frame);
-    System.out.println("time limit hehe: "+timeLimit);
+    screenTimeLimit(timeLimit);
   }
 
   /**
    * Sets the amount of screen time allowed in this game.
+   * If the game were to exceed the time limit, the token closest to finishing the path will be the winner.
+   * If two or more tokens are equally near their own caves, the youngest player wins.
    *
    * @param timeLimit the amount of time (milliseconds) allowed for the game to be played.
    * */
   private void screenTimeLimit(int timeLimit){
     timeLeft = timeLimit;
-  timer = new Timer(1000, new ActionListener() {
+    timer = new Timer(1000, new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
       updateTimeLabel();
@@ -147,16 +146,6 @@ public class Game extends JPanel{
       }
     }
   });
-
-//    timer = new Timer(timeLimit, new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        System.out.println("Time is up");
-//        timeLeftLabel.setText("Time is up!");
-//      }
-//    });
-
-//    timer.setRepeats(false);
     timer.start();
   }
 
