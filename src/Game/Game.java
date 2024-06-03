@@ -438,6 +438,8 @@ public class Game extends JPanel{
    * Returns to Home page if option was not selected.
    * */
   public void finish(){
+    JOptionPane.getRootFrame().dispose(); // removes all other frames
+
     String result = processTokenAnimalName(currentPlayer.getAnimal().getName());
     String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
     int choice = JOptionPane.showConfirmDialog(null, winningMessage,
