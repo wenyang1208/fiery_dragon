@@ -6,7 +6,9 @@ import Action.FlipPirateDragon;
 import Action.MoveForwardsAction;
 import Button.ExitButton;
 import Button.GameRuleButton;
+import Button.LoadButton;
 import Button.RestartButton;
+import Button.SaveButton;
 import Controller.TokenController;
 import GameBoardComponent.Path;
 import java.awt.Color;
@@ -52,6 +54,8 @@ public class Game extends JPanel{
   private boolean isFlippingTheFlippedCard = true;
   private JButton gameRuleButton;
   private JButton restartButton;
+  private JButton saveButton;
+  private JButton loadButton;
   private JButton exitButton;
   private JLabel currentPlayerTurnLabel;
   private JFrame frame;
@@ -98,7 +102,7 @@ public class Game extends JPanel{
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-    screenTimeLimit(50000);
+    screenTimeLimit(3600000);
   }
 
   /**
@@ -255,19 +259,29 @@ public class Game extends JPanel{
     int button_height = (Game.boardWidth - GamePanel.WIDTH)/4;
     int button_width = (Game.boardWidth - GamePanel.WIDTH)/2;
 
+    saveButton = new SaveButton(frame, this);
+    saveButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
+    saveButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3-(button_height+button_height/2), button_width, button_height);
+    saveButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
+
+    loadButton = new LoadButton(frame, this);
+    loadButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
+    loadButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3, button_width, button_height);
+    loadButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
+
     gameRuleButton = new GameRuleButton();
     gameRuleButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
-    gameRuleButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3, button_width, button_height);
+    gameRuleButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3+(button_height+button_height/2), button_width, button_height);
     gameRuleButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
 
     restartButton = new RestartButton(frame,this);
     restartButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
-    restartButton.setBounds(gameRuleButton.getX(),Game.boardHeight/3+(button_height+button_height/2),button_width,button_height);
+    restartButton.setBounds(gameRuleButton.getX(),Game.boardHeight/3+(button_height+button_height/2)*2,button_width,button_height);
     restartButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
 
     exitButton = new ExitButton();
     exitButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
-    exitButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3+(button_height+button_height/2)*2, button_width, button_height);
+    exitButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3+(button_height+button_height/2)*3, button_width, button_height);
     exitButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
     exitButton.addActionListener(new ActionListener() {
       @Override
@@ -279,6 +293,8 @@ public class Game extends JPanel{
       }
     });
 
+    add(saveButton);
+    add(loadButton);
     add(gameRuleButton);
     add(restartButton);
     add(exitButton);
