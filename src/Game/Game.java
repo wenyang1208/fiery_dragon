@@ -102,7 +102,8 @@ public class Game extends JPanel{
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-    screenTimeLimit(3600000);
+//    screenTimeLimit(3600000);
+    screenTimeLimit(10000);
   }
 
   /**
@@ -141,6 +142,7 @@ public class Game extends JPanel{
 
 //        System.out.println("winner is supposed to be: "+currentPlayer.getAnimal().getName());
         finish();
+//        endGame.finish(frame, currentPlayer, players);
       }
     }
   });
@@ -372,6 +374,8 @@ public class Game extends JPanel{
                   passNextToken(labels);
                 } else if (str.equals("win")) {
                   finish();
+//                  endGame.finish(frame, currentPlayer, players);
+
                   disableChitCardMouseListeners();
                   labels.clear();
                 } else {
@@ -445,11 +449,11 @@ public class Game extends JPanel{
     String result = processTokenAnimalName(currentPlayer.getAnimal().getName());
     String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
     int choice = JOptionPane.showConfirmDialog(null, winningMessage,
-        "Question", JOptionPane.YES_NO_OPTION);
+            "Question", JOptionPane.YES_NO_OPTION);
     if(choice == JOptionPane.YES_OPTION){
       System.out.println(players);
       ArrayList<String> clockwiseAnimals = new ArrayList<>(
-          List.of("Spider", "Bat", "Salamander", "BabyDragon"));
+              List.of("Spider", "Bat", "Salamander", "BabyDragon"));
       int startingIndex = clockwiseAnimals.indexOf(result.replaceAll("\\s",""));
       ArrayList<String> orderedAnimals = new ArrayList<>();
       for (int i = startingIndex; i < startingIndex + 4; i++) {
