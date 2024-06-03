@@ -45,7 +45,6 @@ public class Game extends JPanel{
   private ChitCardController chitCardController;
   private TokenController tokenController;
   private VolcanoCardController volcanoCardController;
-
   private CaveController caveController;
   JLabel background;
   private Token currentPlayer;
@@ -131,7 +130,6 @@ public class Game extends JPanel{
 //          System.out.println("steps to finish for player "+(i+1) + ": " + (currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()));
 //          System.out.println("closest "+closestPlayer);
           if (closestPlayer > currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()){
-            System.out.println("True");
             closestPlayer = currentPlayer.getPaths().size() - currentPlayer.getTokenPosition();
             winnerIndex += 1;
           }
@@ -140,9 +138,7 @@ public class Game extends JPanel{
 
         currentPlayer = tokenController.getTokens().get(winnerIndex-1); // index 0...n-1 but winnerIndex up to n
 
-//        System.out.println("winner is supposed to be: "+currentPlayer.getAnimal().getName());
         finish();
-//        endGame.finish(frame, currentPlayer, players);
       }
     }
   });
@@ -374,8 +370,6 @@ public class Game extends JPanel{
                   passNextToken(labels);
                 } else if (str.equals("win")) {
                   finish();
-//                  endGame.finish(frame, currentPlayer, players);
-
                   disableChitCardMouseListeners();
                   labels.clear();
                 } else {
