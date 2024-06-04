@@ -131,10 +131,16 @@ public class PlayerInformation extends JDialog implements ActionListener {
         }
     }
 
+    /**
+     * Prompts player for their preferred time limit for each round.
+     * Time inputed must be valid to continue (between 1 to 60 minutes).
+     * Prompts user for input again if previous input does not meet the valid age range
+     * */
     private int promptForTime(){
         int timeSet;
         while (true){
-            String input = JOptionPane.showInputDialog(this, "Please set your preferred time limit for this round (minutes):");
+            String input = JOptionPane.showInputDialog(this, "Please set your preferred time limit " +
+                                                                                    "\nfor this round (minutes):");
 
             if (input.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a time (minutes).");
@@ -142,12 +148,12 @@ public class PlayerInformation extends JDialog implements ActionListener {
             }
             try {
                 timeSet = Integer.parseInt(input);
-                if (timeSet > 61) {
-                    JOptionPane.showMessageDialog(this, "Time set is too long!");
+                if (timeSet > 60) {
+                    JOptionPane.showMessageDialog(this, "Time set is too long! Maximum is 60 minutes");
                     continue;
                 }
                 if (timeSet < 1) {
-                    JOptionPane.showMessageDialog(this, "Time set is too short!");
+                    JOptionPane.showMessageDialog(this, "Time set is too short! Minimum is 1 minute");
                     continue;
                 }
                 break; // If input is valid, break the loop
