@@ -46,7 +46,8 @@ public class Home extends JPanel {
      * Initialises the background of the home page along with the other key components of the home page.
      * */
     public void initialisingBackground(){
-        Image img = new ImageIcon(getClass().getClassLoader().getResource("Project_cartoon/Background.jpg")).getImage();
+        Image img = new ImageIcon(getClass().getClassLoader().getResource(
+            "Project_cartoon/Background.jpg")).getImage();
         Image temp=img.getScaledInstance(frame.getWidth(),frame.getHeight(), Image.SCALE_SMOOTH);
         background = new JLabel(new ImageIcon(temp));
         background.setLayout(null);
@@ -62,7 +63,8 @@ public class Home extends JPanel {
      * Adds the main dragon mascot to the home page
      * */
     public void addDragonIcon(){
-        Image dragon_img = new ImageIcon(getClass().getClassLoader().getResource("Project_cartoon/dragon.png")).getImage();
+        Image dragon_img = new ImageIcon(getClass().getClassLoader().getResource(
+            "Project_cartoon/dragon.png")).getImage();
         Image dragon_temp=dragon_img.getScaledInstance((int) (frame.getWidth()/2.5),(int) (frame.getHeight()*0.7), Image.SCALE_SMOOTH);
         dragon_icon = new JLabel(new ImageIcon(dragon_temp));
         dragon_icon.setBounds(10,frame.getHeight()/5, (int) (frame.getWidth()/2.5),(int) (frame.getHeight()*0.7));
@@ -73,7 +75,8 @@ public class Home extends JPanel {
      * Displays the title of the game 'Fiery Dragon' in a graphical style to the home page
      * */
     public void addTitle(){
-        Image title_img = new ImageIcon(getClass().getClassLoader().getResource("Project_cartoon/Fiery Dragon.png")).getImage();
+        Image title_img = new ImageIcon(getClass().getClassLoader().getResource(
+            "Project_cartoon/Fiery Dragon.png")).getImage();
         Image title_temp=title_img.getScaledInstance(frame.getWidth()*3/4,frame.getHeight()*2/10, Image.SCALE_SMOOTH);
         title = new JLabel((new ImageIcon(title_temp)));
         title.setBounds(frame.getWidth()/7,frame.getHeight()/10,frame.getWidth()*3/4,  frame.getHeight()*2/10);

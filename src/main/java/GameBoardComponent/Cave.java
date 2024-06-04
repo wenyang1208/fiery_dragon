@@ -2,7 +2,6 @@ package GameBoardComponent;
 
 import Animal.Animal;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -95,7 +94,8 @@ public class Cave extends JPanel implements Path {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    caveImage = new ImageIcon(getClass().getClassLoader().getResource("CaveImage/" + getAnimal().getName() + "_cave.png")).getImage();
+    caveImage = new ImageIcon(getClass().getClassLoader().getResource(
+        "CaveImage/" + getAnimal().getName() + "_cave.png")).getImage();
     g.drawImage(caveImage, 0, 0,getCaveSize(),getCaveSize(), null);
   }
 

@@ -89,7 +89,8 @@ public class ChitCard extends GameComponent {
           "ChitCardImage/" + getAnimal().getName() + "_" + getValue() + ".png")).getImage();
       setIsFlipped(false);
     }else{
-      chitCardImage = new ImageIcon(getClass().getClassLoader().getResource("ChitCardImage/Back.png")).getImage();
+      chitCardImage = new ImageIcon(getClass().getClassLoader().getResource(
+          "ChitCardImage/Back.png")).getImage();
       setIsFlipped(true);
     }
     Image resizedImage = chitCardImage.getScaledInstance(getChitCardSize(),getChitCardSize(), java.awt.Image.SCALE_SMOOTH);

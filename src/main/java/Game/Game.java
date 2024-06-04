@@ -36,7 +36,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import GameBoardComponent.ChitCard;
 import GameBoardComponent.Token;
-import netscape.javascript.JSObject;
 
 /**
  * The Game class represents the main game window and manages the initialization of game components.
@@ -186,7 +185,8 @@ public class Game extends JPanel implements Serializable {
    * @throws IOException If an I/O error occurs.
    */
   public void initialisingBackground(ArrayList<String> players){
-    Image img = new ImageIcon(getClass().getClassLoader().getResource("Project_cartoon/Background.jpg")).getImage();
+    Image img = new ImageIcon(getClass().getClassLoader().getResource(
+        "Project_cartoon/Background.jpg")).getImage();
     Image temp=img.getScaledInstance(boardWidth,boardHeight, Image.SCALE_SMOOTH);
     background = new JLabel(new ImageIcon(temp));
     background.setLayout(null);

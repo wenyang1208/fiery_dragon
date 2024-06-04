@@ -150,7 +150,8 @@ public class Token extends GameComponent {
    * @return The image icon of the token.
    */
   public ImageIcon getImage(){
-    tokenImage = new ImageIcon(getClass().getClassLoader().getResource("TokenImage/" + getAnimal().getName() + "_token.png")).getImage();
+    tokenImage = new ImageIcon(getClass().getClassLoader().getResource(
+        "TokenImage/" + getAnimal().getName() + "_token.png")).getImage();
     Image resizedImage = tokenImage.getScaledInstance(getTokenSize(),getTokenSize(), java.awt.Image.SCALE_SMOOTH);
     ImageIcon tokenImageIcon = new ImageIcon(resizedImage);
     return tokenImageIcon;

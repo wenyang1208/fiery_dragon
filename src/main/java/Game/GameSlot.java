@@ -21,7 +21,7 @@ public class GameSlot extends JButton implements ActionListener {
     GameState gameState = new GameState();
     gameState.setPlayers(game.getPlayers());
     try{
-      SaveLoad.save(gameState,"Game");
+      SaveLoad.save(gameState,"Game"+id);
     } catch (Exception ex) {
       throw new RuntimeException(ex);
     }
