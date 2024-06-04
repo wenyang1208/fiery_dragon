@@ -118,15 +118,44 @@ public class PlayerInformation extends JDialog implements ActionListener {
 
             Collections.sort(playerSequence, Comparator.comparingInt(orderedAnimals::indexOf));
 
+            int time = promptForTime();
+
             setVisible(false);
             dispose();
             frame.getContentPane().removeAll();
-            frame.getContentPane().add(new Game(frame,playerSequence));
+            frame.getContentPane().add(new Game(frame,playerSequence, time));
             frame.revalidate();
             frame.repaint();
         } else {
             JOptionPane.showMessageDialog(this, "Please choose between 2 to 4 players.");
         }
+    }
+
+    private int promptForTime(){
+        int timeSet;
+        while (true){
+            String input = JOptionPane.showInputDialog(this, "Please set your preferred time limit for this round (minutes):");
+
+            if (input.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a time (minutes).");
+                continue;
+            }
+            try {
+                timeSet = Integer.parseInt(input);
+                if (timeSet > 61) {
+                    JOptionPane.showMessageDialog(this, "Time set is too long!");
+                    continue;
+                }
+                if (timeSet < 1) {
+                    JOptionPane.showMessageDialog(this, "Time set is too short!");
+                    continue;
+                }
+                break; // If input is valid, break the loop
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid time.");
+            }
+        }
+        return timeSet * 60 * 1000; // convert from minutes to milliseconds
     }
 
     /**

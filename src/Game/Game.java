@@ -47,7 +47,6 @@ public class Game extends JPanel implements Serializable {
   private ChitCardController chitCardController;
   private TokenController tokenController;
   private VolcanoCardController volcanoCardController;
-
   private CaveController caveController;
   JLabel background;
   private Token currentPlayer;
@@ -68,6 +67,7 @@ public class Game extends JPanel implements Serializable {
   private Timer timer; // Java Swing timer, not Java util Timer
   private JLabel timeLeftLabel;
   private int timeLeft;
+  private int timeLimit;
   public HashMap<JLabel, ChitCard> getLabels() {
     return labels;
   }
@@ -95,26 +95,30 @@ public class Game extends JPanel implements Serializable {
    *
    * @throws IOException If an I/O error occurs.
    */
-  public Game(JFrame frame, ArrayList<String> players){
+  public Game(JFrame frame, ArrayList<String> players, int timeLimit){
     this.frame = frame;
     this.players = players;
+    this.timeLimit = timeLimit;
     this.flipMap = new HashMap<String, Flip>();
     initialisingBackground(players);
     run();
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-    screenTimeLimit(3600000);
+//    screenTimeLimit(3600000);
+    screenTimeLimit(timeLimit);
   }
 
   /**
    * Sets the amount of screen time allowed in this game.
+   * If the game were to exceed the time limit, the token closest to finishing the path will be the winner.
+   * If two or more tokens are equally near their own caves, the youngest player wins.
    *
    * @param timeLimit the amount of time (milliseconds) allowed for the game to be played.
    * */
   private void screenTimeLimit(int timeLimit){
     timeLeft = timeLimit;
-  timer = new Timer(1000, new ActionListener() {
+    timer = new Timer(1000, new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
       updateTimeLabel();
@@ -132,7 +136,6 @@ public class Game extends JPanel implements Serializable {
 //          System.out.println("steps to finish for player "+(i+1) + ": " + (currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()));
 //          System.out.println("closest "+closestPlayer);
           if (closestPlayer > currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()){
-            System.out.println("True");
             closestPlayer = currentPlayer.getPaths().size() - currentPlayer.getTokenPosition();
             winnerIndex += 1;
           }
@@ -141,21 +144,10 @@ public class Game extends JPanel implements Serializable {
 
         currentPlayer = tokenController.getTokens().get(winnerIndex-1); // index 0...n-1 but winnerIndex up to n
 
-//        System.out.println("winner is supposed to be: "+currentPlayer.getAnimal().getName());
         finish();
       }
     }
   });
-
-//    timer = new Timer(timeLimit, new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        System.out.println("Time is up");
-//        timeLeftLabel.setText("Time is up!");
-//      }
-//    });
-
-//    timer.setRepeats(false);
     timer.start();
   }
 
@@ -173,6 +165,10 @@ public class Game extends JPanel implements Serializable {
    * */
   public ArrayList<String> getPlayers(){
     return this.players;
+  }
+
+  public int getTimeLimit(){
+    return this.timeLimit;
   }
 
   public Token getCurrentPlayer(){return this.currentPlayer;}
@@ -444,14 +440,16 @@ public class Game extends JPanel implements Serializable {
    * Returns to Home page if option was not selected.
    * */
   public void finish(){
+    JOptionPane.getRootFrame().dispose(); // removes all other frames
+
     String result = processTokenAnimalName(currentPlayer.getAnimal().getName());
     String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
     int choice = JOptionPane.showConfirmDialog(null, winningMessage,
-        "Question", JOptionPane.YES_NO_OPTION);
+            "Question", JOptionPane.YES_NO_OPTION);
     if(choice == JOptionPane.YES_OPTION){
       System.out.println(players);
       ArrayList<String> clockwiseAnimals = new ArrayList<>(
-          List.of("Spider", "Bat", "Salamander", "BabyDragon"));
+              List.of("Spider", "Bat", "Salamander", "BabyDragon"));
       int startingIndex = clockwiseAnimals.indexOf(result.replaceAll("\\s",""));
       ArrayList<String> orderedAnimals = new ArrayList<>();
       for (int i = startingIndex; i < startingIndex + 4; i++) {
@@ -459,7 +457,7 @@ public class Game extends JPanel implements Serializable {
       }
       Collections.sort(players, Comparator.comparingInt(orderedAnimals::indexOf));
       frame.getContentPane().removeAll();
-      frame.getContentPane().add(new Game(frame,players));
+      frame.getContentPane().add(new Game(frame, players, timeLimit));
       frame.revalidate();
       frame.repaint();
     }else{

@@ -38,7 +38,7 @@ public class RestartButton extends JButton implements ActionListener {
 //      game.setVisible(false);
 //      game = new Game();
         frame.getContentPane().removeAll();
-        frame.getContentPane().add(new Game(frame,game.getPlayers()));
+        frame.getContentPane().add(new Game(frame,game.getPlayers(), game.getTimeLimit()));
         frame.revalidate();
         frame.repaint();
         String gameRulesMessage = "Game has been restarted";

@@ -39,6 +39,7 @@ public class StartButton extends JButton implements ActionListener {
 //    frame.getContentPane().add(new PlayerInformation(frame));
 //    frame.revalidate();
 //    frame.repaint();
+//        new TimeLimit(frame);
         new PlayerInformation(frame);
 //    new Game();
     }
