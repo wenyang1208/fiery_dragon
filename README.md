@@ -13,11 +13,11 @@ Players act as dragons trying to get back to their cave by searching for the rig
 
 <div>
   <div>
-    <img src="src/Project_cartoon/HomePagePreview.png"  width="350" height="250">
+    <img src="src/resources/Project_cartoon/HomePagePreview.png"  width="350" height="250">
   </div>
 
   <div>
-    <img src="src/Project_cartoon/GamePreview.png"  width="350" height="250">
+    <img src="src/resources/Project_cartoon/GamePreview.png"  width="350" height="250">
   </div>
 </div>
 
