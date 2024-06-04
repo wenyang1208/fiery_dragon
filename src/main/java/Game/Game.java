@@ -473,6 +473,7 @@ public class Game extends JPanel implements Serializable {
    * */
   public void finish(){
     JOptionPane.getRootFrame().dispose(); // removes all other frames
+    timer.stop();
 
     String result = processTokenAnimalName(currentPlayer.getAnimal().getName());
     String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
