@@ -314,39 +314,63 @@ public class Game extends JPanel implements Serializable {
    *
    * */
   public void processTokenTurn(Game game) {
+    //  Shuffle the chit cards
     chitCardController.getDeck().shuffleDeck();
 
+    // Print out the animal type and the value of each chit card
     for (int i = 0; i < chitCardController.getDeck().getChitCards().size(); i++) {
       System.out.println(i + 1 + ": " + chitCardController.getDeck().getChitCards().get(i).getAnimal().getName() + " " + chitCardController.getDeck().getChitCards().get(i).getValue());
     }
+
+    // Display the current player
     currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer.getAnimal().getName()));
 
+    // Use mouse adapter to flip the chit card
     mouseAdapter = new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
 
+        // The clicked label (chit card)
         JLabel clickedLabel = (JLabel) e.getSource();
+
+        // Get the index from the HashMap (key: JLabel (chitCard), value: index)
         int index = chitCardController.getLabelIndexMap().get(clickedLabel);
+
+        // Get the chit card from the deck list based on the index
         flippedCard = chitCardController.getDeck().getChitCards().get(index);
 
+        // Check if the chosen chit card is flipped, we want to prevent the player click on the
+        // flipped card and move.
         checkIfFlippingTheFlippedCard(flippedCard);
 
+        // Put the clicked/flipped/chosen chit card in HashMap (key: JLabel, Value: ChitCard)
         labels.put(clickedLabel, flippedCard);
+
+        // Set the status of the chit card become flipped
         flippedCard.setIsFlipped(true);
+
+        // Get the image based on the status of the chit card
         clickedLabel.setIcon(flippedCard.getImage());
 
+        // Disable the other chit card to be flipped
         disableChitCardMouseListeners();
 
+        // Animation of the auto unflip of the chit card
         new Thread(() -> {
+          // Let the flipped chit card display its front picture within 1 second
           try {
-            Thread.sleep(1000); // Sleep period
+            Thread.sleep(1000);
 
+            // If the chosen chit card is flipped
             if (isFlippingTheFlippedCard) {
-              if (!currentPlayer.getCurrentSquare().getAnimal().getName()
-                  .equals(flippedCard.getAnimal().getName())) {
+
+              // If the animal type of the current player's position is different from the animal on the flipped chit card
+              if (!currentPlayer.getCurrentSquare().getAnimal().getName().equals(flippedCard.getAnimal().getName())) {
                 flippedCard.setIsFlipped(true);
                 clickedLabel.setIcon(flippedCard.getImage());
+
+                // If the flipped card is Pirate Dragon or New Dragon 1
                 if (flippedCard.getAnimal().isSpeical()) {
                   if (!currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
                     Flip flip = flipMap.get(flippedCard.getAnimal().getName());
@@ -356,24 +380,32 @@ public class Game extends JPanel implements Serializable {
                     passNextToken(labels);
                   }
                 } else {
+                  // The flipped card is the normal animal card, but different from the animal of the current player's position
                   currentPlayer.setMove(new DoNothingAction());
                   currentPlayer.executeMove(flippedCard.getValue(), game);
                   passNextToken(labels);
                 }
-              } else {
+              }
+
+              // If the animal type of the current player's position is same as the animal on the flipped chit card
+              else {
                 System.out.println("Match found!");
                 currentPlayer.setMove(new MoveForwardsAction());
                 String str = currentPlayer.executeMove(flippedCard.getValue(), game);
-                if (str == null) {
-                  flippedCard.setIsFlipped(true);
-                  clickedLabel.setIcon(flippedCard.getImage());
-                  passNextToken(labels);
+
+                // Moving the token forward
+                // If the token is allowed to move forward (i.e. not overstepping the cave/other token is at that position)
+                if (str.equals("go")) {
+                  askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
+                // If the token is winning
                 } else if (str.equals("win")) {
                   finish();
                   disableChitCardMouseListeners();
                   labels.clear();
                 } else {
-                  askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
+                  flippedCard.setIsFlipped(true);
+                  clickedLabel.setIcon(flippedCard.getImage());
+                  passNextToken(labels);
                 }
               }
             }
@@ -386,7 +418,7 @@ public class Game extends JPanel implements Serializable {
         }).start();
       }
     };
-
+    // Add the mouseListener to each chit card label
     for (JLabel j : chitCardController.getLabelIndexMap().keySet()) {
       j.addMouseListener(mouseAdapter);
     }
