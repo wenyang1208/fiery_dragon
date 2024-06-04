@@ -22,7 +22,7 @@ public class StartButton extends JButton implements ActionListener {
         this.frame = frame;
         setVisible(true);
         setBackground(new Color(255, 153, 0));
-        setText("START");
+        setText("NEW GAME");
         setForeground(Color.WHITE);
         addActionListener(this);
     }

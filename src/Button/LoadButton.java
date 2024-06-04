@@ -10,15 +10,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 public class LoadButton extends JButton implements ActionListener {
-  private Game game;
-  private JFrame frame;
-  public LoadButton(JFrame frame, Game game) {
+
+  public LoadButton() {
     setVisible(true);
     setBackground(new Color(255, 153, 0));
     setText("LOAD");
     setForeground(Color.WHITE);
-    this.game = game;
-    this.frame = frame;
   }
 
   @Override

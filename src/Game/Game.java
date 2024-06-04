@@ -17,6 +17,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 import java.lang.Thread;
 import Controller.CaveController;
 import Controller.ChitCardController;
@@ -35,11 +36,12 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import GameBoardComponent.ChitCard;
 import GameBoardComponent.Token;
+import netscape.javascript.JSObject;
 
 /**
  * The Game class represents the main game window and manages the initialization of game components.
  */
-public class Game extends JPanel{
+public class Game extends JPanel implements Serializable {
   public static final int boardWidth = Application.frameWidth;
   public static final int boardHeight = Application.frameHeight;
   private ChitCardController chitCardController;
@@ -264,7 +266,7 @@ public class Game extends JPanel{
     saveButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3-(button_height+button_height/2), button_width, button_height);
     saveButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
 
-    loadButton = new LoadButton(frame, this);
+    loadButton = new LoadButton();
     loadButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
     loadButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3, button_width, button_height);
     loadButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
