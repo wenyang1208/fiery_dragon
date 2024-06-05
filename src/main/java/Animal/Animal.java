@@ -18,8 +18,6 @@ public interface Animal {
    * @return The maximum value of the animal.
    */
   int getMaxVal();
-
   boolean isSpeical();
-
 
 }

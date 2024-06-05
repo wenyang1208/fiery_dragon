@@ -18,4 +18,8 @@ public class NewDragon implements Animal{
   public boolean isSpeical() {
     return true;
   }
+
+  public String toString(){
+    return "New Dragon";
+  }
 }

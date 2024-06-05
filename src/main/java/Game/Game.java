@@ -67,32 +67,15 @@ public class Game extends JPanel implements Serializable {
   private JLabel timeLeftLabel;
   private int timeLeft;
   private int timeLimit;
-  public HashMap<JLabel, ChitCard> getLabels() {
-    return labels;
-  }
-  public ArrayList<Path> getCompletedPaths() {
-    return completedPaths;
-  }
-
-  public void setCompletedPaths(ArrayList<Path> completedPaths) {
-    this.completedPaths = completedPaths;
-  }
-
   private ArrayList<Path> completedPaths;
   private boolean isCreatedPaths;
-
-  public boolean isCreatedPaths() {
-    return isCreatedPaths;
-  }
-
-  public void setCreatedPaths(boolean createdPaths) {
-    isCreatedPaths = createdPaths;
-  }
 
   /**
    * Constructs a new Game object.
    *
-   * @throws IOException If an I/O error occurs.
+   * @param frame the frame
+   * @param players the players
+   * @param timeLimit the time limit
    */
   public Game(JFrame frame, ArrayList<String> players, int timeLimit){
     this.frame = frame;
@@ -104,8 +87,93 @@ public class Game extends JPanel implements Serializable {
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
-//    screenTimeLimit(3600000);
     screenTimeLimit(timeLimit);
+  }
+
+  /**
+   * Gets the list of completed paths.
+   *
+   * @return An ArrayList of completed Path objects.
+   */
+  public ArrayList<Path> getCompletedPaths() {
+    return completedPaths;
+  }
+
+  /**
+   * Sets the list of completed paths.
+   *
+   * @param completedPaths An ArrayList of completed Path objects.
+   */
+  public void setCompletedPaths(ArrayList<Path> completedPaths) {
+    this.completedPaths = completedPaths;
+  }
+
+  /**
+   * Checks if paths are created.
+   *
+   * @return true if paths are created, false otherwise.
+   */
+  public boolean isCreatedPaths() {
+    return isCreatedPaths;
+  }
+
+  /**
+   * Sets the status of path creation.
+   *
+   * @param createdPaths A boolean indicating if paths are created.
+   */
+  public void setCreatedPaths(boolean createdPaths) {
+    isCreatedPaths = createdPaths;
+  }
+
+  /**
+   * Returns the list of players who are playing the current game.
+   *
+   * @return An ArrayList of players playing the current game.
+   * */
+  public ArrayList<String> getPlayers(){
+    return this.players;
+  }
+
+  /**
+   * Returns the time limit for the game.
+   *
+   * @return The time limit in milliseconds.
+   */
+  public int getTimeLimit(){
+    return this.timeLimit;
+  }
+
+  /**
+   * Returns the current player.
+   *
+   * @return The current Token object representing the player.
+   */
+  public Token getCurrentPlayer(){return this.currentPlayer;}
+
+  /**
+   * Returns the currently flipped card.
+   *
+   * @return The currently flipped ChitCard object.
+   */
+  public ChitCard getFlippedCard(){return this.flippedCard;}
+
+  /**
+   * Returns the VolcanoCardController for this game.
+   *
+   * @return The VolcanoCardController object.
+   */
+  public VolcanoCardController getVolcanoCardController() {
+    return volcanoCardController;
+  }
+
+  /**
+   * Returns the CaveController for this game.
+   *
+   * @return The CaveController object.
+   */
+  public CaveController getCaveController() {
+    return caveController;
   }
 
   /**
@@ -150,6 +218,9 @@ public class Game extends JPanel implements Serializable {
     timer.start();
   }
 
+  /**
+   * Updates the time label.
+   */
   private void updateTimeLabel(){
     long hours = timeLeft / (1000 * 60 * 60);
     long minutes = (timeLeft / (1000 * 60)) % 60;
@@ -158,31 +229,8 @@ public class Game extends JPanel implements Serializable {
   }
 
   /**
-   * Returns the list of players who are playing the current game.
-   *
-   * @return An ArrayList of players playing the current game.
-   * */
-  public ArrayList<String> getPlayers(){
-    return this.players;
-  }
-
-  public int getTimeLimit(){
-    return this.timeLimit;
-  }
-
-  public Token getCurrentPlayer(){return this.currentPlayer;}
-  public ChitCard getFlippedCard(){return this.flippedCard;}
-  public VolcanoCardController getVolcanoCardController() {
-    return volcanoCardController;
-  }
-  public CaveController getCaveController() {
-    return caveController;
-  }
-
-  /**
    * Initializes the background of the game window.
    *
-   * @throws IOException If an I/O error occurs.
    */
   public void initialisingBackground(ArrayList<String> players){
     Image img = new ImageIcon(getClass().getClassLoader().getResource(
@@ -311,8 +359,25 @@ public class Game extends JPanel implements Serializable {
   }
 
   /**
+   * Processes a player's token turn in the game. This method performs the following steps:
+   * 1. Shuffles the deck of chit cards.
+   * 2. Prints out the animal type and value of each chit card.
+   * 3. Displays the current player.
+   * 4. Sets up a mouse adapter to handle chit card flipping and game logic.
    *
-   * */
+   * The mouse adapter performs the following actions when a chit card is clicked:
+   * 1. Identifies the clicked chit card and retrieves its index.
+   * 2. Checks if the chosen chit card is already flipped to prevent redundant clicks.
+   * 3. Updates the status of the chit card to flipped and updates its icon.
+   * 4. Disables mouse listeners for other chit cards.
+   * 5. Handles game logic based on the flipped chit card:
+   *    - If the chit card's animal type matches the current player's position animal type, the player moves forward.
+   *    - If the chit card's animal type is different, appropriate actions are taken based on the chit card type.
+   *    - Special handling is done for specific animal types like Pirate Dragon or New Dragon.
+   *    - The method supports auto unflipping the chit card after a delay.
+   *
+   * @param game the current game instance
+   */
   public void processTokenTurn(Game game) {
     //  Shuffle the chit cards
     chitCardController.getDeck().shuffleDeck();
@@ -323,7 +388,7 @@ public class Game extends JPanel implements Serializable {
     }
 
     // Display the current player
-    currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer.getAnimal().getName()));
+    currentPlayerTurnLabel.setText("Current Player: " + currentPlayer.getAnimal().toString());
 
     // Use mouse adapter to flip the chit card
     mouseAdapter = new MouseAdapter() {
@@ -375,7 +440,7 @@ public class Game extends JPanel implements Serializable {
                   if (!currentPlayer.getCurrentSquare().getClass().getSimpleName().equals("Cave")){
                     Flip flip = flipMap.get(flippedCard.getAnimal().getName());
                     flip.flip(game);
-                    askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
+                    askIfContinueTheTurn(labels, flippedCard.getAnimal().toString());
                   }else{
                     passNextToken(labels);
                   }
@@ -396,7 +461,7 @@ public class Game extends JPanel implements Serializable {
                 // Moving the token forward
                 // If the token is allowed to move forward (i.e. not overstepping the cave/other token is at that position)
                 if (str.equals("go")) {
-                  askIfContinueTheTurn(labels, processTokenAnimalName(flippedCard.getAnimal().getName()));
+                  askIfContinueTheTurn(labels, flippedCard.getAnimal().toString());
                 // If the token is winning
                 } else if (str.equals("win")) {
                   finish();
@@ -438,7 +503,7 @@ public class Game extends JPanel implements Serializable {
     // Update the current and next players
     currentPlayer = tokenController.getTokens().get(currentElem);
     // Print a message indicating the next player's turn
-    currentPlayerTurnLabel.setText("Current Player: " + processTokenAnimalName(currentPlayer.getAnimal().getName()));
+    currentPlayerTurnLabel.setText("Current Player: " + currentPlayer.getAnimal().toString());
   }
 
   /**
@@ -458,12 +523,7 @@ public class Game extends JPanel implements Serializable {
    * Checks if the chit card is already flipped.
    * */
   public void checkIfFlippingTheFlippedCard(ChitCard flippedCard){
-    if(!flippedCard.isFlipped()){
-      isFlippingTheFlippedCard = false;
-    }
-    else{
-      isFlippingTheFlippedCard = true;
-    }
+    isFlippingTheFlippedCard = flippedCard.isFlipped();
   }
 
   /**
@@ -475,7 +535,7 @@ public class Game extends JPanel implements Serializable {
     JOptionPane.getRootFrame().dispose(); // removes all other frames
     timer.stop();
 
-    String result = processTokenAnimalName(currentPlayer.getAnimal().getName());
+    String result = currentPlayer.getAnimal().toString();
     String winningMessage = "Congratulations! The winner is " + result + "!\n Do you want to start a new game?";
     int choice = JOptionPane.showConfirmDialog(null, winningMessage,
             "Question", JOptionPane.YES_NO_OPTION);
@@ -499,28 +559,6 @@ public class Game extends JPanel implements Serializable {
       frame.revalidate();
       frame.repaint();
     }
-  }
-
-  /**
-   * Returns the animal name in a Start Case style.
-   * */
-  public String processTokenAnimalName(String AnimalName){
-    String[] words = AnimalName.split("_");
-    StringBuilder result = new StringBuilder();
-
-    // Capitalize the first letter of each word and append to result
-    for (String word : words) {
-      if (word.length() > 0) {
-        result.append(Character.toUpperCase(word.charAt(0)));
-        result.append(word.substring(1).toLowerCase()); // Convert remaining characters to lowercase
-        result.append(" "); // Add a space between words
-      }
-    }
-    // Remove the trailing space if any
-    if (result.length() > 0) {
-      result.setLength(result.length() - 1);
-    }
-    return result.toString();
   }
 
   /**

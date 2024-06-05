@@ -32,4 +32,8 @@ public class BabyDragon implements Animal {
   public boolean isSpeical() {
     return false;
   }
+
+  public String toString(){
+    return "Baby Dragon";
+  }
 }

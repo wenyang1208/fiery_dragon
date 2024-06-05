@@ -31,5 +31,9 @@ public class Salamander implements Animal {
   public boolean isSpeical() {
     return false;
   }
+
+  public String toString(){
+    return "Salamander";
+  }
 }
 

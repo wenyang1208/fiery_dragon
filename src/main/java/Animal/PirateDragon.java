@@ -32,5 +32,9 @@ public class PirateDragon implements Animal {
     return true;
   }
 
+  public String toString(){
+    return "Pirate Dragon";
+  }
+
 }
 
