@@ -140,7 +140,7 @@ public class PlayerInformation extends JDialog implements ActionListener {
         int timeSet;
         while (true){
             String input = JOptionPane.showInputDialog(this, "Please set your preferred time limit " +
-                                                                                    "\nfor this round (minutes):");
+                                                                                    "\nfor this round (1-60 minutes):");
             if (input.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a time (minutes).");
                 continue;
