@@ -28,11 +28,23 @@ public class Bat implements Animal {
     return maxVal;
   }
 
+  /**
+   * Indicates whether the bat has special characteristics.
+   * For a bat, this method always returns {@code false}.
+   *
+   * @return {@code false} as bat are not considered special
+   */
   @Override
   public boolean isSpeical() {
     return false;
   }
 
+  /**
+   * Returns a string representation of the bat.
+   *
+   * @return a string "Bat" representing the bat
+   */
+  @Override
   public String toString(){
     return "Bat";
   }

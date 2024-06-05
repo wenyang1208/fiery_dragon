@@ -15,7 +15,6 @@ public class MoveForwardsAction implements Move{
      *
      * @param chitCardValue The value of the chit card that determines how many positions the token
      *                      moves forwards.
-     * @param token         The token on which the action is performed.
      * @param game
      * @return A string indicating the result of the action. Returns "go" if the token moved
      * successfully, "win" if the token reached the end of the path, or null if the move could not be

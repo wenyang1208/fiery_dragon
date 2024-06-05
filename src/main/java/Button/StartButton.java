@@ -32,15 +32,6 @@ public class StartButton extends JButton implements ActionListener {
      * */
     @Override
     public void actionPerformed(ActionEvent e) {
-//    this.home.setVisible(false);
-//    this.home.dispose();
-//    Game game =
-//    frame.getContentPane().removeAll();
-//    frame.getContentPane().add(new PlayerInformation(frame));
-//    frame.revalidate();
-//    frame.repaint();
-//        new TimeLimit(frame);
         new PlayerInformation(frame);
-//    new Game();
     }
 }

@@ -18,6 +18,14 @@ public interface Animal {
    * @return The maximum value of the animal.
    */
   int getMaxVal();
+
+  /**
+   * Checks if the animal has special characteristics.
+   * This method indicates whether the animal has unique properties or behaviors
+   * that distinguish it from regular animals.
+   *
+   * @return {@code true} if the animal is special, {@code false} otherwise
+   */
   boolean isSpeical();
 
 }

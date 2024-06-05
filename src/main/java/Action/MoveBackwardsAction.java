@@ -18,7 +18,6 @@ public class MoveBackwardsAction implements Move{
      *
      * @param chitCardValue The value of the chit card that determines how many positions the token
      *                      moves backwards.
-     * @param token         The token on which the action is performed.
      * @param game
      * @return A string indicating the result of the action, which is "back".
      */

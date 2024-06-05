@@ -10,11 +10,20 @@ import java.util.Collections;
 import java.util.Map.Entry;
 import javax.swing.JPanel;
 
+/**
+ * The MoveNearestCaveAction class implements the Move interface to move a token to the nearest unoccupied cave.
+ */
 public class MoveNearestCaveAction implements Move{
   private ArrayList<Path> paths;
-  private int index;
-  private boolean caveIndexIsFound = false;
   private int[] caveIndices;
+
+  /**
+   * Executes the move to the nearest unoccupied cave.
+   *
+   * @param chitCardValue The number of spaces to move (not used in this implementation).
+   * @param game The game instance.
+   * @return A string indicating the result of the move (always returns "none").
+   */
   @Override
   public String execute(int chitCardValue, Game game) {
     Token currentPlayer = game.getCurrentPlayer();
@@ -54,6 +63,12 @@ public class MoveNearestCaveAction implements Move{
     return "none";
   }
 
+  /**
+   * Sets the path including caves and returns the updated path.
+   *
+   * @param game The game instance.
+   * @return The list of paths including caves.
+   */
   public ArrayList<Path> setPathIncludingCave(Game game){
       paths = new ArrayList<>();
       caveIndices = new int[4];

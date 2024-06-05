@@ -41,6 +41,7 @@ public class ChitCardController{
       gamePanel.getChitCardPanel().add(chitCardImage);
       labelIndexMap.put(chitCardImage, i);
     }
+    deck.shuffleDeck();
   }
 
   /**

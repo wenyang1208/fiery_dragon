@@ -35,8 +35,6 @@ public class RestartButton extends JButton implements ActionListener {
      * */
     @Override
     public void actionPerformed(ActionEvent e) {
-//      game.setVisible(false);
-//      game = new Game();
         frame.getContentPane().removeAll();
         frame.getContentPane().add(new Game(frame,game.getPlayers(), game.getTimeLimit()));
         frame.revalidate();

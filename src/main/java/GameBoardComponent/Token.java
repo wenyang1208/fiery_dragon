@@ -174,11 +174,11 @@ public class Token extends GameComponent {
   }
 
   /**
-   * Moves the token on the board.
+   * Executes the move for the token on the board.
    *
-   * @param chitCardValue Number of spaces for token to move on the board.
-   * @param token         The token to be moved.
-   * @param game
+   * @param chitCardValue The number of spaces for the token to move on the board.
+   * @param game The game instance.
+   * @return The result of the move execution.
    */
   public String executeMove(int chitCardValue, Game game){
     return move.execute(chitCardValue, game);

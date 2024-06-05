@@ -27,10 +27,6 @@ public class CaveController {
   private LinkedHashMap<Cave, Integer> cavesHashMap;
   private Set<String> addedCaves;
 
-  public LinkedHashMap<Cave, Integer> getCavesHashMap() {
-    return cavesHashMap;
-  }
-
   /**
    * Constructs a new CaveController with the specified GamePanel object, list of volcano cards, and
    * list of players.
@@ -49,6 +45,14 @@ public class CaveController {
     initialiseCaveSetup(volcanoCards);
   }
 
+  /**
+   * Retrieves the hash map of caves with their respective positions.
+   *
+   * @return A LinkedHashMap containing caves and their positions.
+   */
+  public LinkedHashMap<Cave, Integer> getCavesHashMap() {
+    return cavesHashMap;
+  }
   /**
    * Retrieves the list of caves.
    *
@@ -69,6 +73,8 @@ public class CaveController {
 
   /**
    * Initializes the setup of caves on the game board.
+   *
+   * @param volcanoCards The list of volcano cards used for initializing caves.
    */
   public void initialiseCaveSetup(ArrayList<VolcanoCard> volcanoCards) {
     int caveSize = VolcanoCardController.cardSize;
@@ -93,6 +99,11 @@ public class CaveController {
     }
   }
 
+  /**
+   * Adds the specified cave to the game panel if it has not been added already.
+   *
+   * @param cave The Cave object to add to the game panel.
+   */
   private void addCaveToPanel(Cave cave) {
     if (!addedCaves.contains(cave.getAnimal().getName())) {
       getGamePanel().add(cave);
@@ -100,6 +111,12 @@ public class CaveController {
     }
   }
 
+  /**
+   * Generates a sequence of integers representing positions on the game board.
+   *
+   * @param n The number of positions to generate.
+   * @return A list of integers representing positions.
+   */
   private static List<Integer> generateSequence(int n) {
     List<Integer> sequence = new ArrayList<>();
     int current = 1; // Starting point of the sequence
@@ -111,6 +128,15 @@ public class CaveController {
     return sequence;
   }
 
+  /**
+   * Sets the positions of the caves on the game board.
+   *
+   * @param cave          The Cave object to set the position for.
+   * @param volcanoCards  The list of volcano cards used to determine positions.
+   * @param i             The index of the current cave.
+   * @param caveSize      The size of the cave.
+   * @param positionSeq   The sequence of positions for caves.
+   */
   public void setCavesPositions(Cave cave, ArrayList<VolcanoCard> volcanoCards, int i, int caveSize, List<Integer> positionSeq) {
     int positionIndex = 0;
     for (int j = 0; j < positionSeq.size(); j++) {

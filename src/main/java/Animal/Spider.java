@@ -27,11 +27,23 @@ public class Spider implements Animal {
     return maxVal;
   }
 
+  /**
+   * Indicates whether the spider has special characteristics.
+   * For a bat, this method always returns {@code false}.
+   *
+   * @return {@code false} as spider are not considered special
+   */
   @Override
   public boolean isSpeical() {
     return false;
   }
 
+  /**
+   * Returns a string representation of the spider.
+   *
+   * @return a string "Spider" representing the spider
+   */
+  @Override
   public String toString(){
     return "Spider";
   }

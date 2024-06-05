@@ -27,11 +27,23 @@ public class Salamander implements Animal {
     return maxVal;
   }
 
+  /**
+   * Indicates whether the salamander has special characteristics.
+   * For a bat, this method always returns {@code false}.
+   *
+   * @return {@code false} as salamander are not considered special
+   */
   @Override
   public boolean isSpeical() {
     return false;
   }
 
+  /**
+   * Returns a string representation of the salamander.
+   *
+   * @return a string "Salamander" representing the salamander
+   */
+  @Override
   public String toString(){
     return "Salamander";
   }

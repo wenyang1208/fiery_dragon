@@ -27,11 +27,23 @@ public class PirateDragon implements Animal {
     return maxVal;
   }
 
+  /**
+   * Indicates whether the pirate dragon has special characteristics.
+   * For a pirate dragon, this method always returns {@code true}.
+   *
+   * @return {@code true} as pirate dragon are considered special
+   */
   @Override
   public boolean isSpeical() {
     return true;
   }
 
+  /**
+   * Returns a string representation of the pirate dragon.
+   *
+   * @return a string "Pirate Dragon" representing the pirate dragon
+   */
+  @Override
   public String toString(){
     return "Pirate Dragon";
   }

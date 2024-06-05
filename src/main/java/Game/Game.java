@@ -299,7 +299,7 @@ public class Game extends JPanel implements Serializable {
   }
 
   /**
-   * Adds the key buttons (GameRuleButton, RestartButton, and ExitButton) components to the Game page
+   * Adds the key buttons (SaveButton, LoadButton, GameRuleButton, RestartButton, and ExitButton) components to the Game page
    * */
   public void addButton(){
     int button_height = (Game.boardWidth - GamePanel.WIDTH)/4;
@@ -360,10 +360,9 @@ public class Game extends JPanel implements Serializable {
 
   /**
    * Processes a player's token turn in the game. This method performs the following steps:
-   * 1. Shuffles the deck of chit cards.
-   * 2. Prints out the animal type and value of each chit card.
-   * 3. Displays the current player.
-   * 4. Sets up a mouse adapter to handle chit card flipping and game logic.
+   * 1. Prints out the animal type and value of each chit card.
+   * 2. Displays the current player.
+   * 3. Sets up a mouse adapter to handle chit card flipping and game logic.
    *
    * The mouse adapter performs the following actions when a chit card is clicked:
    * 1. Identifies the clicked chit card and retrieves its index.
@@ -379,8 +378,6 @@ public class Game extends JPanel implements Serializable {
    * @param game the current game instance
    */
   public void processTokenTurn(Game game) {
-    //  Shuffle the chit cards
-    chitCardController.getDeck().shuffleDeck();
 
     // Print out the animal type and the value of each chit card
     for (int i = 0; i < chitCardController.getDeck().getChitCards().size(); i++) {
