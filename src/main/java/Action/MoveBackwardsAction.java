@@ -29,8 +29,19 @@ public class MoveBackwardsAction implements Move{
             token.getPaths().get(token.getTokenPosition()).removeToken();
             if(token.getNumberOfBelowMinSquare() == 0){
                 token.getPaths().remove(0);
-                for(int i=token.getPaths().size()-3;i>=0;i--){
-                    processPathList.add(token.getPaths().get(i));
+                // If the player has been flipped the new dragon card
+                if(game.getCompletedPaths() != null){
+                    int currentIndex = token.getCurrentSquare().getPosition();
+                    do {
+                        currentIndex = (currentIndex - 1 + game.getCompletedPaths().size()) % game.getCompletedPaths().size();
+                        if(!game.getCompletedPaths().get(currentIndex).getClass().getSimpleName().equals("Cave")){
+                            processPathList.add(game.getCompletedPaths().get(currentIndex));
+                        }
+                    } while (currentIndex != token.getCurrentSquare().getPosition());
+                }else{
+                    for(int i=token.getPaths().size()-3;i>=0;i--){
+                        processPathList.add(token.getPaths().get(i));
+                    }
                 }
                 token.setAdditionalVolcanoCardPath(processPathList);
             }
