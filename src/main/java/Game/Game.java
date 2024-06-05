@@ -182,6 +182,8 @@ public class Game extends JPanel implements Serializable {
    * If two or more tokens are equally near their own caves, the youngest player wins.
    *
    * @param timeLimit the amount of time (milliseconds) allowed for the game to be played.
+   *
+   * Teammate responsible: Chong Jet Shen (time limit feature)
    * */
   private void screenTimeLimit(int timeLimit){
     timeLeft = timeLimit;
@@ -527,6 +529,8 @@ public class Game extends JPanel implements Serializable {
    * Ends the game with a winner pop-up screen, indicating the winner of the game.
    * Gives the option to start a new game with the same player information as the previous round.
    * Returns to Home page if option was not selected.
+   *
+   * Teammate responsible: Chong Jet Shen (time limit feature)
    * */
   public void finish(){
     JOptionPane.getRootFrame().dispose(); // removes all other frames
