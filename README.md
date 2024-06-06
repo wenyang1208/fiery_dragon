@@ -42,15 +42,22 @@ in the clockwise direction.
 - If a player wins the game, the new game will start from that player then in clockwise
 direction.
 
+For the GUI framework, we also implement the home page of the game and buttons.
+
 In Sprint 4, we need to implement two required extensions along with one self-defined extension to the Fiery Dragon game.
+
 Required extensions:
-- New Dragon Card 1
-- Loading and saving the game from/to an external (configuration) file
+- New Dragon Card 1:
+  - Sends the current player to the closest and unoccupied cave which is behind that player. 
+  - After sending the player to the nearest cave, the player has another chance to flip another dragon card to move forward. 
+  - However, if the player who flips this new dragon card is at the cave, the turn will directly pass to the next player. 
+
+- Loading and saving the game from/to an external (configuration) file:
+  - Our team has chosen to ...
+  - 
 
 Self-defined extension:
 - Time limit per game round
-
-For the GUI framework, we also implement the home page of the game and buttons.
 
 # Documentation
 Refer to docs/Sprint3 for UML class diagrams and the review of each solution in Sprint 2.
