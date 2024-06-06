@@ -54,9 +54,7 @@ Required extensions:
   - However, if the player who flips this new dragon card is at the cave, the turn will directly pass to the next player. 
 
 - Loading and saving the game from/to an external (configuration) file:
-  - Our team has chosen to ...
-  - 
-
+  - Our team has chosen to implement a saving and loading function by using binary serialisation using “ObjectOutputStream” and “ObjectInputStream” to save and load the game in a binary format. The save method creates a DataStorage object that holds the game and then serialises it into a binary file called “game_save.dat”. Then, when we load the game, the load method reads the DataStorage object from the binary file and the game components are refreshed to reflect the loaded state.
 Self-defined extension:
 - Time limit per game round:
   - Before starting each round, players will be prompted to set a time limit for the current round.
