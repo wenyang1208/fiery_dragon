@@ -83,22 +83,6 @@ public class Token extends GameComponent {
   }
 
   /**
-   * Increases the number of below-minimum squares by one.
-   */
-  public void increaseNumberOfBelowMinSquare(){
-    this.numberOfBelowMinSquare += 1;
-  }
-
-  /**
-   * Gets the number of below-minimum squares.
-   *
-   * @return The number of below-minimum squares.
-   */
-  public int getNumberOfBelowMinSquare(){
-    return this.numberOfBelowMinSquare;
-  }
-
-  /**
    * Sets the number assigned to the token.
    *
    * @param tokenNumber The number to set.
