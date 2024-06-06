@@ -42,6 +42,14 @@ in the clockwise direction.
 - If a player wins the game, the new game will start from that player then in clockwise
 direction.
 
+In Sprint 4, we need to implement two required extensions along with one self-defined extension to the Fiery Dragon game.
+Required extensions:
+- New Dragon Card 1
+- Loading and saving the game from/to an external (configuration) file
+
+Self-defined extension:
+- Time limit per game round
+
 For the GUI framework, we also implement the home page of the game and buttons.
 
 # Documentation
