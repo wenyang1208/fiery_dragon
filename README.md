@@ -44,6 +44,7 @@ direction.
 
 For the GUI framework, we also implement the home page of the game and buttons.
 
+---
 In Sprint 4, we need to implement two required extensions along with one self-defined extension to the Fiery Dragon game.
 
 Required extensions:
@@ -57,10 +58,19 @@ Required extensions:
   - 
 
 Self-defined extension:
-- Time limit per game round
+- Time limit per game round:
+  - Before starting each round, players will be prompted to set a time limit for the current round.
+  - A timer will be displayed during the game, indicating how much time left the players have before the game is forced to end.
+  - If a player wins the round before the timer runs out, the timer will stop. This is followed by a winning pop up message, giving a choice to start a new round with the same time limit set. Not much changes from Sprint 3 implementation.
+  - However, in the event the timer runs out before a player wins the round. The player closest to the end (back to their cave) will be the winner. The same winning pop up message will appear, and the player has a choice to start a new game with the same time limit set.
+
 
 # Documentation
-Refer to docs/Sprint3 for UML class diagrams and the review of each solution in Sprint 2.
+Sprint 3:
+- Refer to docs/Sprint3 for UML class diagrams and the review of each solution in Sprint 2.
+
+Sprint 4:
+- Refer to docs/Sprint4 for revised UML class diagram along with other relevant deliverables.
 
 # Technologies used
 - Java
