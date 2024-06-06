@@ -232,7 +232,7 @@ public class Game extends JPanel implements Serializable {
 
   /**
    * Initializes the background of the game window.
-   *
+   * Teammate responsible: Chong Jet Shen (time limit feature)
    */
   public void initialisingBackground(ArrayList<String> players){
     Image img = new ImageIcon(getClass().getClassLoader().getResource(

@@ -23,6 +23,7 @@ public class MoveNearestCaveAction implements Move{
    * @param chitCardValue The number of spaces to move (not used in this implementation).
    * @param game The game instance.
    * @return A string indicating the result of the move (always returns "none").
+   * Teammate responsible: Chua Wen Yang (new dragon card 1 feature)
    */
   @Override
   public String execute(int chitCardValue, Game game) {

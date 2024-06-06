@@ -12,6 +12,7 @@ public class FlipPirateDragon implements Flip{
    * and then executes the move based on the value of the flipped card.
    *
    * @param game The game instance.
+   * Teammate responsible: Chua Wen Yang (new dragon card 1 feature)
    */
   @Override
   public void flip(Game game) {
