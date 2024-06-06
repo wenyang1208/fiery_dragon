@@ -309,13 +309,9 @@ public class Game extends JPanel implements Serializable {
 
     saveButton = new SaveButton(frame, this);
     saveButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
-    saveButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3-(button_height+button_height/2), button_width, button_height);
+    saveButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3, button_width, button_height);
     saveButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
 
-    loadButton = new LoadButton();
-    loadButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
-    loadButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3, button_width, button_height);
-    loadButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
 
     gameRuleButton = new GameRuleButton();
     gameRuleButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
@@ -342,7 +338,6 @@ public class Game extends JPanel implements Serializable {
     });
 
     add(saveButton);
-    add(loadButton);
     add(gameRuleButton);
     add(restartButton);
     add(exitButton);

@@ -20,17 +20,7 @@ public class LoadButton extends JButton implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-//      JFileChooser fileChooser = new JFileChooser();
-//      int option = fileChooser.showOpenDialog(frame);
-//      if (option == JFileChooser.APPROVE_OPTION) {
-//        Game loadedGame = loadGame(fileChooser.getSelectedFile().getPath(), frame);
-//        if (loadedGame != null) {
-//          frame.getContentPane().removeAll();
-//          frame.getContentPane().add(loadedGame);
-//          frame.revalidate();
-//          frame.repaint();
-//        }
-//      }
+
     }
 }
 

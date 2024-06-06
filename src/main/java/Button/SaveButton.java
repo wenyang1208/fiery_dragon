@@ -1,7 +1,6 @@
 package Button;
 
 import Game.Game;
-import Game.SaveSlotsMenu;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +23,6 @@ public class SaveButton extends JButton implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    SaveSlotsMenu slotsMenu = new SaveSlotsMenu(game);
-    slotsMenu.setVisible(true);
   }
 }
 
