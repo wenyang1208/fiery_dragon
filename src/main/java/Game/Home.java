@@ -90,15 +90,10 @@ public class Home extends JPanel {
         int button_height = frame.getHeight()/10;
         int button_width = frame.getWidth()/4;
 
-        loadButton = new LoadButton();
-        loadButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
-        loadButton.setBounds((int) (frame.getWidth()/2.5),frame.getHeight()/3+(button_height+button_height/2), button_width, button_height);
-        loadButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
-        add(loadButton);
 
         gameRuleButton = new GameRuleButton();
         gameRuleButton.setFont(new Font("Calibri", Font.BOLD, button_width/7));
-        gameRuleButton.setBounds((int) (frame.getWidth()/2.5),frame.getHeight()/3+(button_height+button_height/2)*2, button_width, button_height);
+        gameRuleButton.setBounds((int) (frame.getWidth()/2.5),frame.getHeight()/3+(button_height+button_height/2), button_width, button_height);
         gameRuleButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
         add(gameRuleButton);
 
@@ -110,7 +105,7 @@ public class Home extends JPanel {
 
         exitButton = new ExitButton();
         exitButton.setFont(new Font("Calibri", Font.BOLD, button_width/6));
-        exitButton.setBounds((int) (frame.getWidth()/2.5),frame.getHeight()/3+(button_height+button_height/2)*3, button_width, button_height);
+        exitButton.setBounds((int) (frame.getWidth()/2.5),frame.getHeight()/3+(button_height+button_height/2)*2, button_width, button_height);
         exitButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
         exitButton.addActionListener(new ActionListener() {
             @Override

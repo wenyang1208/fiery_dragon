@@ -36,11 +36,13 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import GameBoardComponent.ChitCard;
 import GameBoardComponent.Token;
+import data.SaveLoad;
 
 /**
  * The Game class represents the main game window and manages the initialization of game components.
  */
 public class Game extends JPanel implements Serializable {
+  private SaveLoad saveLoad;
   public static final int boardWidth = Application.frameWidth;
   public static final int boardHeight = Application.frameHeight;
   private ChitCardController chitCardController;
@@ -82,13 +84,17 @@ public class Game extends JPanel implements Serializable {
     this.players = players;
     this.timeLimit = timeLimit;
     this.flipMap = new HashMap<String, Flip>();
+    this.saveLoad = new SaveLoad(this);
+
     initialisingBackground(players);
     run();
     setLayout(null);
     setVisible(true);
     setSize(frame.getWidth(),boardHeight);
     screenTimeLimit(timeLimit);
+
   }
+
 
   /**
    * Gets the list of completed paths.
@@ -135,6 +141,10 @@ public class Game extends JPanel implements Serializable {
     return this.players;
   }
 
+  public void setPlayers(ArrayList<String> players) {
+    this.players = players;
+  }
+
   /**
    * Returns the time limit for the game.
    *
@@ -142,6 +152,10 @@ public class Game extends JPanel implements Serializable {
    */
   public int getTimeLimit(){
     return this.timeLimit;
+  }
+
+  public void setTimeLimit(int timeLimit){
+    this.timeLimit = timeLimit;
   }
 
   /**
@@ -176,6 +190,31 @@ public class Game extends JPanel implements Serializable {
     return caveController;
   }
 
+  public void setVolcanoCardController(VolcanoCardController volcanoCardController) {
+    this.volcanoCardController = volcanoCardController;
+  }
+
+  public void refreshGame() {
+    // Clear existing components
+    removeAll();
+
+    // Re-initialize background and game components with the loaded state
+    initialisingBackground(players);
+
+    // Set other states if needed
+    screenTimeLimit(timeLimit);
+  }
+
+  /**
+   * Update the game state based on the loaded data.
+   */
+  public void updateGameFromLoadedState() {
+    // Update the game's state with the loaded data
+    this.players = saveLoad.getGame().getPlayers();
+    this.timeLimit = saveLoad.getGame().getTimeLimit();
+
+  }
+
   /**
    * Sets the amount of screen time allowed in this game.
    * If the game were to exceed the time limit, the token closest to finishing the path will be the winner.
@@ -188,35 +227,35 @@ public class Game extends JPanel implements Serializable {
   private void screenTimeLimit(int timeLimit){
     timeLeft = timeLimit;
     timer = new Timer(1000, new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      updateTimeLabel();
-      timeLeft -= 1000;
-      if (timeLeft <= -2000){ // 2 second delay
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        updateTimeLabel();
+        timeLeft -= 1000;
+        if (timeLeft <= -2000){ // 2 second delay
 
-        timer.stop();
-        double closestPlayer = Double.POSITIVE_INFINITY;
-        int winnerIndex = 0;
-        for (int i=0; i < tokenController.getTokens().size(); i++){
-          currentPlayer = tokenController.getTokens().get(i);
+          timer.stop();
+          double closestPlayer = Double.POSITIVE_INFINITY;
+          int winnerIndex = 0;
+          for (int i=0; i < tokenController.getTokens().size(); i++){
+            currentPlayer = tokenController.getTokens().get(i);
 
 //          System.out.println("\n"+(i+1)+": "+currentPlayer.getTokenPosition());
 //          System.out.println(currentPlayer.getAnimal().getName());
 //          System.out.println("steps to finish for player "+(i+1) + ": " + (currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()));
 //          System.out.println("closest "+closestPlayer);
-          if (closestPlayer > currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()){
-            closestPlayer = currentPlayer.getPaths().size() - currentPlayer.getTokenPosition();
-            winnerIndex += 1;
+            if (closestPlayer > currentPlayer.getPaths().size() - currentPlayer.getTokenPosition()){
+              closestPlayer = currentPlayer.getPaths().size() - currentPlayer.getTokenPosition();
+              winnerIndex += 1;
+            }
           }
+          timeLeftLabel.setText("Time is up!");
+
+          currentPlayer = tokenController.getTokens().get(winnerIndex-1); // index 0...n-1 but winnerIndex up to n
+
+          finish();
         }
-        timeLeftLabel.setText("Time is up!");
-
-        currentPlayer = tokenController.getTokens().get(winnerIndex-1); // index 0...n-1 but winnerIndex up to n
-
-        finish();
       }
-    }
-  });
+    });
     timer.start();
   }
 
@@ -236,7 +275,7 @@ public class Game extends JPanel implements Serializable {
    */
   public void initialisingBackground(ArrayList<String> players){
     Image img = new ImageIcon(getClass().getClassLoader().getResource(
-        "Project_cartoon/Background.jpg")).getImage();
+            "Project_cartoon/Background.jpg")).getImage();
     Image temp=img.getScaledInstance(boardWidth,boardHeight, Image.SCALE_SMOOTH);
     background = new JLabel(new ImageIcon(temp));
     background.setLayout(null);
@@ -307,11 +346,16 @@ public class Game extends JPanel implements Serializable {
     int button_height = (Game.boardWidth - GamePanel.WIDTH)/4;
     int button_width = (Game.boardWidth - GamePanel.WIDTH)/2;
 
-    saveButton = new SaveButton(frame, this);
+
+    saveButton = new SaveButton(this.saveLoad);
     saveButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
-    saveButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3, button_width, button_height);
+    saveButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3-(button_height+button_height/2), button_width, button_height);
     saveButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
 
+    loadButton = new LoadButton(this.saveLoad, this, frame);
+    loadButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
+    loadButton.setBounds(((Game.boardWidth + GamePanel.WIDTH)/2 - button_height),Game.boardHeight/3, button_width, button_height);
+    loadButton.setBorder(new LineBorder(Color.WHITE,button_height/10));
 
     gameRuleButton = new GameRuleButton();
     gameRuleButton.setFont(new Font("Calibri", Font.BOLD, button_width/5-5));
@@ -338,6 +382,7 @@ public class Game extends JPanel implements Serializable {
     });
 
     add(saveButton);
+    add(loadButton);
     add(gameRuleButton);
     add(restartButton);
     add(exitButton);
@@ -456,7 +501,7 @@ public class Game extends JPanel implements Serializable {
                 // If the token is allowed to move forward (i.e. not overstepping the cave/other token is at that position)
                 if (str.equals("go")) {
                   askIfContinueTheTurn(labels, flippedCard.getAnimal().toString());
-                // If the token is winning
+                  // If the token is winning
                 } else if (str.equals("win")) {
                   finish();
                   disableChitCardMouseListeners();
@@ -507,7 +552,7 @@ public class Game extends JPanel implements Serializable {
   public void askIfContinueTheTurn(HashMap<JLabel,ChitCard> labels, String flippedCardAnimalName){
     String changeTurnMessage = "You flipped the " + flippedCardAnimalName + " card.\n Do you want to continue your turn?";
     int choice = JOptionPane.showConfirmDialog(null, changeTurnMessage,
-        "Question", JOptionPane.YES_NO_OPTION);
+            "Question", JOptionPane.YES_NO_OPTION);
     if(choice != JOptionPane.YES_OPTION){
       passNextToken(labels);
     }
@@ -577,5 +622,3 @@ public class Game extends JPanel implements Serializable {
     }
   }
 }
-
-
