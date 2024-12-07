@@ -1,0 +1,4 @@
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+docs/Sprint3/FIT3077/[[:space:]]Sprint/[[:space:]]3/[[:space:]]Video/[[:space:]]Demonstration.mp4 filter=lfs diff=lfs merge=lfs -text
+docs/Sprint4/FIT3077_Sprint_4_Video_Demonstration.mp4 filter=lfs diff=lfs merge=lfs -text
+docs/Sprint3/FIT3077[[:space:]]Sprint[[:space:]]3[[:space:]]Video[[:space:]]Demonstration.mp4 filter=lfs diff=lfs merge=lfs -text
